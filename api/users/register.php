@@ -17,29 +17,46 @@
     $data = json_decode(file_get_contents("php://input"));
 
     if($_SERVER['REQUEST_METHOD'] != 'POST'){
-        echo json_encode(array("message" => "Page not found"));
+        echo json_encode(array(
+            "success" => 0,
+            "message" => "Page not found"));
     }else if(!isset($data->name) 
             || !isset($data->email) 
             || !isset($data->password)
             || empty(trim($data->name))
             || empty(trim($data->email))
             || empty(trim($data->password))){
-                echo json_encode(array("message" => "Please fill all the required fields"));
+                echo json_encode(array(
+                    "success" => 0,
+                    "message" => "Please fill all the required fields")
+                );
     }else{
         $name = trim($data->name);
         $email = trim($data->email);
         $password = trim($data->password);
 
         if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
-            echo json_encode(array("message" => "Invalid Email"));
+            echo json_encode(array(
+                "success" => 0,
+                "message" => "Invalid Email"
+            ));
         }else if(strlen($password )< 6){
-            echo json_encode(array("message" => "Password must be atleast 6 characters long"));
+            echo json_encode(array(
+                "success" => 0,
+                "message" => "Password must be atleast 6 characters long"
+            ));
         }else if(strlen($name) < 3){
-            echo json_encode(array("message" => "Name must be atleast 3 characters long"));
+            echo json_encode(array(
+                "success" => 0,
+                "message" => "Name must be atleast 3 characters long"
+            ));
         }else{
             $res = $items->emailAlreadyInUse($email);
             if(count($res) > 0){
-                echo json_encode(array("message" => "Email already in use"));
+                echo json_encode(array(
+                    "success" => 0,
+                    "message" => "Email already in use"
+                ));
             }else{
                 $userData = array(
                     "name" => $name,
@@ -49,7 +66,10 @@
                 $result = $items->insert($userData);
                 if($result){
                     echo json_encode(
-                        array("message" => "User successfully registered")
+                        array(
+                            "success" => 1,
+                            "message" => "User successfully registered"
+                        )
                     );
                 }
             }
