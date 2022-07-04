@@ -8,7 +8,7 @@ const cssnano = require('cssnano');
 
 let paths = {
     "styles": {
-        "src": "./styles/**/*.scss",
+        "src": "./styles/**/style.scss",
         "dest": "./dist/styles"
     },
     "scripts": {
@@ -41,8 +41,8 @@ function watch() {
     browserSync.init({
         proxy: '127.0.0.1:5500'
     });
-    gulp.watch(paths.styles.src, gulp.series(styles));
-    gulp.watch(paths.scripts.src, gulp.series(js));
+    gulp.watch('./**/styles/*.scss', gulp.series(styles));
+    gulp.watch('./**/js/*.js', gulp.series(js));
     gulp.watch('./**/*.php').on('change', browserSync.reload);
 }
 
