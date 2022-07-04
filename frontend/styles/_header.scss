@@ -1,0 +1,32 @@
+.main-nav {
+    box-shadow: 0 2px 20px#222;
+    .container,.nav-list {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .nav-list{
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+    }
+    .nav-link,.brand-name{
+        text-decoration: none;
+        color: #000;
+    }
+    .brand-name{
+        font-size: 24px;
+    }
+    .nav-link{
+        font-size: 18px;
+        padding: 20px;
+        display: inline-block;
+        &:hover,
+        &.active{
+            background-color: orangered;
+            color: #fff;
+        }
+        
+    }
+
+}

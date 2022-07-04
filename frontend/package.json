@@ -10,5 +10,8 @@
     "gulp-uglify": "^3.0.2",
     "postcss": "^8.4.14",
     "sass": "^1.53.0"
+  },
+  "devDependencies": {
+    "jquery": "^3.6.0"
   }
 }

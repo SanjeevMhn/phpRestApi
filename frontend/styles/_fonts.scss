@@ -1,0 +1,19 @@
+@font-face {
+    font-family: 'Poppins';
+    src:url('/frontend/assets/fonts/Poppins.ttf.woff') format('woff'),
+        url('/frontend/assets/fonts/Poppins.ttf.svg#Poppins') format('svg'),
+        url('/frontend/assets/fonts/Poppins.ttf.eot'),
+        url('/frontend/assets/fonts/Poppins.ttf.eot?#iefix') format('embedded-opentype'); 
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Source-Sans-Pro';
+    src:url('/frontend/assets/fonts/Source-Sans-Pro.ttf.woff') format('woff'),
+        url('/frontend/assets/fonts/Source-Sans-Pro.ttf.svg#Source-Sans-Pro') format('svg'),
+        url('/frontend/assets/fonts/Source-Sans-Pro.ttf.eot'),
+        url('/frontend/assets/fonts/Source-Sans-Pro.ttf.eot?#iefix') format('embedded-opentype'); 
+    font-weight: normal;
+    font-style: normal;
+}

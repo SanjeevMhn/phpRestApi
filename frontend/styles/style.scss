@@ -1,11 +1,25 @@
 @import './reset';
-@import './header';
+@import "./homepage";
+@import "./userprofile";
+@import "./dashboard";
+@import "./login";
+@import "./register";
+@import "./header";
+@import "./fonts";
 
-.ft-lucida{
+.ft-lucida {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-.container{
+.ft-poppins {
+    font-family: 'Poppins';
+}
+
+.ft-source {
+    font-family: 'Source-Sans-Pro';
+}
+
+.container {
     max-width: 1180px;
     margin: 0 auto;
 }
