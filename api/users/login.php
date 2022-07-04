@@ -8,12 +8,12 @@
 
     include_once '../../config/Database.php';
     include_once '../../auth/JwtHandler.php';
-    include_once '../../class/Items.php';
+    include_once '../../class/User.php';
 
     $db_conn = new Database;
     $db = $db_conn->connect();
 
-    $items = new Items($db);
+    $users = new User($db);
 
     $data = json_decode(file_get_contents("php://input"));
 
@@ -41,7 +41,7 @@
                 "message" => "Password must be atleast 6 characters long"
             ));
         }else{
-            $getUserByEmail = $items->getUserByEmail($email);
+            $getUserByEmail = $users->getUserByEmail($email);
             if($getUserByEmail){
                 $checkPassword = password_verify($password,$getUserByEmail['password']);
                 if($checkPassword){

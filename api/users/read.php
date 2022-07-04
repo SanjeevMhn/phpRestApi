@@ -1,16 +1,16 @@
 <?php
 
-    include_once '../../class/Items.php';
+    include_once '../../class/User.php';
     include_once '../../config/Database.php';
 
     $dbase = new Database;
     $db = $dbase->connect();
-    $items = new Items($db);
+    $users = new User($db);
 
     $res = array();
     $res['data'] = array();
 
-    array_push($res['data'], $items->read());
+    array_push($res['data'], $users->read());
    
     echo json_encode($res);
 

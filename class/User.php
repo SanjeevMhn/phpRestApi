@@ -2,7 +2,7 @@
 
 include_once '../../auth/JwtHandler.php';
 
-class Items extends JwtHandler
+class User extends JwtHandler
 {
 
     private $conn;
@@ -39,7 +39,7 @@ class Items extends JwtHandler
             }else{
                 return array(
                     "success" => 0,
-                    "message" => $data['message'],
+                    "message" => "User not found",
                 );
             }
         }else{

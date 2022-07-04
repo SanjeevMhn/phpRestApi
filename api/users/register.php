@@ -6,13 +6,14 @@
     header("Content-Type: application/json; charset=UTF-8");
     header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-    include_once "../../class/Items.php";
+    include_once "../../class/User.php";
     include_once "../../config/Database.php";
+    include_once "../../auth/JwtHandler.php";
 
     $db_conn = new Database;
     $db = $db_conn->connect();
 
-    $items = new Items($db);
+    $users = new User($db);
 
     $data = json_decode(file_get_contents("php://input"));
 
@@ -51,7 +52,7 @@
                 "message" => "Name must be atleast 3 characters long"
             ));
         }else{
-            $res = $items->emailAlreadyInUse($email);
+            $res = $users->emailAlreadyInUse($email);
             if(count($res) > 0){
                 echo json_encode(array(
                     "success" => 0,
@@ -63,14 +64,21 @@
                     "email" => $email,
                     "password" => $password
                 );
-                $result = $items->insert($userData);
+                $result = $users->insert($userData);
                 if($result){
+                    // $jwt = new JwtHandler;
+                    // $newUser = new User($db);
+                    // $getNewUserId = $newUser->getUserByEmail($email);
+                    // $token = $jwt->jwtEncodeData('http://127.0.0.1:5500',$getNewUserId['id']);
+                    // echo $getNewUserId;
                     echo json_encode(
                         array(
                             "success" => 1,
-                            "message" => "User successfully registered"
+                            "message" => "User successfully registered",
+                            // "token" => $token
                         )
                     );
+
                 }
             }
         }
