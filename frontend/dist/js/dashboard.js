@@ -1,5 +1,6 @@
 $(document).ready(function () {
-
+    let userName;
+    let userEmail;
     if (window.location.pathname == "/dashboard") {
         if (!localStorage.getItem("jwt")) {
             window.location.replace("/login");
@@ -20,6 +21,8 @@ $(document).ready(function () {
             console.log(response);
             if (response.success == 1) {
                 $('.user-name').html(response.user.name);
+                userName = response.user.name;
+                userEmail = response.user.email;
             } else {
                 window.location.replace('/login');
                 localStorage.removeItem("jwt");
