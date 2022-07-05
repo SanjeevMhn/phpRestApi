@@ -2,14 +2,9 @@ $(document).ready(function () {
 
     if (window.location.pathname == "/dashboard") {
         if (!localStorage.getItem("jwt")) {
-
             window.location.replace("/login");
         }
-        if (localStorage.getItem("logSuccess")) {
-            let msg = localStorage.getItem("logSuccess");
-            alert(msg);
-            localStorage.removeItem("logSuccess");
-        }
+       
         let jwtToken = localStorage.getItem("jwt");
 
         let settings = {

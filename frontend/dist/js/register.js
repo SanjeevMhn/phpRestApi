@@ -1,5 +1,10 @@
 $(document).ready(function () {
 
+    if (window.location.pathname == "/register") {
+        if (localStorage.getItem('jwt')) {
+            window.location.replace('/dashboard');
+        }
+    }
     let resForm = $('.res-form');
     let userName;
     let userEmail;
@@ -76,10 +81,9 @@ $(document).ready(function () {
             }
             $.ajax(settings).done(function (response) {
                 console.log(response);
-                if(response.success == 1){
+                if (response.success == 1) {
                     window.location.href = "/login";
-                    localStorage.setItem("resSuccess",response.message);
-                }else{
+                } else {
                     let message = response.message;
                     alert(message);
                 }

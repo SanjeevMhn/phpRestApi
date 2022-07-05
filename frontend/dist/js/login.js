@@ -1,10 +1,8 @@
 $(document).ready(function () {
 
     if (window.location.pathname == "/login") {
-        if (localStorage.getItem("resSuccess")) {
-            let msg = localStorage.getItem("resSuccess");
-            alert(msg);
-            localStorage.removeItem("resSuccess");
+        if(localStorage.getItem('jwt')){
+            window.location.replace('/dashboard');
         }
     }
 
@@ -55,7 +53,6 @@ $(document).ready(function () {
                 console.log(response);
                 if(response.success == 1){
                     window.location.replace('/dashboard');
-                    localStorage.setItem("logSuccess",response.message);
                     localStorage.setItem("jwt",response.token);
                 }else{
                     alert(response.message);

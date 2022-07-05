@@ -1,4 +1,4 @@
-<?php include_once "frontend/includes/header.php" ?>
+<?php include_once "frontend/includes/primaryNav.php" ?>
 
 <main class="login-container form-container">
     <h2 class="header-text ft-lucida">Login Form</h2>

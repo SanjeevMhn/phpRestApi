@@ -1,5 +1,4 @@
-<?php
-include_once "frontend/includes/header.php" ?>
+<?php include_once "frontend/includes/primaryNav.php" ?>
 
 <main class="register-container form-container">
     <h2 class="header-text ft-lucida">Register Form</h2>

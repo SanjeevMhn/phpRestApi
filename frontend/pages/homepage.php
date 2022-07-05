@@ -1,4 +1,4 @@
-<?php include_once "frontend/includes/header.php" ?>
+<?php include_once "frontend/includes/primaryNav.php" ?>
 
 
 <h1 class="header-text">Hello world</h1>
