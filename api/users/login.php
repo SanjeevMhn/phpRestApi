@@ -55,11 +55,13 @@
                     ));
                 }else{
                     echo json_encode(array(
+                        "success" => 0,
                         "message" => "Invalid Password",
                     ));
                 }
             }else{
                 echo json_encode(array(
+                    "success" => 0,
                     "message" => "Invalid Email",
                 ));
             }

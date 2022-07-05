@@ -20,6 +20,7 @@
         padding: 0;
         margin: 0;
         list-style-type: none;
+        overflow-y: hidden;
     }
     .nav-link,.brand-name{
         text-decoration: none;
@@ -34,8 +35,9 @@
         display: inline-block;
         &:hover,
         &.active{
-            background-color: orangered;
+            background-color: rgb(250, 115, 18);
             color: #fff;
+            outline: #fff solid 2px;
         }
         
     }

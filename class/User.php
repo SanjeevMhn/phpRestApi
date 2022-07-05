@@ -108,12 +108,12 @@ class User extends JwtHandler
     public function insert($userData = array())
     {
         try {
-            $query = "INSERT INTO $this->table (name,email,password) VALUES (:name,:email,:password)";
+            $query = "INSERT INTO $this->table (name,email,password,goal) VALUES (:name,:email,:password,:goal)";
             $stmt = $this->conn->prepare($query);
             $stmt->bindValue(':name', $userData['name'], PDO::PARAM_STR);
             $stmt->bindValue(':email', $userData['email'], PDO::PARAM_STR);
             $stmt->bindValue(':password', password_hash($userData['password'], PASSWORD_DEFAULT), PDO::PARAM_STR);
-
+            $stmt->bindValue(':goal',$userData['goal'],PDO::PARAM_STR);
             return $stmt->execute();
         } catch (PDOException $ex) {
             echo json_encode(array(

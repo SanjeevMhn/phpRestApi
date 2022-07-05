@@ -9,6 +9,9 @@ switch ($request) {
     case '/home':
         require_once __DIR__.'/pages/homepage.php';
     break;
+    case '/dashboard':
+        require_once __DIR__.'/pages/dashboard.php';
+    break;
     case '/register':
         require_once __DIR__.'/pages/register.php';
     break;
