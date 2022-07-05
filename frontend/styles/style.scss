@@ -23,3 +23,70 @@
     max-width: 1180px;
     margin: 0 auto;
 }
+
+.form-container {
+    height: calc(100vh - 70px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url('/frontend/assets/images/background_1.jpg');
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+form {
+    width: 30vw;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: bisque;
+    border: 1px solid #000;
+}
+
+.form-inp,
+.form-select {
+    font-size: 18px;
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #000;
+}
+
+label {
+    font-size: 20px;
+}
+
+label,
+.form-inp,
+.form-select {
+    display: block;
+}
+
+.form-data {
+    padding-bottom: 15px;
+
+    &:last-child {
+        display: flex;
+        padding-top: 20px;
+        padding-left: 80px;
+        padding-right: 80px;
+        justify-content: space-between;
+    }
+}
+
+button {
+    font-size: 20px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+.submit-btn {
+    background-color: dodgerblue;
+}
+
+.reset-btn {
+    background-color: lightcoral;
+}

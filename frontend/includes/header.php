@@ -12,7 +12,7 @@
 <body>
     <nav class="main-nav">
         <div class="container">
-            <a href="/home" class="brand-name ft-poppins">
+            <a href="/home" class="brand-name ft-lucida">
                 Fitness Tracker
             </a>
             <ul class="nav-list ft-source">
