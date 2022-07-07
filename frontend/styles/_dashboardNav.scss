@@ -8,14 +8,25 @@
     .side-nav,
     .top-nav{
         top: 0;
+        position: fixed;
     }
 
     .side-nav{
         left: 0;
-        flex: 0 0 250px;
+        flex: 0 0 var(--sidenav-width);
+        width: var(--sidenav-width);
         background-color: #ebb052;
         transition: all 0.3s;
         height: 100vh;
+        .brand-link{
+            font-size: 25px;
+            color: #fff;
+            padding: 20px;
+        }
+        .brand-exp,
+        .brand-mini{
+            transition: all 2s;
+        }
     }
     .side-nav-mini{
         flex: 0 0 85px;
@@ -25,6 +36,9 @@
         flex: 1;
         background-color: #eeddd3;
         max-height: 74px;
+        left: var(--sidenav-width);
+        width: calc(100% - var(--sidenav-width));
+        transition: all 0.3s;
         .container {
             display: flex;
             align-items: center;
@@ -34,10 +48,7 @@
             color: #000;
         }
 
-        .brand-link {
-            font-size: 24px;
-            padding-right: 20px;
-        }
+      
 
         .dash-search-form {
             background-color: inherit;

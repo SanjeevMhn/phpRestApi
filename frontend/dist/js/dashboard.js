@@ -24,9 +24,24 @@ $(document).ready(function () {
 
 
         let sideNavToggle = $('.sidenav-toggler');
-        sideNavToggle.click(function(){
-            console.log("hello");
-            $('.side-nav').toggleClass("side-nav-mini");
+        let sideNavExp = true;
+        $('.brand-exp').css("display", "block");
+        $('.brand-mini').css("display", "none");
+        sideNavToggle.click(function () {
+            const root = document.documentElement;
+            if (sideNavExp) {
+                root.style.setProperty('--sidenav-width', '250px');
+                sideNavExp = false;
+                $('.brand-exp').css("display", "block");
+                $('.brand-mini').css("display", "none");
+            } else {
+                root.style.setProperty('--sidenav-width', '80px');
+                sideNavExp = true;
+                $('.brand-mini').css("display", "block");
+                $('.brand-exp').css("display", "none");
+            }
         })
+
+
     }
 })
