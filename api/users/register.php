@@ -26,12 +26,10 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
     !isset($data->name)
     || !isset($data->email)
     || !isset($data->password)
-    || !isset($data->goal)
     || empty(trim($data->name))
     || empty(trim($data->email))
-    || empty(trim($data->password))
-    || empty(trim($data->goal))
-) {
+    || empty(trim($data->password)))
+    {
     echo json_encode(
         array(
             "success" => 0,
@@ -42,7 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
     $name = trim($data->name);
     $email = trim($data->email);
     $password = trim($data->password);
-    $goal = trim($data->goal);
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         echo json_encode(array(
@@ -68,37 +65,21 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             ));
         } else {
 
-            $goals = ["loss", "gain", "maintain"];
-            $count = 0;
-            foreach ($goals as $go) {
-                if (strcmp($goal, $go) == 0) {
-                    $count = $count+1;
-                }
-            }
-            if ($count == 0) {
-                echo json_encode(array(
-                    "success" => 0,
-                    "message" => "Invalid Goal"
-                ));
-            } else {
+            $userData = array(
+                "name" => $name,
+                "email" => $email,
+                "password" => $password,
+            );
+            $result = $users->insert($userData);
+            if ($result) {
 
-                $userData = array(
-                    "name" => $name,
-                    "email" => $email,
-                    "password" => $password,
-                    "goal" => $goal
+                echo json_encode(
+                    array(
+                        "success" => 1,
+                        "message" => "User successfully registered",
+
+                    )
                 );
-                $result = $users->insert($userData);
-                if ($result) {
-                    
-                    echo json_encode(
-                        array(
-                            "success" => 1,
-                            "message" => "User successfully registered",
-                        
-                        )
-                    );
-                }
             }
         }
     }

@@ -22,27 +22,25 @@ class User extends JwtHandler
         $this->headers = $headers;
     }
 
-    public function isValid(){
+    public function isValid()
+    {
 
-        if(array_key_exists('Authorization',$this->headers) && preg_match('/Bearer\s(\S+)/',$this->headers['Authorization'],$matches)){
+        if (array_key_exists('Authorization', $this->headers) && preg_match('/Bearer\s(\S+)/', $this->headers['Authorization'], $matches)) {
 
             $data = $this->jwtDecodeData($matches[1]);
 
-            if(
-                isset($data['data']->user_id) &&
-                $user=$this->getUserById($data['data']->user_id)
-            ){
+            if (isset($data['data']->user_id) && $user = $this->getUserById($data['data']->user_id)) {
                 return array(
                     "success" => 1,
                     "user" => $user
                 );
-            }else{
+            } else {
                 return array(
                     "success" => 0,
                     "message" => "User not found",
                 );
             }
-        }else{
+        } else {
             return array(
                 "success" => 0,
                 "message" => "Token not found"
@@ -50,40 +48,43 @@ class User extends JwtHandler
         }
     }
 
-    public function getUserByEmail($email){
+    public function getUserByEmail($email)
+    {
 
-        try{
+        try {
             $query = "SELECT * FROM $this->table WHERE email = :email";
             $stmt = $this->conn->prepare($query);
-            $stmt->bindValue(':email',$email);
+            $stmt->bindValue(':email', $email);
             $stmt->execute();
-            if($stmt->rowCount()){
+            if ($stmt->rowCount()) {
                 return $stmt->fetch(PDO::FETCH_ASSOC);
-            }else{
+            } else {
                 return false;
             }
-        }catch(PDOException $ex){
-            echo json_encode(array(
+        } catch (PDOException $ex) {
+            echo json_encode(
+                array(
                     "message" => $ex->getMessage(),
-                    )
-                );
+                )
+            );
         }
     }
 
-    public function getUserById($id){
+    public function getUserById($id)
+    {
 
-        try{
+        try {
             $query = "SELECT name, email from $this->table WHERE id = :id";
             $stmt = $this->conn->prepare($query);
-            $stmt->bindValue(':id',$id,PDO::PARAM_INT);
+            $stmt->bindValue(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
 
-            if($stmt->rowCount()){
+            if ($stmt->rowCount()) {
                 return $stmt->fetch(PDO::FETCH_ASSOC);
-            }else{
+            } else {
                 return false;
             }
-        }catch(PDOException $ex){
+        } catch (PDOException $ex) {
             echo json_encode(array(
                 "message" => $ex->getMessage(),
             ));
@@ -108,12 +109,11 @@ class User extends JwtHandler
     public function insert($userData = array())
     {
         try {
-            $query = "INSERT INTO $this->table (name,email,password,goal) VALUES (:name,:email,:password,:goal)";
+            $query = "INSERT INTO $this->table (name,email,password) VALUES (:name,:email,:password)";
             $stmt = $this->conn->prepare($query);
             $stmt->bindValue(':name', $userData['name'], PDO::PARAM_STR);
             $stmt->bindValue(':email', $userData['email'], PDO::PARAM_STR);
             $stmt->bindValue(':password', password_hash($userData['password'], PASSWORD_DEFAULT), PDO::PARAM_STR);
-            $stmt->bindValue(':goal',$userData['goal'],PDO::PARAM_STR);
             return $stmt->execute();
         } catch (PDOException $ex) {
             echo json_encode(array(

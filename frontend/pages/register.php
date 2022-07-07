@@ -24,7 +24,7 @@
             <label for="confirm-password">Confirm Password</label>
             <input type="password" name="confirm-password" id="confirm-password" class="form-inp" placeholder="Your password">
         </div>
-        <div class="form-data">
+        <!-- <div class="form-data">
             <label for="goal">Select your workout goals</label>
             <select name="usr-goal" id="goal" class="form-select">
                 <option value="default">Choose your workout goal</option>
@@ -33,7 +33,7 @@
                 <option value="maintain">Weight Maintain</option>
             </select>
             <span class="err-msg err-goal ft-source">Please Select your workout goal</span>
-        </div>
+        </div> -->
         <div class="form-data">
             <button type="submit" class="submit-btn ft-poppins">Submit</button>
             <button type="reset" class="reset-btn ft-poppins">Cancel</button>

@@ -9,7 +9,6 @@ $(document).ready(function () {
     let userName;
     let userEmail;
     let userPassword;
-    let userWorkoutGoal;
 
     resForm.submit(function (e) {
 
@@ -18,7 +17,6 @@ $(document).ready(function () {
         userEmail = $('input[name="usr-email"]').val();
         userPassword = $('input[name="usr-password"]').val();
         userConfirmPass = $('input[name="confirm-password"]').val();
-        userWorkoutGoal = $('select[name="usr-goal"]').val();
         let errCount = 0;
 
         if (userName == '') {
@@ -54,14 +52,14 @@ $(document).ready(function () {
             $('input[name="usr-password"]').removeClass('err-field');
         }
 
-        if (userWorkoutGoal == 'default') {
-            $('.err-goal').addClass('dsp-block');
-            $('select[name="usr-goal"]').addClass('err-field');
-            errCount++;
-        } else {
-            $('.err-goal').removeClass('dsp-block');
-            $('select[name="usr-goal"]').removeClass('err-field');
-        }
+        // if (userWorkoutGoal == 'default') {
+        //     $('.err-goal').addClass('dsp-block');
+        //     $('select[name="usr-goal"]').addClass('err-field');
+        //     errCount++;
+        // } else {
+        //     $('.err-goal').removeClass('dsp-block');
+        //     $('select[name="usr-goal"]').removeClass('err-field');
+        // }
 
 
         if (errCount == 0) {
@@ -76,13 +74,13 @@ $(document).ready(function () {
                     "name": userName,
                     "email": userEmail,
                     "password": userPassword,
-                    "goal": userWorkoutGoal
                 }),
             }
             $.ajax(settings).done(function (response) {
-                console.log(response);
+                // let result = JSON.stringify(response);
+                console.log(response.success);
                 if (response.success == 1) {
-                    window.location.href = "/login";
+                    location.pathname = "/login";
                 } else {
                     let message = response.message;
                     alert(message);
