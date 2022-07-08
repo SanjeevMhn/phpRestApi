@@ -1,37 +1,68 @@
 .dashboard-nav {
     position: relative;
     display: flex;
+
     a {
         color: #000;
         text-decoration: none;
     }
+
     .side-nav,
-    .top-nav{
+    .top-nav {
         top: 0;
         position: fixed;
     }
 
-    .side-nav{
+    .side-nav {
         left: 0;
         flex: 0 0 var(--sidenav-width);
         width: var(--sidenav-width);
         background-color: #ebb052;
         transition: all 0.3s;
         height: 100vh;
-        .brand-link{
+
+        .brand-link {
             font-size: 25px;
             color: #fff;
-            padding: 20px;
+            padding: 15px;
         }
+
         .brand-exp,
-        .brand-mini{
+        .brand-mini {
             transition: all 2s;
         }
+
+        footer {
+            padding: 15px;
+            .log-out {
+                transition: 0.3s all;
+                color: #000;
+            }
+        }
+
+        &.mini-nav {
+            footer {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .log-out {
+                height: 50px;
+                width: 50px;
+                border-radius: 50%;
+                transition: 0.3s all;
+            }
+
+        }
+
     }
-    .side-nav-mini{
+
+    .side-nav-mini {
         flex: 0 0 85px;
         transition: all 0.3s;
     }
+
     .top-nav {
         flex: 1;
         background-color: #eeddd3;
@@ -39,16 +70,18 @@
         left: var(--sidenav-width);
         width: calc(100% - var(--sidenav-width));
         transition: all 0.3s;
+
         .container {
             display: flex;
             align-items: center;
             padding: 15px 30px;
         }
-        .sidenav-toggler{
+
+        .sidenav-toggler {
             color: #000;
         }
 
-      
+
 
         .dash-search-form {
             background-color: inherit;
@@ -65,10 +98,12 @@
             display: flex;
             align-items: center;
             margin-left: auto;
-            .action-link{
+
+            .action-link {
                 display: inline-block;
                 padding: 10px 15px;
-                &:hover{
+
+                &:hover {
                     background-color: #d3b29f;
                     border-radius: 5px;
                     color: #fff;

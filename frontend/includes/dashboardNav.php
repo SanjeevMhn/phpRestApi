@@ -1,8 +1,14 @@
 <?php include_once "frontend/includes/header.php" ?>
 <nav class="dashboard-nav ft-poppins">
     <section class="side-nav">
-        <a href="/dashboard" class="brand-link brand-exp ft-poppins">Fitness Tracker</a>
-        <a href="/dashboard" class="brand-link brand-mini ft-poppins">FT</a>
+        <header>
+            <a href="/dashboard" class="brand-link brand-exp ft-poppins">FTracker</a>
+            <a href="/dashboard" class="brand-link brand-mini ft-poppins">FT</a>
+        </header>
+
+        <footer>
+            <button class="log-out">Log Out</button>
+        </footer>
     </section>
     <section class="top-nav">
         <div class="container">

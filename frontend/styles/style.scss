@@ -29,7 +29,12 @@
     max-width: 1180px;
     margin: 0 auto;
 }
-
+.content{
+    max-width: 1180px;
+    margin-top: 100px;
+    margin-left: calc(var(--sidenav-width) + 50px);
+    transition: 0.3s all;
+}
 .form-container {
     height: calc(100vh - 70px);
     display: flex;
