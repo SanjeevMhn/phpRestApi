@@ -46,15 +46,12 @@
                     </div>
                 </a>
             </li>
-           
+
         </ul>
         <footer>
             <button class="log-out">
                 <div class="icon-container">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-box-arrow-in-left" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M10 3.5a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 1 1 0v2A1.5 1.5 0 0 1 9.5 14h-8A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h8A1.5 1.5 0 0 1 11 3.5v2a.5.5 0 0 1-1 0v-2z" />
-                        <path fill-rule="evenodd" d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z" />
-                    </svg>
+                    <img src="frontend/assets/images/logout_icon.svg" alt="">
                 </div>
                 <div class="label-text">
                     Log Out
@@ -63,28 +60,47 @@
         </footer>
     </section>
     <section class="top-nav">
-        <div class="container">
-            <button class="sidenav-toggler">
-                toggle
-            </button>
-            <form method="post" class="dash-search-form">
-                <input type="text" name="search-text" id="" class="form-inp" placeholder="Search...">
-            </form>
-            <ul class="user-actions">
-                <li class="action">
-                    <a href="" class="action-link">Create</a>
-                </li>
-                <li class="action">
-                    <a href="" class="action-link">Messages</a>
-                </li>
-                <li class="action">
-                    <a href="" class="action-link">Notification</a>
-                </li>
-                <li class="action">
-                    <a href="" class="action-link">user-profile</a>
-                </li>
-            </ul>
+        <button class="sidenav-toggler">
+            <img src="frontend/assets/images/bars_icon.svg" alt="">
+        </button>
+        <form method="post" class="dash-search-form">
+            <input type="text" name="search-text" id="" class="form-inp" placeholder="Search...">
+        </form>
+        <ul class="user-actions">
+            <li class="action">
+                <div class="action-link create">
+                    <span class="label-text">Create</span>
+                    <div class="icon-container">
+                        <img src="frontend/assets/images/chevronDown_icon.svg" alt="">
+                    </div>
+                    <div class="drpdown-content ft-source">
+                        <a href="javascript:void(0)" class="dp-item">Create Workout</a>
+                        <a href="javascript:void(0)" class="dp-item">Create Diet</a>
+                    </div>
+                </div>
+            </li>
+            <li class="action">
+                <div class="action-link message">
+                    <div class="icon-container-md">
+                        <img src="frontend/assets/images/message_icon.svg" alt="">
+                    </div>
+                </div>
+            </li>
+            <li class="action">
+                <div class="action-link message">
+                    <div class="icon-container-md">
+                        <img src="frontend/assets/images/notification_icon.svg" alt="">
+                    </div>
+                </div>
+            </li>
+            <li class="action">
+                <div class="action-link message">
+                    <div class="icon-container-md">
+                        <img src="frontend/assets/images/profile_icon.svg" alt="">
+                    </div>
+                </div>
+            </li>
+        </ul>
 
-        </div>
     </section>
 </nav>

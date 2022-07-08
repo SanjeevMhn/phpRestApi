@@ -1,6 +1,6 @@
 <?php include_once "frontend/includes/header.php" ?>
 <nav class="main-nav">
-        <div class="container">
+        <div class="container mx-auto">
             <a href="/home" class="brand-name ft-lucida">
                 Fitness Tracker
             </a>
