@@ -78,7 +78,7 @@ class User extends JwtHandler
 
     public function getUserGoal($id){
         try{
-            $query = "SELECT users_goal.id,user_goal FROM $this->table JOIN users_goal ON $this->table.id AND users_goal.id = :id LIMIT 1";
+            $query = "SELECT users_goal.id,user_goal FROM $this->table JOIN users_goal ON $this->table.id = :id AND users_goal.id = :id LIMIT 1";
             $stmt = $this->conn->prepare($query);
             $stmt->bindValue(":id",$id,PDO::PARAM_INT);
             $stmt->execute();
