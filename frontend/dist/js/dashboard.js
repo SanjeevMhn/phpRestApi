@@ -117,7 +117,15 @@ $(document).ready(function () {
             $('.create').click(function(){
                 $('.drpdown-content').toggleClass('show-drp');
             })
+            
+            //show add workout modal//
+            $('.drpdown-content .create-workout').click(function(){
+                $('.add-workout-modal').addClass('dsp-block');
+            })
 
+            $('.add-workout-modal .form-data button[type="reset"]').click(function(){
+                $('.add-workout-modal').removeClass('dsp-block');
+            })
 
         } else {
             window.location.pathname = '/login';

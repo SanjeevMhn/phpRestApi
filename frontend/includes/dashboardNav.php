@@ -74,8 +74,8 @@
                         <img src="frontend/assets/images/chevronDown_icon.svg" alt="">
                     </div>
                     <div class="drpdown-content ft-source">
-                        <a href="javascript:void(0)" class="dp-item">Create Workout</a>
-                        <a href="javascript:void(0)" class="dp-item">Create Diet</a>
+                        <a href="javascript:void(0)" class="dp-item create-workout">Create Workout</a>
+                        <a href="javascript:void(0)" class="dp-item create-diet">Create Diet</a>
                     </div>
                 </div>
             </li>

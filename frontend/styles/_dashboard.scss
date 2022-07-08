@@ -1,4 +1,5 @@
 .dashboard-sec {
+    position: relative;
     .user-detail{
         .current-time{
             padding-bottom: 10px;
@@ -22,6 +23,19 @@
             }
             button{
                 color: #000;
+            }
+        }
+    }
+
+    .add-workout-modal{
+        display: none;
+        .duration-set{
+            display: flex;
+            .duration{
+                flex: 0 0 calc(100% / 3);
+                &:not(:last-child){
+                    padding-right: 20px;
+                }
             }
         }
     }
