@@ -1,0 +1,28 @@
+.dashboard-sec {
+    .user-detail{
+        .current-time{
+            padding-bottom: 10px;
+            font-size: 35px;
+            line-height: 20px;
+        }
+        .user-name{
+            font-size: 30px;
+        }
+    }
+    .user-goal-form {
+        margin-top: 10px;
+        display: none;
+        align-items: flex-end;
+        width: 35vw;
+
+        .form-data {
+            padding: 0;
+            &:last-child{
+                padding-left: 20px;
+            }
+            button{
+                color: #000;
+            }
+        }
+    }
+}

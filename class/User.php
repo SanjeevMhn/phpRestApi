@@ -48,6 +48,58 @@ class User extends JwtHandler
         }
     }
 
+    public function userGoalExist($id){
+        try{
+            $query = "SELECT * FROM users_goal WHERE id = :id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindValue(":id",$id,PDO::PARAM_INT);
+            $stmt->execute();
+            $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $res;
+        }catch(PDOException $ex){
+            echo json_encode(array(
+                "message" => $ex->getMessage()
+            ));
+        }
+    }
+    public function setUserGoal($id,$goal){
+        try{
+            $query = "INSERT INTO users_goal (id, user_goal) VALUES (:id,:goal)";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindValue(":id",$id,PDO::PARAM_INT);
+            $stmt->bindValue(":goal",$goal,PDO::PARAM_STR);
+            return $stmt->execute();
+        }catch(PDOException $ex){
+            echo json_encode(array(
+                "message" => $ex->getMessage()
+            ));
+        }
+    }
+
+    public function getUserGoal($id){
+        try{
+            $query = "SELECT users_goal.id,user_goal FROM $this->table JOIN users_goal ON $this->table.id AND users_goal.id = :id LIMIT 1";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindValue(":id",$id,PDO::PARAM_INT);
+            $stmt->execute();
+            if($stmt->rowCount()){
+                return array(
+                    "success" => 1,
+                    "user" => $stmt->fetch(PDO::FETCH_ASSOC
+                ));
+            }else{
+                return array(
+                    "success" => 0,
+                    "message" => "No goals set"
+                );
+            }
+        }catch(PDOException $ex){
+            echo json_encode(array(
+                "message" => $ex->getMessage(),
+            ));
+        }
+    }
+
     public function getUserByEmail($email)
     {
 
