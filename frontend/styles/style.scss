@@ -149,7 +149,6 @@ button {
 
 .modal {
     position: absolute;
-    top: 325%;
-    left: 80%;
-    transform: translate(-150%, -80%);
+    top: calc(100% / 2);
+    left: calc(calc(100% - calc(35vw / 2))/ 2);
 }

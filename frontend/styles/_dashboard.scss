@@ -1,5 +1,7 @@
-.dashboard-sec {
+.dashboard-container{
     position: relative;
+}
+.dashboard-sec {
     .user-detail{
         .current-time{
             padding-bottom: 10px;
@@ -13,16 +15,28 @@
     .user-goal-form {
         margin-top: 10px;
         display: none;
-        align-items: flex-end;
-        width: 35vw;
+        flex-direction: column;
 
         .form-data {
             padding: 0;
-            &:last-child{
-                padding-left: 20px;
+            
+            &:not(:last-child){
+                padding-bottom: 15px;
             }
             button{
-                color: #000;
+                color: #fff;
+                background-color: dodgerblue;
+            }
+            .input-group{
+                display: flex;
+                align-items: center;
+                >*{
+                    flex: 0 0 calc(100% / 4);
+                }
+                .input-container{
+                    flex: 1;
+                    padding-right: 30px;
+                }
             }
         }
     }

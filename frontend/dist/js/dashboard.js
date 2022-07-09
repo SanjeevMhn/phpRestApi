@@ -46,25 +46,42 @@ $(document).ready(function () {
                 $('.current-time').html("Good Morning!");
             } else if (current_hr >= 12 && current_hr <= 17) {
                 $('.current-time').html("Good Afternoon!");
-            } else {
+            } else if(current_hr >=17 && current_hr <= 19) {
                 $('.current-time').html("Good Evening!");
+            }else{
+                $('.current-time').html("Good Night!");
             }
 
             //submitting user goal form//
             $('.user-goal-form').submit(function (e) {
                 e.preventDefault();
+                let weightInput = $('input[name="user-weight"]').val();
+                let weightMetric = $('select[name="weight-metirc"] option:selected').val();
                 let goalSelect = $('select[name="user-goal"] option:selected').val();
-                if (goalSelect !== "default") {
-                    $('.err-msg').css('display', 'none');
+                let counter = 0;
+                if (goalSelect !== "default"){
                     $('select[name="user-goal"]').removeClass("err-field");
-                    setUserWorkoutGoal(goalSelect);
-                } else {
-                    $('.err-msg').css('display', 'block');
+                    $('.err-goal').css('display', 'none');
+                }else{
+                    counter++;
+                    $('.err-goal').css('display', 'block');
                     $('select[name="user-goal"]').addClass("err-field");
+                }
+                if (weightInput !== '') {
+                    $('.err-weight').css('display', 'none');
+                    $('input[name="user-weight"]').removeClass("err-field");
+                } else {
+                    counter++;
+                    $('.err-weight').css('display', 'block');
+                    $('select[name="user-goal"]').addClass("err-field");
+                }
+
+                if(counter == 0){
+                    setUserWorkoutGoal(weightInput,weightMetric,goalSelect);
                 }
             })
 
-            function setUserWorkoutGoal(goalSelect) {
+            function setUserWorkoutGoal(weightInput,weightMetric,goalSelect) {
                 let setGoal = {
                     "url": "/api/users/setUserWorkoutGoal.php",
                     "method": "POST",
@@ -73,7 +90,9 @@ $(document).ready(function () {
                         "Authorization": `Bearer ${token}`,
                     },
                     "data": JSON.stringify({
-                        "goal": goalSelect
+                        "goal": goalSelect,
+                        "start_weight": weightInput,
+                        "weight_metric": weightMetric
                     }),
                 }
 
@@ -125,6 +144,15 @@ $(document).ready(function () {
 
             $('.add-workout-modal .form-data button[type="reset"]').click(function(){
                 $('.add-workout-modal').removeClass('dsp-block');
+            })
+
+            $('.add-workout-modal').submit(function(e){
+                e.preventDefault();
+                let workoutName = $('input[name="workout-name"]').val();
+                if(workoutName == ''){
+                    $('.err-msg').addClass('dsp-block');
+                    $('input[name="workout-name"]').addClass('err-field');
+                }
             })
 
         } else {

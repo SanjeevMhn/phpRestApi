@@ -20,13 +20,20 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
         "success" => 0,
         "message" => "Page not found"
     ));
-} else if (!isset($data->goal) || empty(trim($data->goal))) {
+} else if (!isset($data->goal) 
+            ||!isset($data->start_weight) 
+            ||!isset($data->weight_metric) 
+            || empty(trim($data->goal))
+            || empty(trim($data->start_weight))
+            || empty(trim($data->weight_metric))) {
     echo json_encode(array(
         "success" => 0,
         "message" => "Please fill all the required fields"
     ));
 } else {
     $goal = trim($data->goal);
+    $userWeight = $data->start_weight;
+    $weightMetric = trim($data->weight_metric);
     if ($goal) {
         $goalTypes = ["gain", "lose", "maintain"];
         $count = 0;
@@ -35,30 +42,59 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
                 $count = $count + 1;
             }
         }
-        if ($count == 1) {
-            $setUserWorkoutGoal = new User($db, $headers);
-            $auth = $setUserWorkoutGoal->isValid();
-            if ($auth['success'] == 1) {
-                $id = $setUserWorkoutGoal->getUserByEmail($auth['user']['email']);
-                $exists = $setUserWorkoutGoal->userGoalExist($id['id']);
-                if (count($exists) > 0) {
-                    echo json_encode(array(
-                        "success" => 0,
-                        "message" => "goal already set for user"
-                    ));
-                } else {
-                    $res = $setUserWorkoutGoal->setUserGoal($id['id'], $goal);
-                    if ($res) {
-                        echo json_encode(array(
-                            "success" => 1,
-                            "message" => "Workout goal set"
-                        ));
+        $validateWeight = gettype($userWeight);
+        if ($count == 1){
+            $weightDataTypes = ["double","integer"];
+            $wcount = 0;
+            foreach($weightDataTypes as $wd){
+                if(strcmp($validateWeight, $wd) == 0){
+                    $wcount = $wcount + 1;
+                }
+            }
+            if($wcount == 1){
+                $metricTypes = ["kg","lbs"];
+                $mcount = 0;
+                foreach($metricTypes as $mt){
+                    if(strcmp($weightMetric,$mt) == 0){
+                        $mcount = $mcount + 1;
                     }
                 }
-            } else {
+                if($mcount == 1){
+                    $setUserWorkoutGoal = new User($db, $headers);
+                    $auth = $setUserWorkoutGoal->isValid();
+                    if ($auth['success'] == 1) {
+                        $id = $setUserWorkoutGoal->getUserByEmail($auth['user']['email']);
+                        $exists = $setUserWorkoutGoal->userGoalExist($id['id']);
+                        if (count($exists) > 0) {
+                            echo json_encode(array(
+                                "success" => 0,
+                                "message" => "goal already set for user"
+                            ));
+                        } else {
+                            $res = $setUserWorkoutGoal->setUserGoal($id['id'], $goal,$userWeight,$weightMetric);
+                            if ($res) {
+                                echo json_encode(array(
+                                    "success" => 1,
+                                    "message" => "Workout goal set"
+                                ));
+                            }
+                        }
+                    } else {
+                        echo json_encode(array(
+                            "success" => 0,
+                            "message" => "User doesnot exist"
+                        ));
+                    }
+                }else{
+                    echo json_encode(array(
+                        "success" => 0,
+                        "message" => "Invalid Weight Metric"
+                    ));
+                }
+            }else{
                 echo json_encode(array(
                     "success" => 0,
-                    "message" => "User doesnot exist"
+                    "message" => "Invalid Weight"
                 ));
             }
         } else {

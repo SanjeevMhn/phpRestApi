@@ -7,6 +7,21 @@
         </div>
         <form method="post" class="user-goal-form ft-poppins">
             <div class="form-data">
+                <label for="user-weight">
+                    Current Weight
+                </label>
+                <div class="input-group">
+                    <div class="input-container">
+                        <input type="number" name="user-weight" id="user-weight" class="form-inp" placeholder="Your current weight">
+                    </div>
+                    <select name="weight-metric" id="user-weight" class="form-select">
+                        <option value="kgs">Kgs</option>
+                        <option value="lbs">Lbs</option>
+                    </select>
+                </div>
+                <span class="err-msg err-weight">Please enter your current weight</span>
+            </div>
+            <div class="form-data">
                 <label for="workout_goal">Your goal:</label>
                 <select name="user-goal" id="workout_goal" class="form-select">
                     <option value="default">Please select your workout goal</option>
@@ -14,7 +29,7 @@
                     <option value="lose">Lose Weight</option>
                     <option value="maintain">Maintain Weight</option>
                 </select>
-                <span class="err-msg">Please select from the given options</span>
+                <span class="err-msg err-goal">Please select from the given options</span>
             </div>
             <div class="form-data">
                 <button type="submit">Done</button>
@@ -25,6 +40,7 @@
             <div class="form-data">
                 <label for="workout-name">Workout Name</label>
                 <input type="text" name="workout-name" id="workout-name" class="form-inp" placeholder="Enter Workout Name">
+                <span class="err-msg">Please enter workout name</span>
             </div>
             <div class="form-data">
                 <label for="workout-type">Workout Type</label>
@@ -34,6 +50,7 @@
                     <option value="sports">Sports</option>
                     <option value="hybrid">Hybrid</option>
                 </select>
+                <span class="err-msg">Please select workout type</span>
             </div>
             <div class="form-data">
                 <label for="workout-duration">Workout Duration</label>
@@ -48,6 +65,7 @@
                         <input type="text" name="sec" id="" class="form-inp" placeholder="Seconds">
                     </div>
                 </div>
+                <span class="err-msg">Please enter workout duration</span>
             </div>
             <div class="form-data">
                 <button type="submit">Submit</button>
