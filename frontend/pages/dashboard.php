@@ -15,7 +15,7 @@
                         <input type="number" name="user-weight" id="user-weight" class="form-inp" placeholder="Your current weight">
                     </div>
                     <select name="weight-metric" id="user-weight" class="form-select">
-                        <option value="kgs">Kgs</option>
+                        <option value="kg">Kgs</option>
                         <option value="lbs">Lbs</option>
                     </select>
                 </div>
@@ -40,7 +40,7 @@
             <div class="form-data">
                 <label for="workout-name">Workout Name</label>
                 <input type="text" name="workout-name" id="workout-name" class="form-inp" placeholder="Enter Workout Name">
-                <span class="err-msg">Please enter workout name</span>
+                <span class="err-msg err-wr-name">Please enter workout name</span>
             </div>
             <div class="form-data">
                 <label for="workout-type">Workout Type</label>
@@ -50,22 +50,27 @@
                     <option value="sports">Sports</option>
                     <option value="hybrid">Hybrid</option>
                 </select>
-                <span class="err-msg">Please select workout type</span>
+                <span class="err-msg err-wr-type">Please select workout type</span>
             </div>
             <div class="form-data">
                 <label for="workout-duration">Workout Duration</label>
                 <div class="duration-set">
                     <div class="duration">
-                        <input type="text" name="hrs" id="" class="form-inp" placeholder="Hours">
+                        <input type="number" name="hrs" id="" class="form-inp" placeholder="Hours">
                     </div>
                     <div class="duration">
-                        <input type="text" name="min" id="" class="form-inp" placeholder="Minutes">
+                        <input type="number" name="mins" id="" class="form-inp" placeholder="Minutes">
                     </div>
                     <div class="duration">
-                        <input type="text" name="sec" id="" class="form-inp" placeholder="Seconds">
+                        <input type="number" name="secs" id="" class="form-inp" placeholder="Seconds">
                     </div>
                 </div>
-                <span class="err-msg">Please enter workout duration</span>
+                <span class="err-msg err-wr-duration">Please enter workout duration</span>
+            </div>
+            <div class="form-data">
+                <label for="workout-desc">Workout Description</label>
+                <textarea name="workout-desc" id="workout-desc" cols="30" rows="10" class="form-textarea" placeholder="Your Workout Description"></textarea>
+                <span class="err-msg err-wr-desc">Please enter your workout description</span>
             </div>
             <div class="form-data">
                 <button type="submit">Submit</button>

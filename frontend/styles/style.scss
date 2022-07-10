@@ -86,12 +86,16 @@ form {
 }
 
 .form-inp,
-.form-select {
+.form-select,
+.form-textarea {
     font-size: 18px;
     width: 100%;
     padding: 5px;
     border-radius: 5px;
     border: 1px solid #000;
+}
+.form-textarea{
+    height: 150px;
 }
 
 label {
@@ -151,4 +155,19 @@ button {
     position: absolute;
     top: calc(100% / 2);
     left: calc(calc(100% - calc(35vw / 2))/ 2);
+    z-index: 999;
+}
+
+.overlay{
+    position: relative;
+    &:before{
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-color: rgba(0,0,0,0.4);
+        z-index: 998;
+    }
 }
