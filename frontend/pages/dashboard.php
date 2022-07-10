@@ -81,7 +81,6 @@
                         <div class="block">
                             <input type="number" name="exercise-reps" id="" class="form-inp" placeholder="No of reps">
                         </div>
-                        <span class="err-msg err-exercise-data">Please enter exercise description</span>
                     </div>
                 </div>
                 <button class="add-exercise" type="button">Add Exercise</button>

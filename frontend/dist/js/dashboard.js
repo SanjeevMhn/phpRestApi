@@ -188,10 +188,14 @@ $(document).ready(function () {
           $('input[name="mins"]').removeClass("err-field");
           $('input[name="secs"]').removeClass("err-field");
           $('.err-wr-desc').removeClass('dsp-block');
-          $('textarea[name="workout-desc"]').removeClass('err-field');
+          $('input[name="exercise-name"]').removeClass('err-field');
+          $('input[name="exercise-sets"]').removeClass('err-field');
+          $('input[name="exercise-reps"]').removeClass('err-field');
           $("body").removeClass('overlay');
         }
       );
+
+      //submit add workout form//
 
       $(".add-workout-modal").submit(function (e) {
         e.preventDefault();
@@ -200,7 +204,8 @@ $(document).ready(function () {
         let workoutDuHrs = $('input[name="hrs"]').val();
         let workoutDuMin = $('input[name="mins"]').val();
         let workoutDuSec = $('input[name="secs"]').val();
-        let workoutDesc = $('textarea[name="workout-desc"]').val();
+        let workoutDesc = $('.exercise-block');
+        let arrWorkoutDesc = workoutDesc.toArray();
         let errCount = 0;
         if (workoutName == "") {
           $(".err-wr-name").addClass("dsp-block");
@@ -224,14 +229,35 @@ $(document).ready(function () {
           $('input[name="secs"]').removeClass("err-field");
         }
 
-        if(workoutDesc == ''){
-          $('.err-wr-desc').addClass('dsp-block');
-          $('textarea[name="workout-desc"]').addClass('err-field');
-          errCount++;
-        }else{
-          $('.err-wr-desc').removeClass('dsp-block');
-          $('textarea[name="workout-desc"]').removeClass('err-field');
-        }
+        // arrWorkoutDesc.map((wd,index)=>{
+        //   let arrWd = Array.from(wd);
+        // })
+
+        //mapping workout blocks//
+        $.map(arrWorkoutDesc,(aw,index)=>{
+          let block = $(aw).children();
+          /*getting values of the input fields in each blocks;
+            each block[0] will contain exercise name,
+            block[1] will contain exercise set number,
+            block[2] will contain exercise rep number
+          */          
+          let exerciseName = $(block[0]).children().val();
+          let exerciseSets = $(block[1]).children().val();
+          let exerciseReps = $(block[2]).children().val();
+
+          if(exerciseName == '' && exerciseSets == '' && exerciseReps == ''){
+            errCount++;
+            $('.err-wr-desc').addClass('dsp-block');
+            $('input[name="exercise-name"]').addClass('err-field');
+            $('input[name="exercise-sets"]').addClass('err-field');
+            $('input[name="exercise-reps"]').addClass('err-field');
+          }else{
+            $('.err-wr-desc').removeClass('dsp-block');
+            $('input[name="exercise-name"]').removeClass('err-field');
+            $('input[name="exercise-sets"]').removeClass('err-field');
+            $('input[name="exercise-reps"]').removeClass('err-field');
+          }
+        })
 
       });
     } else {
