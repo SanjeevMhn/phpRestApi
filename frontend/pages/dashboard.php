@@ -67,9 +67,24 @@
                 </div>
                 <span class="err-msg err-wr-duration">Please enter workout duration</span>
             </div>
-            <div class="form-data">
+            <div class="form-data workout-desc-container">
                 <label for="workout-desc">Workout Description</label>
-                <textarea name="workout-desc" id="workout-desc" cols="30" rows="10" class="form-textarea" placeholder="Your Workout Description"></textarea>
+                <!-- <textarea name="workout-desc" id="workout-desc" cols="30" rows="10" class="form-textarea" placeholder="Your Workout Description"></textarea> -->
+                <div class="exercise-container">
+                    <div class="exercise-block">
+                        <div class="block">
+                            <input type="text" name="exercise-name" id="" class="form-inp" placeholder="Exercise Name"> 
+                        </div>
+                        <div class="block">
+                            <input type="number" name="exercise-sets" id="" class="form-inp" placeholder="No of sets">
+                        </div>
+                        <div class="block">
+                            <input type="number" name="exercise-reps" id="" class="form-inp" placeholder="No of reps">
+                        </div>
+                        <span class="err-msg err-exercise-data">Please enter exercise description</span>
+                    </div>
+                </div>
+                <button class="add-exercise" type="button">Add Exercise</button>
                 <span class="err-msg err-wr-desc">Please enter your workout description</span>
             </div>
             <div class="form-data">

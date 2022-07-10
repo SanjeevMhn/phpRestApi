@@ -44,14 +44,44 @@
 
     .add-workout-modal{
         display: none;
-        .duration-set{
+        button{
+            background-color: dodgerblue;
+            color: #fff;
+        }
+        .duration-set,.exercise-block{
             display: flex;
+            align-items: center;
             .duration{
                 flex: 0 0 calc(100% / 3);
                 &:not(:last-child){
                     padding-right: 20px;
                 }
             }
+        }
+        .exercise-block{
+            &:not(:last-child){
+                padding-bottom: 10px;
+            }
+            .block{
+                flex: 1 0 calc(100% / 4);
+                &:not(:last-child){
+                    padding-right: 20px;
+                }
+            }
+        }
+        .add-exercise{
+            margin-top: 10px;
+        }
+        .del-exer-block{
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            background-color: #000;
+            background-image: url('/frontend/assets/images/close_icon.svg');
+            background-size: 40%;
+            background-position: center center;
+            background-repeat: no-repeat;
+            object-fit: cover;
         }
     }
 }

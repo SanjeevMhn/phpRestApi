@@ -144,6 +144,40 @@ $(document).ready(function () {
         $("body").addClass('overlay');
       });
 
+      //add or delete exercise//
+      $(".add-exercise").click(function(){
+        let workoutDescContainer = $('.workout-desc-container');
+        let exerciseContainer= $('.exercise-container');
+        let exerciseBlock = $('<div class="exercise-block"></div>');
+        let nameblock = $('<div class="block"></div>');
+        let setsblock = $('<div class="block"></div>');
+        let repsblock = $('<div class="block"></div>');
+        let nameField = $('<input type="text" class="form-inp" placeholder="Exercise Name">');
+        let setsField = $('<input type="number" class="form-inp" placeholder="No of sets">');
+        let repsField = $('<input type="number" class="form-inp" placeholder="No of reps">');
+        let delBlock = $('<button class="del-exer-block" type="button"></button>');
+
+        nameblock.append(nameField);
+        setsblock.append(setsField);
+        repsblock.append(repsField);
+
+        exerciseBlock.append(nameblock); 
+        exerciseBlock.append(setsblock); 
+        exerciseBlock.append(repsblock); 
+        exerciseBlock.append(delBlock);
+
+        exerciseContainer.append(exerciseBlock);
+
+      })
+
+      //delete exercise block in add workout modal//
+      $(document).on('click','.del-exer-block',function(){
+         $(this).parent().remove();
+      })
+
+
+
+      //on reset button pressed on add workout modal//
       $('.add-workout-modal .form-data button[type="reset"]').click(
         function () {
           $(".add-workout-modal").removeClass("dsp-block");
@@ -205,3 +239,4 @@ $(document).ready(function () {
     }
   }
 });
+
