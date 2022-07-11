@@ -304,6 +304,6 @@ if (
 		);
 
 		$userId = $user->getUserByEmail($validUser['user']['email']);
-		$user->createWorkout($workoutData, $userId);
+		$user->createWorkout($workoutData, $userId['id']);
 	}
 }
