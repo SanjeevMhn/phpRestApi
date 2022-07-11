@@ -48,6 +48,73 @@ class User extends JwtHandler
         }
     }
 
+    public function createWorkout($workoutData,$userId){
+        try{
+            $query = "INSERT INTO user_workouts (user_id,workout_name,workout_type,workout_duration_hrs,workout_duration_mins,workout_duration_secs) VALUES (:id,:name,:type,:hrs,:mins,:secs)";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindValue(":id",$userId,PDO::PARAM_INT);
+            $stmt->bindValue(":name",$workoutData['name'],PDO::PARAM_STR);
+            $stmt->bindValue(":type",$workoutData['type'],PDO::PARAM_STR);
+            $stmt->bindValue(":hrs",$workoutData['duration']['hrs'],PDO::PARAM_INT);
+            $stmt->bindValue(":mins",$workoutData['duration']['mins'],PDO::PARAM_INT);
+            $stmt->bindValue(":secs",$workoutData['duration']['secs'],PDO::PARAM_INT);
+
+            $res = $stmt->execute();
+            if($res){
+                $lastId = $this->conn->lastInsertId();
+                $exeRes = $this->addExercises($workoutData,$lastId,$userId);
+                if($exeRes){
+                    echo json_encode(array(
+                        "success" => 1,
+                        "message" => "Workout successfully added"
+                    ));
+                }else{
+                    echo json_encode(array(
+                        "success" => 0,
+                        "message" => "Error while adding workout"
+                    ));
+                }
+            }else{
+                echo json_encode(array(
+                    "success" => 0,
+                    "message" => "Error while adding the workout"
+                ));
+            }
+
+        }catch(PDOException $ex){
+            echo json_encode(array(
+                "message" => $ex->getMessage()
+            ));
+        }
+    }
+
+    public function addExercises($workoutData,$lastId,$userId){
+        try{
+            $query = "INSERT INTO exercises_tbl (workout_id,user_id,exercise_name,exercise_sets,exercise_reps) VALUES (:id,:userId,:name,:sets,:reps)";
+            $stmt = $this->conn->prepare($query);
+            $count = 0;
+            foreach($workoutData['description'] as $wd){
+                $stmt->bindValue(":id",$lastId,PDO::PARAM_INT);
+                $stmt->bindValue(":userId",$userId,PDO::PARAM_INT);
+                $stmt->bindValue(":name",$wd['exercise_name'],PDO::PARAM_STR);
+                $stmt->bindValue(":sets",$wd['exercise_sets'],PDO::PARAM_INT);
+                $stmt->bindValue(":reps",$wd['exercise_reps'],PDO::PARAM_INT);
+                $stmt->execute();
+                $count = $count + 1;
+            }
+            if($count == count($workoutData['description'])){
+                return true;
+            }else{
+                return false;
+            }
+
+        }catch(PDOException $ex){
+            echo json_encode(array(
+                "message" => $ex->getMessage()
+            ));
+        }
+    }
+
     public function userGoalExist($id){
         try{
             $query = "SELECT * FROM users_goal WHERE id = :id";
