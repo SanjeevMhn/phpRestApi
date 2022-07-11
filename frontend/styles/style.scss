@@ -12,6 +12,11 @@
     --sidenav-width: 250px;
 }
 
+body{
+    position: relative;
+    width: 100%;
+}
+
 
 .ft-lucida {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -153,8 +158,9 @@ button {
 
 .modal {
     position: absolute;
-    top: calc(100% / 2);
-    left: calc(calc(100% - calc(35vw / 2))/ 2);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
     z-index: 999;
 }
 
