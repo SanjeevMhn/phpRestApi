@@ -300,6 +300,10 @@ $(document).ready(function () {
 
                     $.ajax(createWorkoutRequest).done(function(response){
                         console.log(response);
+                        if(response.success == 1){
+                            $(".add-workout-modal").removeClass("dsp-flex");
+                            $("body").removeClass('overlay');
+                        }
                     });
                 }
 
