@@ -77,31 +77,23 @@ if (
 	$mainErrCounter = $mainErrCounter + 1;
 }
 
+//check workout duration//
 if (
 	!isset($data['workout_duration']['hrs'])
-	|| !isset($data['workout_duration']['mins'])
-	|| !isset($data['workout_duration']['secs'])
-	|| empty(trim($data['workout_duration']['hrs']))
-	|| empty(trim($data['workout_duration']['mins']))
-	|| empty(trim($data['workout_duration']['secs']))
+	&& !isset($data['workout_duration']['mins'])
+	&& !isset($data['workout_duration']['secs'])
+	&& empty($data['workout_duration']['hrs'])
+	&& empty($data['workout_duration']['mins'])
+	&& empty($data['workout_duration']['secs'])
 ) {
+	echo json_encode(array(
+		"success" => 0,
+		"message" => "Please set duration of your workout"
+	));
+	$mainErrCounter = $mainErrCounter + 1;
+} else if (isset($data['workout_duration']['hrs']) && !empty($data['workout_duration']['hrs'])) { // if hrs is given//
 	if (
-		!isset($data['workout_duration']['hrs'])
-		&& !isset($data['workout_duration']['mins'])
-		&& !isset($data['workout_duration']['secs'])
-		&& empty($data['workout_duration']['hrs'])
-		&& empty($data['workout_duration']['mins'])
-		&& empty($data['workout_duration']['secs'])
-	) {
-		echo json_encode(array(
-			"success" => 0,
-			"message" => "Please set duration of your workout"
-		));
-		$mainErrCounter = $mainErrCounter + 1;
-	} else if (
-		isset($data['workout_duration']['hrs'])
-		&& !empty($data['workout_duration']['hrs'])
-		&& !isset($data['workout_duration']['mins'])
+		!isset($data['workout_duration']['mins'])
 		&& !isset($data['workout_duration']['secs'])
 		&& empty($data['workout_duration']['mins'])
 		&& empty($data['workout_duration']['secs'])
@@ -113,8 +105,38 @@ if (
 		);
 	} else if (
 		isset($data['workout_duration']['mins'])
+		&& !isset($data['workout_duration']['secs'])
 		&& !empty($data['workout_duration']['mins'])
-		&& !isset($data['workout_duration']['hrs'])
+		&& empty($data['workout_duration']['secs'])
+	) {
+
+		$workoutDuration = array(
+			"hrs" => $data['workout_duration']['hrs'],
+			"mins" => $data['workout_duration']['mins'],
+			"secs" => 0
+		);
+	} else if (
+		isset($data['workout_duration']['secs'])
+		&& !isset($data['workout_duration']['mins'])
+		&& !empty($data['workout_duration']['secs'])
+		&& empty($data['workout_duration']['mins'])
+	) {
+
+		$workoutDuration = array(
+			"hrs" => $data['workout_duration']['hrs'],
+			"mins" => 0,
+			"secs" => $data['workout_duration']['secs']
+		);
+	} else {
+		$workoutDuration = array(
+			"hrs" => $data['workout_duration']['hrs'],
+			"mins" => $data['workout_duration']['mins'],
+			"secs" => $data['workout_duration']['secs']
+		);
+	}
+}else if (isset($data['workout_duration']['mins']) && !empty($data['workout_duration']['mins'])) { // if mins is given//
+	if (
+		!isset($data['workout_duration']['hrs'])
 		&& !isset($data['workout_duration']['secs'])
 		&& empty($data['workout_duration']['hrs'])
 		&& empty($data['workout_duration']['secs'])
@@ -125,9 +147,39 @@ if (
 			"secs" => 0
 		);
 	} else if (
+		isset($data['workout_duration']['hrs'])
+		&& !isset($data['workout_duration']['secs'])
+		&& !empty($data['workout_duration']['hrs'])
+		&& empty($data['workout_duration']['secs'])
+	) {
+
+		$workoutDuration = array(
+			"hrs" => $data['workout_duration']['hrs'],
+			"mins" => $data['workout_duration']['mins'],
+			"secs" => 0
+		);
+	} else if (
 		isset($data['workout_duration']['secs'])
-		&& !empty($data['workout_duration']['secs'])
 		&& !isset($data['workout_duration']['hrs'])
+		&& !empty($data['workout_duration']['secs'])
+		&& empty($data['workout_duration']['hrs'])
+	) {
+
+		$workoutDuration = array(
+			"hrs" => 0,
+			"mins" => $data['workout_duration']['mins'],
+			"secs" => $data['workout_duration']['secs']
+		);
+	} else {
+		$workoutDuration = array(
+			"hrs" => $data['workout_duration']['hrs'],
+			"mins" => $data['workout_duration']['mins'],
+			"secs" => $data['workout_duration']['secs']
+		);
+	}
+}else if (isset($data['workout_duration']['secs']) && !empty($data['workout_duration']['secs'])) { // if secs is given//
+	if (
+		!isset($data['workout_duration']['hrs'])
 		&& !isset($data['workout_duration']['mins'])
 		&& empty($data['workout_duration']['hrs'])
 		&& empty($data['workout_duration']['mins'])
@@ -137,24 +189,37 @@ if (
 			"mins" => 0,
 			"secs" => $data['workout_duration']['secs']
 		);
-	} else {
+	} else if (
+		isset($data['workout_duration']['hrs'])
+		&& !isset($data['workout_duration']['mins'])
+		&& !empty($data['workout_duration']['hrs'])
+		&& empty($data['workout_duration']['mins'])
+	) {
+
+		$workoutDuration = array(
+			"hrs" => $data['workout_duration']['hrs'],
+			"mins" => 0,
+			"secs" => $data['workout_duration']['secs']
+		);
+	} else if (
+		isset($data['workout_duration']['mins'])
+		&& !isset($data['workout_duration']['hrs'])
+		&& !empty($data['workout_duration']['mins'])
+		&& empty($data['workout_duration']['hrs'])
+	) {
+
 		$workoutDuration = array(
 			"hrs" => 0,
-			"mins" => 0,
-			"secs" => 0
+			"mins" => $data['workout_duration']['mins'],
+			"secs" => $data['workout_duration']['secs']
 		);
-		$mainErrCounter = $mainErrCounter + 1;
-		echo json_encode(array(
-			"success" => 0,
-			"message" => "Please set duration of your workout"
-		));
+	} else {
+		$workoutDuration = array(
+			"hrs" => $data['workout_duration']['hrs'],
+			"mins" => $data['workout_duration']['mins'],
+			"secs" => $data['workout_duration']['secs']
+		);
 	}
-} else {
-	$workoutDuration = array(
-		"hrs" => $data['workout_duration']['hrs'],
-		"mins" => $data['workout_duration']['mins'],
-		"secs" => $data['workout_duration']['sec']
-	);
 }
 
 if (
@@ -234,15 +299,11 @@ if (
 		$workoutData = array(
 			"name" => $workoutName,
 			"type" => $workoutType,
-			"duration" => array(
-				"hrs" => $workoutDuration['hrs'],
-				"mins" => $workoutDuration['mins'],
-				"secs" => $workoutDuration['secs']
-			),
+			"duration" => $workoutDuration,
 			"description" => $workoutDesc
 		);
-		
-        $userId = $user->getUserByEmail($validUser['user']['email']);
-		$user->createWorkout($workoutData,$userId);
+
+		$userId = $user->getUserByEmail($validUser['user']['email']);
+		$user->createWorkout($workoutData, $userId);
 	}
 }

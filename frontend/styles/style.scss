@@ -123,6 +123,7 @@ label,
         padding-right: 80px;
         padding-bottom: 0;
         justify-content: space-between;
+        margin-top: auto;
     }
 }
 
@@ -155,6 +156,9 @@ button {
 .dsp-block {
     display: block!important;
 }
+.dsp-flex {
+    display: flex!important;
+}
 
 .modal {
     position: absolute;
@@ -162,6 +166,8 @@ button {
     left: 50%;
     transform: translate(-50%,-50%);
     z-index: 999;
+    height: calc(100vh - 25%);
+    overflow-y: auto;
 }
 
 .overlay{

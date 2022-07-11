@@ -43,6 +43,7 @@
 
     .add-workout-modal{
         display: none;
+        flex-direction: column;
         button{
             background-color: dodgerblue;
             color: #fff;
