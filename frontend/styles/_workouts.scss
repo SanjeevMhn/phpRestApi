@@ -1,0 +1,41 @@
+@import "./vars";
+
+
+.workouts-sec{
+    .workouts-list{
+        padding-top: 20px;
+        display: flex;
+        .workout-item{
+            flex: 0 0 calc(100% / 4);
+            cursor: pointer;
+            &:not(:last-child){
+                padding-right: 20px;
+            }
+            .work-container{
+                border-radius: 8px;
+                border: 4px solid $activeMainColor;
+                padding: 5px 10px;
+                position: relative;
+                isolation: isolate;
+                overflow: hidden;
+                &:after{
+                    content: '';
+                    position: absolute;
+                    height: 100%;
+                    width: 0;
+                    left: 0;
+                    top: 0;
+                    z-index: -1;
+                    background-color: $activeMainColor;
+                }
+                &:hover{
+                    color: #fff;
+                    &:after{
+                        width: 100%;
+                        transition: all 0.3s;
+                    }
+                }
+            }
+        }
+    }
+}

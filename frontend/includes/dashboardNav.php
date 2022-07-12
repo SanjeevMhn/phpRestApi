@@ -7,7 +7,7 @@
         </header>
         <ul class="nav-list">
             <li class="nav-list-item">
-                <a href="#" class="nav-list-link active">
+                <a href="/dashboard" class="nav-list-link">
                     <div class="icon-container">
                         <img src="frontend/assets/images/home_icon.svg" alt="">
                     </div>
@@ -17,7 +17,7 @@
                 </a>
             </li>
             <li class="nav-list-item">
-                <a href="#" class="nav-list-link">
+                <a href="/workouts" class="nav-list-link">
                     <div class="icon-container">
                         <img src="frontend/assets/images/dumbell_icon.svg" alt="">
                     </div>
@@ -42,7 +42,7 @@
                         <img src="frontend/assets/images/notebook_icon.svg" alt="">
                     </div>
                     <div class="label-text">
-                        Add Workout/Diet Log
+                        Workout Log/Diet Log
                     </div>
                 </a>
             </li>
@@ -76,6 +76,8 @@
                     <div class="drpdown-content ft-source">
                         <a href="javascript:void(0)" class="dp-item create-workout">Create Workout</a>
                         <a href="javascript:void(0)" class="dp-item create-diet">Create Diet</a>
+                        <a href="javascript:void(0)" class="dp-item create-workout">Create Workout Log</a>
+                        <a href="javascript:void(0)" class="dp-item create-diet">Create Diet Log</a>
                     </div>
                 </div>
             </li>

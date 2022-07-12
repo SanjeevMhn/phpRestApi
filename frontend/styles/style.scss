@@ -6,11 +6,15 @@
 @import "./register";
 @import "./header";
 @import "./dashboardNav";
+@import "./workouts";
+@import "./vars";
 @import "./fonts";
 
 :root {
     --sidenav-width: 250px;
 }
+
+
 
 body{
     position: relative;

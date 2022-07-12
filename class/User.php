@@ -48,6 +48,32 @@ class User extends JwtHandler
         }
     }
 
+    public function getWorkouts($userId){
+        try{
+            $query = "SELECT * FROM user_workouts WHERE user_id = :id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindValue(":id",$userId,PDO::PARAM_INT);
+            $stmt->execute();
+            if($stmt->rowCount()){
+                $workouts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                return array(
+                    "success" => 1,
+                    "user" => $workouts
+                );
+            }else{
+                return array(
+                    "success" => 0,
+                    "message" => "No Workouts created"
+                );
+            }
+        }catch(PDOException $ex){
+            echo json_encode(array(
+                "success" => 0,
+                "message" => $ex->getMessage()
+            ));
+        }
+    }
+
     public function createWorkout($workoutData,$userId){
         try{
             $query = "INSERT INTO user_workouts (user_id,workout_name,workout_type,workout_duration_hrs,workout_duration_mins,workout_duration_secs) VALUES (:id,:name,:type,:hrs,:mins,:secs)";
