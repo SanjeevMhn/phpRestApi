@@ -1,7 +1,7 @@
 .dashboard-nav {
     position: relative;
     display: flex;
-
+    z-index: 999;
     a {
         color: #000;
         text-decoration: none;
@@ -259,7 +259,6 @@
                         width: 150%;
                         display: none;
                         border-radius: 5px;
-
                         .dp-item {
                             display: block;
                             padding: 8px 10px;
