@@ -29,6 +29,8 @@ $(document).ready(function () {
                         });
                         workouts = $('<div class="workout-item list-item ft-poppins"></div>');
                         workouts.data('workoutId',userWorkout.workout_id);
+                        workouts.data('workoutDuration',{"hrs": userWorkout.workout_duration_hrs, "mins": userWorkout.workout_duration_mins, "secs": userWorkout.workout_duration_secs});
+                        workouts.attr('workoutName',userWorkout.workout_name);
                         workouts.data('userId',userWorkout.workout_id);
                         let container = $('<div class="inner-container"></div>')
                         let workoutName = $('<h2 class="workout-name"></h2>');
@@ -57,6 +59,9 @@ $(document).ready(function () {
 
             $(document).on('click','.workout-item',function(){
                 let workoutId = parseInt($(this).data('workoutId'));
+                let workoutName = $(this).attr('workoutName');
+                let workoutDuration = $(this).data('workoutDuration');
+                console.log(workoutDuration);
                 let getExercises = {
                     "url": "/api/users/getExercises.php",
                     "method": "POST",
@@ -71,10 +76,27 @@ $(document).ready(function () {
                 }
 
                 $.ajax(getExercises).done(function(response){
+                    console.log(response);
                     if(response.success == 1){
                         $('body').addClass('overlay');
                         $('.workout-detail-modal').addClass('dsp-block');
-                        let exerciseItem = $('<div class="exercise-item"></div>');
+                        $('.modal-workout-name').text(workoutName);
+                        $('.modal-workout-duration .hrs').text(workoutDuration.hrs);
+                        $('.modal-workout-duration .mins').text(workoutDuration.mins);
+                        $('.modal-workout-duration .secs').text(workoutDuration.secs);
+                        $.map(response.exercises, function(exercise, index) {
+                            let exerciseItem = $('<div class="exercise-item"></div>');
+                            let exerciseName = $('<h3 class="exercise-name"></h3>');
+                            let exerciseSets = $('<span class="exercise-sets"></span>');
+                            let exerciseReps = $('<span class="exercise-reps"></span>');
+                            exerciseName.text(exercise.exercise_name);
+                            exerciseSets.text(exercise.exercise_sets + " sets");
+                            exerciseReps.text(exercise.exercise_reps + " reps");
+                            exerciseItem.append(exerciseName);
+                            exerciseItem.append(exerciseSets);
+                            exerciseItem.append(exerciseReps);
+                            $('.exercise-list').append(exerciseItem);
+                        }); 
                     }
                 });
                 
