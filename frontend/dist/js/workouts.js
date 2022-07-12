@@ -6,6 +6,8 @@ $(document).ready(function () {
         let sideMenu = $('.side-nav .nav-list .nav-list-item .nav-list-link');
         sideMenu[1].classList.add('active');
 
+        let workoutData = [];
+
         if (token) {
             let getUserWorkouts = {
                 "url": "/api/users/getWorkouts.php",
@@ -20,9 +22,15 @@ $(document).ready(function () {
             $.ajax(getUserWorkouts).done(function (response) {
                 console.log(response);
                 if (response.success == 1) {
-                    $.map(response.user,(userWorkout, index) => {
-                        let workouts = $('<div class="workout-item ft-poppins"></div>');
-                        let container = $('<div class="work-container"></div>')
+                    $.map(response.user, (userWorkout, index) => {
+                        workoutData.push({
+                            "workout_id": userWorkout.workout_id,
+                            "user_id": userWorkout.user_id
+                        });
+                        workouts = $('<div class="workout-item list-item ft-poppins"></div>');
+                        workouts.data('workoutId',userWorkout.workout_id);
+                        workouts.data('userId',userWorkout.workout_id);
+                        let container = $('<div class="inner-container"></div>')
                         let workoutName = $('<h2 class="workout-name"></h2>');
                         let workoutType = $('<h3 class="workout-type"></h3>')
                         let workoutDuration = $('<div class="workout-duration"></div>')
@@ -43,7 +51,38 @@ $(document).ready(function () {
                     })
 
                 }
+
             });
+
+
+            $(document).on('click','.workout-item',function(){
+                let workoutId = parseInt($(this).data('workoutId'));
+                let getExercises = {
+                    "url": "/api/users/getExercises.php",
+                    "method": "POST",
+                    "timeout": 0,
+                    "headers": {
+                        "Authorization": `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    },
+                    "data": JSON.stringify({
+                        "workout_id": workoutId
+                    })
+                }
+
+                $.ajax(getExercises).done(function(response){
+                    if(response.success == 1){
+                        $('body').addClass('overlay');
+                        $('.workout-detail-modal').addClass('dsp-block');
+                        let exerciseItem = $('<div class="exercise-item"></div>');
+                    }
+                });
+                
+            })
+
+
+
+           
         } else {
             location.replace('/login');
         }

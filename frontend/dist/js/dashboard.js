@@ -1,5 +1,15 @@
 $(document).ready(function () {
     let token = localStorage.getItem("jwt");
+
+    $(document).click(function (e) {
+        let target = $(e.target);
+        if (!target.closest('.drpdown-content').length) {
+            if ($('.drpdown-content').hasClass('show-drp')) {
+                //console.log("hello");
+                //$('.drpdown-content').removeClass('show-drp');
+            }
+        }
+    })
     if (location.pathname == "/dashboard") {
         let sideMenu = $('.side-nav .nav-list .nav-list-item .nav-list-link');
         sideMenu[0].classList.add('active');

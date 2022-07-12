@@ -5,6 +5,15 @@
             <div class="current-time ft-poppins"></div> 
             <span class="user-name ft-source"></span>
         </div>
+        <div class="links-list list ft-poppins">
+            <a href="/workouts" class="link-item list-item">
+                <div class="inner-container">
+                    <h2>
+                        Your Workouts
+                    </h2>
+                </div>
+            </a>
+        </div>
         <form method="post" class="user-goal-form ft-poppins">
             <div class="form-data">
                 <label for="user-weight">

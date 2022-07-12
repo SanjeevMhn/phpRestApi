@@ -10,13 +10,18 @@
 @import "./vars";
 @import "./fonts";
 
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
 :root {
     --sidenav-width: 250px;
 }
 
 
 
-body{
+body {
     position: relative;
     width: 100%;
 }
@@ -89,6 +94,11 @@ body{
 form {
     width: 30vw;
     padding: 20px;
+
+}
+
+form,
+.modal {
     border-radius: 10px;
     background-color: bisque;
     border: 1px solid #000;
@@ -103,7 +113,8 @@ form {
     border-radius: 5px;
     border: 1px solid #000;
 }
-.form-textarea{
+
+.form-textarea {
     height: 150px;
 }
 
@@ -158,32 +169,86 @@ button {
 }
 
 .dsp-block {
-    display: block!important;
+    display: block !important;
 }
+
 .dsp-flex {
-    display: flex!important;
+    display: flex !important;
 }
 
 .modal {
+    display: none;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
-    z-index: 999;
+    transform: translate(-50%, -50%);
+    z-index: 1200;
     height: calc(100vh - 25%);
     overflow-y: auto;
+    width: 45vw;
 }
 
-.overlay{
+.overlay {
     position: relative;
-    &:before{
+
+    &:before {
         content: "";
         position: absolute;
         top: 0;
         left: 0;
         height: 100%;
         width: 100%;
-        background-color: rgba(0,0,0,0.4);
-        z-index: 998;
+        background-color: rgba(0, 0, 0, 0.4);
+        z-index: 1000;
+    }
+}
+
+.list {
+    padding-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    padding-right: 50px;
+
+    .list-item {
+        flex: 0 0 calc(100% / 4);
+        overflow: hidden;
+        cursor: pointer;
+        padding-right: 20px;
+        padding-bottom: 20px;
+    }
+
+    .inner-container {
+        border-radius: 8px;
+        border: 4px solid $activeMainColor;
+        padding: 5px 10px;
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+
+        >* {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        &:after {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 0;
+            left: 0;
+            top: 0;
+            z-index: -1;
+            background-color: $activeMainColor;
+        }
+
+        &:hover {
+            color: #fff;
+
+            &:after {
+                width: 100%;
+                transition: all 0.3s;
+            }
+        }
     }
 }
