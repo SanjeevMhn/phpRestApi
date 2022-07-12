@@ -25,7 +25,6 @@
             }
             button{
                 color: #fff;
-                background-color: dodgerblue;
             }
             .input-group{
                 display: flex;
@@ -44,8 +43,11 @@
     .add-workout-modal{
         flex-direction: column;
         button{
-            background-color: dodgerblue;
             color: #fff;
+        }
+        .exercise-container{
+            overflow: auto;
+            padding-bottom: 20px;
         }
         .duration-set,.exercise-block{
             display: flex;

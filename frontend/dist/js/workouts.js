@@ -79,17 +79,17 @@ $(document).ready(function () {
                     console.log(response);
                     if(response.success == 1){
                         $('body').addClass('overlay');
-                        $('.workout-detail-modal').addClass('dsp-block');
+                        $('.workout-detail-modal').addClass('dsp-flex');
                         $('.modal-workout-name').text(workoutName);
-                        $('.modal-workout-duration .hrs').text(workoutDuration.hrs);
-                        $('.modal-workout-duration .mins').text(workoutDuration.mins);
-                        $('.modal-workout-duration .secs').text(workoutDuration.secs);
+                        $('.modal-workout-duration .hrs').text(workoutDuration.hrs + " hrs");
+                        $('.modal-workout-duration .mins').text(workoutDuration.mins + " mins");
+                        $('.modal-workout-duration .secs').text(workoutDuration.secs + " secs");
                         $.map(response.exercises, function(exercise, index) {
                             let exerciseItem = $('<div class="exercise-item"></div>');
-                            let exerciseName = $('<h3 class="exercise-name"></h3>');
+                            let exerciseName = $('<span class="exercise-name"></span>');
                             let exerciseSets = $('<span class="exercise-sets"></span>');
                             let exerciseReps = $('<span class="exercise-reps"></span>');
-                            exerciseName.text(exercise.exercise_name);
+                            exerciseName.text(exercise.exercise_name + " : ");
                             exerciseSets.text(exercise.exercise_sets + " sets");
                             exerciseReps.text(exercise.exercise_reps + " reps");
                             exerciseItem.append(exerciseName);
@@ -100,6 +100,12 @@ $(document).ready(function () {
                     }
                 });
                 
+            })
+
+            $('.workout-detail-modal .modal-actions button[type="reset"]').click(function(){
+                $('.workout-detail-modal').removeClass('dsp-flex');
+                $('.workout-detail-modal .exercise-list').html('');
+                $('body').removeClass('overlay');
             })
 
 
