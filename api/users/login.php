@@ -42,6 +42,7 @@
             ));
         }else{
             $getUserByEmail = $users->getUserByEmail($email);
+            $userType = $getUserByEmail['user_type'];
             if($getUserByEmail){
                 $checkPassword = password_verify($password,$getUserByEmail['password']);
                 if($checkPassword){
@@ -51,7 +52,8 @@
                     echo json_encode(array(
                         "success" => 1,
                         "message" => 'You have successfully logged in',
-                        "token" => $token
+                        "token" => $token,
+                        "user_type" => $userType
                     ));
                 }else{
                     echo json_encode(array(

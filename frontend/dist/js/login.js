@@ -2,9 +2,15 @@ $(document).ready(function () {
 
     if (window.location.pathname == "/login") {
 
-        let token = localStorage.getItem("jwt");
+        let token = JSON.parse(localStorage.getItem("jwt"));
         if (token !== null) {
-            window.location.replace('/dashboard');
+            if(token.user_type == "admin"){
+                window.location.replace('/adminDashboard');
+            }else if(token.user_type == "trainer"){
+                window.location.replace('/trainerDashboard');
+            }else{
+                window.location.replace('/dashboard');
+            }
         } else {
             let loginForm = $('.login-form');
 
@@ -49,8 +55,18 @@ $(document).ready(function () {
 
                     $.ajax(settings).done(function (response) {
                         if (response.success == 1) {
-                            localStorage.setItem("jwt", response.token);
-                            window.location.replace('/dashboard');
+                            let storageData = {
+                                "token": response.token,
+                                "user_type": response.user_type
+                            }
+                            localStorage.setItem("jwt", JSON.stringify(storageData));
+                            if(response.user_type === "admin"){
+                                window.location.replace('/adminDashboard');
+                            }else if(response.user_type === "trainer"){
+                                window.location.replace('/trainerDashboard');
+                            }else{
+                                window.location.replace('/dashboard');
+                            }
                             // if (localStorage.getItem("jwt")) {
                             //     window.location.pathname = '/dashboard';
                             // }

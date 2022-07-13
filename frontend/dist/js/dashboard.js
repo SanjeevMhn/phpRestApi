@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    let token = localStorage.getItem("jwt");
+    let token = JSON.parse(localStorage.getItem("jwt"));
 
     $(document).click(function (e) {
         let target = $(e.target);
@@ -20,7 +20,7 @@ $(document).ready(function () {
                 method: "POST",
                 timeout: 0,
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `Bearer ${token.token}`,
                 },
             };
             //to get user name and email
@@ -36,7 +36,7 @@ $(document).ready(function () {
                 method: "POST",
                 timeout: 0,
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `Bearer ${token.token}`,
                 },
             };
 
@@ -99,7 +99,7 @@ $(document).ready(function () {
                     "method": "POST",
                     "timeout": 0,
                     "headers": {
-                        "Authorization": `Bearer ${token}`,
+                        "Authorization": `Bearer ${token.token}`,
                         "Content-Type": "application/json"
                     },
                     "data": JSON.stringify({
@@ -310,7 +310,7 @@ $(document).ready(function () {
                 "method": "POST",
                 "timeout": 0,
                 "headers": {
-                    "Authorization": `Bearer ${token}`,
+                    "Authorization": `Bearer ${token.token}`,
                     "Content-Type": "application/json"
                 },
                 "data": data,

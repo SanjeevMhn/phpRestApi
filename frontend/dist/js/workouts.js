@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     if (location.pathname == '/workouts') {
-        let token = localStorage.getItem("jwt");
+        let token = JSON.parse(localStorage.getItem("jwt"));
 
         let sideMenu = $('.side-nav .nav-list .nav-list-item .nav-list-link');
         sideMenu[1].classList.add('active');
@@ -14,7 +14,7 @@ $(document).ready(function () {
                 "method": "GET",
                 "timeout": 0,
                 "headers": {
-                    "Authorization": `Bearer ${token}`,
+                    "Authorization": `Bearer ${token.token}`,
                     "Content-Type": "application/json"
                 }
             }
@@ -67,7 +67,7 @@ $(document).ready(function () {
                     "method": "POST",
                     "timeout": 0,
                     "headers": {
-                        "Authorization": `Bearer ${token}`,
+                        "Authorization": `Bearer ${token.token}`,
                         "Content-Type": "application/json"
                     },
                     "data": JSON.stringify({
