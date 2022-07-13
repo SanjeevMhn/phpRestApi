@@ -113,9 +113,9 @@ $(document).ready(function () {
 
            
         } else {
-            window.location.replace('/login');
-            window.location.reload(true);
             localStorage.removeItem('jwt');
+            window.location.reload(true);
+            window.location.replace('/login');
         }
     }
 
