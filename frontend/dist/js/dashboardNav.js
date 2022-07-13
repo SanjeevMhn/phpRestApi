@@ -25,7 +25,7 @@ $(document).ready(function () {
     //logout
     $(".log-out").click(function () {
         localStorage.removeItem("jwt");
-        window.location.reload();
+        location.reload();
     });
 
     //create btn//

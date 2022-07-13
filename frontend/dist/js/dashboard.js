@@ -1,7 +1,7 @@
 $(document).ready(function () {
     let token = JSON.parse(localStorage.getItem("jwt"));
-
     if (location.pathname == "/dashboard") {
+        let token = JSON.parse(localStorage.getItem("jwt"));
         let sideMenu = $('.side-nav .nav-list .nav-list-item .nav-list-link');
         sideMenu[0].classList.add('active');
 
