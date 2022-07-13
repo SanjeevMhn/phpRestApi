@@ -12,6 +12,12 @@ switch ($request) {
     case '/dashboard':
         require_once __DIR__ . '/pages/dashboard.php';
         break;
+    case '/adminDashboard':
+        require_once __DIR__ . '/pages/adminDashboard.php';
+        break;
+    case '/users':
+        require_once __DIR__ .'/pages/users.php';
+        break;
     case '/workouts':
         require_once __DIR__ . '/pages/workouts.php';
         break;

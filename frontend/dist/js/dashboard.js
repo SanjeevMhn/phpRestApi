@@ -1,15 +1,6 @@
 $(document).ready(function () {
     let token = JSON.parse(localStorage.getItem("jwt"));
 
-    $(document).click(function (e) {
-        let target = $(e.target);
-        if (!target.closest('.drpdown-content').length) {
-            if ($('.drpdown-content').hasClass('show-drp')) {
-                //console.log("hello");
-                //$('.drpdown-content').removeClass('show-drp');
-            }
-        }
-    })
     if (location.pathname == "/dashboard") {
         let sideMenu = $('.side-nav .nav-list .nav-list-item .nav-list-link');
         sideMenu[0].classList.add('active');
@@ -48,19 +39,7 @@ $(document).ready(function () {
                 }
             });
 
-            //to get current time to display messages//
-            let current_day = new Date();
-            let current_hr = current_day.getHours();
 
-            if (current_hr >= 0 && current_hr < 12) {
-                $(".current-time").html("Good Morning!");
-            } else if (current_hr >= 12 && current_hr <= 17) {
-                $(".current-time").html("Good Afternoon!");
-            } else if (current_hr >= 17 && current_hr <= 19) {
-                $(".current-time").html("Good Evening!");
-            } else {
-                $(".current-time").html("Good Night!");
-            }
 
             //submitting user goal form//
             $(".user-goal-form").submit(function (e) {
@@ -119,48 +98,46 @@ $(document).ready(function () {
 
 
         } else {
-            window.location.pathname = "/login";
+            window.location.replace("/login");
+        }
+    } else if (location.pathname == "/adminDashboard") {
+        if (token) {
+            let sideMenu = $('.side-nav .nav-list .nav-list-item .nav-list-link');
+            sideMenu[0].classList.add('active');
+
+
+            let getUsers = {
+                'url': '/api/admin/getUsers.php',
+                'method': 'POST',
+                'timeout': 0,
+                'headers': {
+                    'Authorization': `Bearer ${token.token}`
+                }
+            };
+
+            $.ajax(getUsers).done(function (response) {
+                if (response.success == 1) {
+                    $('.number-of-users').text(response.user_count);
+                }
+            })
+        }else{
+            window.location.replace('/login');
         }
     }
-    // //sidenav toggle//
-    // let sideNavToggle = $(".sidenav-toggler");
-    // let sideNavExp = false;
-    // $(".brand-exp").css("display", "block");
-    // $(".brand-mini").css("display", "none");
-    // $(".side-nav").removeClass("mini-nav");
-    // sideNavToggle.click(function () {
-    //     const root = document.documentElement;
-    //     if (sideNavExp) {
-    //         root.style.setProperty("--sidenav-width", "250px");
-    //         sideNavExp = false;
-    //         $(".brand-exp").css("display", "block");
-    //         $(".brand-mini").css("display", "none");
-    //         $(".side-nav").removeClass("mini-nav");
-    //     } else {
-    //         root.style.setProperty("--sidenav-width", "80px");
-    //         sideNavExp = true;
-    //         $(".brand-mini").css("display", "block");
-    //         $(".brand-exp").css("display", "none");
-    //         $(".side-nav").addClass("mini-nav");
-    //     }
-    // });
 
-    // //logout
-    // $(".log-out").click(function () {
-    //     localStorage.removeItem("jwt");
-    //     window.location.reload();
-    // });
+    //to get current time to display messages//
+    let current_day = new Date();
+    let current_hr = current_day.getHours();
 
-    // //create btn//
-    // $(".create").click(function () {
-    //     $(".drpdown-content").toggleClass("show-drp");
-    // });
-
-    // //show add workout modal//
-    // $(".drpdown-content .create-workout").click(function () {
-    //     $(".add-workout-modal").addClass("dsp-flex");
-    //     $("body").addClass('overlay');
-    // });
+    if (current_hr >= 0 && current_hr < 12) {
+        $(".current-time").html("Good Morning!");
+    } else if (current_hr >= 12 && current_hr <= 17) {
+        $(".current-time").html("Good Afternoon!");
+    } else if (current_hr >= 17 && current_hr <= 19) {
+        $(".current-time").html("Good Evening!");
+    } else {
+        $(".current-time").html("Good Night!");
+    }
 
     //add or delete exercise//
     $(".add-exercise").click(function () {

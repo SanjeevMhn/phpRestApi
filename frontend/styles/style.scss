@@ -19,6 +19,32 @@ a{
     --sidenav-width: 250px;
 }
 
+.table{
+    padding: 0;
+    margin: 0;
+    border: 1px solid #000;
+    .tbl-row{
+        display: flex;
+        &:not(:last-child){
+            border-bottom: 1px solid #000;
+        }
+    }
+    span{
+        padding: 10px 15px;
+        font-size: 20px;
+        width: 180px;
+        max-width: 180px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        &:first-child{
+            width: 80px;
+        }
+        &:not(:last-child){
+            border-right: 1px solid #000;
+        }
+    }
+}
 
 
 body {
