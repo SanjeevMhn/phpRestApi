@@ -182,14 +182,15 @@ class User extends JwtHandler
             ));
         }
     }
-    public function setUserGoal($id,$goal,$weight,$weightMetric){
+    public function setUserGoal($id,$goal,$weight,$weightMetric,$userLevel){
         try{
-            $query = "INSERT INTO users_goal (id, user_goal,user_weight,weight_metric) VALUES (:id,:goal,:weight,:weightMetric)";
+            $query = "INSERT INTO users_goal (id, user_goal,user_weight,weight_metric,user_level) VALUES (:id,:goal,:weight,:weightMetric,:level)";
             $stmt = $this->conn->prepare($query);
             $stmt->bindValue(":id",$id,PDO::PARAM_INT);
             $stmt->bindValue(":goal",$goal,PDO::PARAM_STR);
             $stmt->bindValue(":weight",$weight,PDO::PARAM_INT);
             $stmt->bindValue(":weightMetric",$weightMetric,PDO::PARAM_STR);
+            $stmt->bindValue(":level",$userLevel,PDO::PARAM_STR);
             return $stmt->execute();
         }catch(PDOException $ex){
             echo json_encode(array(

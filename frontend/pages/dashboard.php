@@ -41,6 +41,14 @@
                 <span class="err-msg err-goal">Please select from the given options</span>
             </div>
             <div class="form-data">
+                <label for="workout-level">Your Fitness Level</label>
+                <select name="workout-level" id="workout-level" class="form-select">
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="advance">Advance</option>
+                </select>
+            </div>
+            <div class="form-data">
                 <button type="submit">Done</button>
             </div>
         </form>

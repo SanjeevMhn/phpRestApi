@@ -48,6 +48,7 @@ $(document).ready(function () {
                 let weightInput = $('input[name="user-weight"]').val();
                 let weightMetric = $('select[name="weight-metric"] option:selected').val();
                 let goalSelect = $('select[name="user-goal"] option:selected').val();
+                let levelSelect = $('select[name="workout-level"] option:selected').val();
                 let counter = 0;
                 if (goalSelect !== "default") {
                     $('select[name="user-goal"]').removeClass("err-field");
@@ -67,11 +68,11 @@ $(document).ready(function () {
                 }
 
                 if (counter == 0) {
-                    setUserWorkoutGoal(weightInput, weightMetric, goalSelect);
+                    setUserWorkoutGoal(weightInput, weightMetric, goalSelect,levelSelect);
                 }
             });
 
-            function setUserWorkoutGoal(weightInput, weightMetric, goalSelect) {
+            function setUserWorkoutGoal(weightInput, weightMetric, goalSelect,levelSelect) {
                 console.log(weightInput, weightMetric, goalSelect);
                 let parsedWeight = parseInt(weightInput);
                 let setGoal = {
@@ -86,6 +87,7 @@ $(document).ready(function () {
                         "goal": goalSelect,
                         "start_weight": parsedWeight,
                         "weight_metric": weightMetric,
+                        "user_level": levelSelect
                     }),
                 }
 
