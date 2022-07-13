@@ -48,6 +48,59 @@ class User extends JwtHandler
         }
     }
 
+    public function getUserFitnessLevel($userId){
+        try{
+
+            $query = "SELECT user_level from users_goal WHERE id = :id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindValue(":id",$userId);
+            $stmt->execute();
+            if($stmt->rowCount()){
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            }else{
+                return array(
+                    "success" => 0,
+                    "message" => "Fitness level not set"
+                );
+            }
+
+        }catch(PDOException $ex){
+            echo json_encode(array(
+                "success" => 0,
+                "message" => $ex->getMessage()
+            ));
+        }
+    }
+
+    public function getRecommendedWorkouts($userLevel){
+
+        try{
+            //$userLevel = $this->getUserFitnessLevel($userId);
+            $query = "SELECT rec_workout_level,rec_workout_name,rec_workout_duration_hrs,rec_workout_duration_mins,rec_workout_duration_secs FROM recommend_workouts WHERE rec_workout_level = :level";
+
+            $stmt = $this->conn->prepare($query);
+            //$stmt->bindValue(":level",$userLevel['user_level']);
+            $stmt->bindValue(":level",$userLevel);
+            $stmt->execute();
+            if($stmt->rowCount()){
+                echo json_encode(array(
+                    "success" => 1,
+                    "workouts" => $stmt->fetchAll(PDO::FETCH_ASSOC)
+                ));
+            }else{
+                return array(
+                    "success" => 0,
+                    "message" => "No workouts available for this level"
+                );
+            }
+        }catch(PDOException $ex){
+            echo json_encode(array(
+                "success" => 0,
+                "message" => $ex->getMessage()
+            ));
+        }
+    }
+
     public function getExercises($workoutId,$userId){
         try{
             $query = "SELECT * FROM exercises_tbl WHERE workout_id = :workoutId AND user_id = :userId";

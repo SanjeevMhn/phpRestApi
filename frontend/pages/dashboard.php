@@ -14,6 +14,8 @@
                 </div>
             </a>
         </div>
+        <div class="recommended-workouts ft-poppins">
+        </div>
         <form method="post" class="user-goal-form ft-poppins">
             <div class="form-data">
                 <label for="user-weight">

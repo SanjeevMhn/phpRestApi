@@ -99,6 +99,11 @@ $(document).ready(function () {
                 });
             }
 
+            //fetch recommeded workouts based on user's selected fitness level//
+            let getRecommendWorkouts = {
+                "url": ""
+            }
+
 
         } else {
             window.history.back();
