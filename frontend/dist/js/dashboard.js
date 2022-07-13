@@ -1,11 +1,12 @@
 $(document).ready(function () {
+
     let token = JSON.parse(localStorage.getItem("jwt"));
     if (location.pathname == "/dashboard") {
         let token = JSON.parse(localStorage.getItem("jwt"));
         let sideMenu = $('.side-nav .nav-list .nav-list-item .nav-list-link');
         sideMenu[0].classList.add('active');
 
-        if (token !== null) {
+        if (token) {
             let getUserInfo = {
                 url: "/api/users/getUser.php",
                 method: "POST",
@@ -98,9 +99,13 @@ $(document).ready(function () {
 
 
         } else {
+            window.history.back();
+            localStorage.removeItem('jwt');
+            window.location.reload(true);
             window.location.replace("/login");
         }
     } else if (location.pathname == "/adminDashboard") {
+        let token = JSON.parse(localStorage.getItem("jwt"));
         if (token) {
             let sideMenu = $('.side-nav .nav-list .nav-list-item .nav-list-link');
             sideMenu[0].classList.add('active');
@@ -121,6 +126,9 @@ $(document).ready(function () {
                 }
             })
         }else{
+            window.history.back();
+            localStorage.removeItem('jwt');
+            window.location.reload(true);
             window.location.replace('/login');
         }
     }

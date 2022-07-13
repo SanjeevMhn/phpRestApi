@@ -3,6 +3,7 @@ $(document).ready(function () {
     let token = JSON.parse(localStorage.getItem("jwt"));
     if (location.pathname == '/workouts') {
 
+        let token = JSON.parse(localStorage.getItem("jwt"));
         let sideMenu = $('.side-nav .nav-list .nav-list-item .nav-list-link');
         sideMenu[1].classList.add('active');
 
@@ -112,7 +113,9 @@ $(document).ready(function () {
 
            
         } else {
-           window.location.replace('/login');
+            window.location.replace('/login');
+            window.location.reload(true);
+            localStorage.removeItem('jwt');
         }
     }
 

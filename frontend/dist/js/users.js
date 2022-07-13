@@ -1,11 +1,12 @@
 $(document).ready(function () {
     let token = JSON.parse(localStorage.getItem('jwt'));
-    if (token) {
-        if (token.user_type == "admin" && location.pathname == '/users') {
+    if (location.pathname == '/users') {
 
-            let sideMenu = $('.side-nav .nav-list .nav-list-item .nav-list-link');
-            sideMenu[1].classList.add('active');
+        let token = JSON.parse(localStorage.getItem('jwt'));
+        let sideMenu = $('.side-nav .nav-list .nav-list-item .nav-list-link');
+        sideMenu[1].classList.add('active');
 
+        if (token && token.user_type == "admin") {
             let getUsers = {
                 'url': '/api/admin/getUsers.php',
                 'method': 'POST',
@@ -48,9 +49,11 @@ $(document).ready(function () {
                     })
                 }
             })
-
+        } else {
+            window.location.reload(true);
+            localStorage.removeItem('jwt');
+            window.location.replace('/login');
         }
-    } else {
-        window.location.replace = "/login";
+
     }
 })
