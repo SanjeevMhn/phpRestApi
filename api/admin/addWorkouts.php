@@ -15,6 +15,14 @@ $admin = new Admin($db, $headers);
 
 $data = json_decode(file_get_contents("php://input"), true);
 $validAdmin = $admin->isValid();
+                       
+
+$mainErrCounter = 0;
+$workoutName = '';
+$workoutType = '';
+$workoutLevel = '';
+$workoutDuration = array();
+$workoutDesc = array();
 
 if ($_SERVER['REQUEST_METHOD'] !== "POST") {
     echo json_encode(array(
@@ -23,7 +31,6 @@ if ($_SERVER['REQUEST_METHOD'] !== "POST") {
     ));
 } else {
     if ($validAdmin['success'] == 1) {
-        $mainErrCounter = 0;
 
         //workout name and type//
         if (
@@ -62,6 +69,34 @@ if ($_SERVER['REQUEST_METHOD'] !== "POST") {
                 "message" => "Please name your workout and describe its type (strength, cardio,sports,hybrid)"
             ));
             $mainErrCounter = $mainErrCounter + 1;
+        }
+
+        //workout level//
+        if(!isset($data['workout_level'])
+            || empty(trim($data['workout_level']))
+        ){
+            echo json_encode(array(
+                "success" => 0,
+                "message" => "Please select workout level (beginner,intermediate,advance)"
+            ));
+            $mainErrCounter = $mainErrCounter + 1;
+        }else{
+       
+            $workoutLevelTypes = ["beginner","intermediate","advance"];
+            $wlCount = 0;
+            foreach($workoutLevelTypes as $wl){
+                if(strcmp(trim($data['workout_level']),$wl) == 0){
+                    $wlCount = $wlCount + 1;
+                }
+            }
+            if($wlCount == 1){
+                $workoutLevel = trim($data['workout_level']);
+            }else{
+                echo json_encode(array(
+                    "success" => 0,
+                    "message" => "Invalid level! Please select workout level (beginner,intermediate,advance)"
+                ));
+            }
         }
 
         //workout duration//
@@ -287,11 +322,13 @@ if ($_SERVER['REQUEST_METHOD'] !== "POST") {
                 $workoutData = array(
                     "name" => $workoutName,
                     "type" => $workoutType,
+                    "level" => $workoutLevel,
                     "duration" => $workoutDuration,
                     "description" => $workoutDesc
                 );
 
-                $admin->addWorkout($workoutData);
+                $admin->addWorkouts($workoutData);
+                //echo json_encode($workoutData);
             }
         }
     } else {
