@@ -93,4 +93,16 @@ class Admin extends JwtHandler
             ));
         }
     }
+
+    public function addWorkouts($workoutData){
+        try{
+
+
+        }catch(PDOException $ex){
+            echo json_encode(array(
+                "success" => 0,
+                "message" => $ex->getMessage()
+            ));
+        }
+    }
 }

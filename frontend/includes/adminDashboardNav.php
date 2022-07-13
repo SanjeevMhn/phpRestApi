@@ -69,15 +69,13 @@
         <ul class="user-actions">
             <li class="action">
                 <div class="action-link create">
-                    <span class="label-text">Create</span>
+                    <span class="label-text">Add</span>
                     <div class="icon-container">
                         <img src="frontend/assets/images/chevronDown_icon.svg" alt="">
                     </div>
                     <div class="drpdown-content ft-source">
-                        <a href="javascript:void(0)" class="dp-item create-workout">Create Workout</a>
-                        <a href="javascript:void(0)" class="dp-item create-diet">Create Diet</a>
-                        <a href="javascript:void(0)" class="dp-item create-workout">Create Workout Log</a>
-                        <a href="javascript:void(0)" class="dp-item create-diet">Create Diet Log</a>
+                        <a href="javascript:void(0)" class="dp-item create-workout">Add Workout</a>
+                        <a href="javascript:void(0)" class="dp-item create-diet">Add Diet</a>
                     </div>
                 </div>
             </li>

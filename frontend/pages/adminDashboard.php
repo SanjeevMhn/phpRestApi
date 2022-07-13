@@ -2,7 +2,7 @@
 <main class="dashboard-container">
     <section class="dashboard-sec content">
         <div class="user-detail">
-            <div class="current-time ft-poppins"></div> 
+            <div class="current-time ft-poppins"></div>
             <span class="user-name ft-source">Admin</span>
         </div>
         <div class="links-list list ft-poppins">
@@ -62,6 +62,15 @@
                 <span class="err-msg err-wr-type">Please select workout type</span>
             </div>
             <div class="form-data">
+                <label for="workout-level">Workout Level</label>
+                <select name="workout-level" id="workout-level" class="form-select">
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="advance">Advance</option>
+                </select>
+                <span class="err-msg err-wr-level">Please select workout level</span>
+            </div>
+            <div class="form-data">
                 <label for="workout-duration">Workout Duration</label>
                 <div class="duration-set">
                     <div class="duration">
@@ -82,7 +91,7 @@
                 <div class="exercise-container">
                     <div class="exercise-block">
                         <div class="block">
-                            <input type="text" name="exercise-name" id="" class="form-inp" placeholder="Exercise Name"> 
+                            <input type="text" name="exercise-name" id="" class="form-inp" placeholder="Exercise Name">
                         </div>
                         <div class="block">
                             <input type="number" name="exercise-sets" id="" class="form-inp" placeholder="No of sets">
