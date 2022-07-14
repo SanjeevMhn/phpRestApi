@@ -1,9 +1,11 @@
+@import "./vars";
+
 .dashboard-nav {
     position: relative;
     display: flex;
     z-index: 999;
     a {
-        color: #000;
+        color: #fff;
         text-decoration: none;
     }
 
@@ -17,7 +19,7 @@
         left: 0;
         flex: 0 0 var(--sidenav-width);
         width: var(--sidenav-width);
-        background-color: #e6a63f;
+        background-color: $mainColor;
         transition: all 0.3s;
         height: 100vh;
         padding-top: 5px;
@@ -44,7 +46,7 @@
                 color: #fff;
                 display: flex;
                 width: 100%;
-                background-color: #c28728;
+                background-color: $activeMainColor;
                 padding: 7.5px 20px;
 
                 .icon-container {
@@ -95,7 +97,7 @@
 
                 &:hover,
                 &.active {
-                    background-color: #c28728;
+                    background-color: $activeMainColor;
                     color: #fff;
                     border-bottom: 2px solid #fff;
                 }
@@ -171,7 +173,7 @@
 
     .top-nav {
         flex: 1;
-        background-color: #eeddd3;
+        background-color: $topNavColor;
         max-height: 74px;
         left: var(--sidenav-width);
         width: calc(100% - var(--sidenav-width));
@@ -230,14 +232,14 @@
                 align-items: center;
                 justify-content: center;
                 cursor: pointer;
-                background-color: #d3b29f;
+                background-color: $userSettings;
                 border-radius: 50%;
                 height: 40px;
                 width: 40px;
                 color: #fff;
 
                 &.create {
-                    background-color: dodgerblue;
+                    background-color: $buttonColor;
                     padding: 5px 20px;
                     width: 150px;
                     border-radius: 5px;
@@ -264,7 +266,7 @@
                             display: block;
                             padding: 8px 10px;
                             font-size: 22px;
-                            background-color: #e6a63f;
+                            background-color: $mainColor;
                             color: #fff;
 
                             &:first-child {
@@ -276,7 +278,7 @@
                             }
 
                             &:hover {
-                                background-color: #c28728;
+                                background-color: $activeMainColor;
                             }
                         }
                     }
@@ -285,10 +287,6 @@
                         display: block;
                     }
 
-                    &:hover {
-                        background-color: dodgerblue;
-                        color: #fff;
-                    }
                 }
             }
         }

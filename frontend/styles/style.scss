@@ -20,7 +20,7 @@ a{
 }
 .header-text{
     font-size: 30px;
-    color: #000;
+    color: $activeMainColor;
 }
 .underline{
     text-decoration: underline;
@@ -267,7 +267,7 @@ button{
         position: relative;
         isolation: isolate;
         overflow: hidden;
-
+        color: $activeMainColor;
         >* {
             overflow: hidden;
             text-overflow: ellipsis;
@@ -282,11 +282,11 @@ button{
             left: 0;
             top: 0;
             z-index: -1;
-            background-color: $activeMainColor;
+            background-color: $mainColor;
         }
 
         &:hover {
-            color: #fff;
+            color: #fff!important;
 
             &:after {
                 width: 100%;
