@@ -15,6 +15,8 @@
             </a>
         </div>
         <div class="recommended-workouts ft-poppins">
+            <h2 class="header-text underline">Recommended Workouts</h2>
+            <div class="recommended-workouts-list list"></div>
         </div>
         <form method="post" class="user-goal-form ft-poppins">
             <div class="form-data">

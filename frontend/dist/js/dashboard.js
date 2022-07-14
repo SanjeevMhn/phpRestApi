@@ -37,6 +37,10 @@ $(document).ready(function () {
                 console.log(response);
                 if (response.success == 0) {
                     $(".user-goal-form").css("display", "flex");
+                    $(".recommended-workouts").css("display", "none");
+                } else if (response.success == 1) {
+                    $(".recommended-workouts").css("display", "block");
+                    recommendedWorkouts();
                 }
             });
 
@@ -68,11 +72,11 @@ $(document).ready(function () {
                 }
 
                 if (counter == 0) {
-                    setUserWorkoutGoal(weightInput, weightMetric, goalSelect,levelSelect);
+                    setUserWorkoutGoal(weightInput, weightMetric, goalSelect, levelSelect);
                 }
             });
 
-            function setUserWorkoutGoal(weightInput, weightMetric, goalSelect,levelSelect) {
+            function setUserWorkoutGoal(weightInput, weightMetric, goalSelect, levelSelect) {
                 console.log(weightInput, weightMetric, goalSelect);
                 let parsedWeight = parseInt(weightInput);
                 let setGoal = {
@@ -95,13 +99,51 @@ $(document).ready(function () {
                     console.log(response);
                     if (response.success == 1) {
                         $(".user-goal-form").css("display", "none");
+                        $(".recommended-workouts").css("display", "block");
+                        recommendedWorkouts();
                     }
                 });
             }
 
             //fetch recommeded workouts based on user's selected fitness level//
-            let getRecommendWorkouts = {
-                "url": ""
+            function recommendedWorkouts() {
+                let getRecommendWorkouts = {
+                    "url": "/api/users/getRecommendedWorkouts.php",
+                    "method": "POST",
+                    "timeout": 0,
+                    "headers": {
+                        "Authorization": `Bearer ${token.token}`
+                    }
+                }
+
+                $.ajax(getRecommendWorkouts).done(function (response) {
+                    if (response.success == 1) {
+                        let recommendedWorkouts = $('.recommended-workouts-list');
+                        $.map(response.workouts, (workout, index) => {
+                            let recWorkoutCardContainer = $('<div class="rec-workout-card list-item"></div>');
+                            let recWorkoutCard = $('<div class="inner-container"></div>');
+                            let recWorkoutName = $('<h2 class="rec-workout-name"></h2>');
+                            let recWorkoutDuration = $('<div class="rec-workout-duration"></div>');
+                            let recWorkoutDuHrs = $('<span class="hrs"></span>');
+                            let recWorkoutDuMins = $('<span class="mins"></span>');
+                            let recWorkoutDuSecs = $('<span class="secs"></span>');
+
+                            recWorkoutName.text(workout.rec_workout_name);
+                            recWorkoutDuHrs.text(workout.rec_workout_duration_hrs + " hrs  : ");
+                            recWorkoutDuMins.text(workout.rec_workout_duration_mins + " mins : ");
+                            recWorkoutDuSecs.text(workout.rec_workout_duration_secs + " secs");
+
+                            recWorkoutDuration.append(recWorkoutDuHrs);
+                            recWorkoutDuration.append(recWorkoutDuMins);
+                            recWorkoutDuration.append(recWorkoutDuSecs);
+
+                            recWorkoutCard.append(recWorkoutName);
+                            recWorkoutCard.append(recWorkoutDuration);
+                            recWorkoutCardContainer.append(recWorkoutCard);
+                            recommendedWorkouts.append(recWorkoutCardContainer);
+                        })
+                    }
+                })
             }
 
 
@@ -132,7 +174,7 @@ $(document).ready(function () {
                     $('.number-of-users').text(response.user_count);
                 }
             })
-        }else{
+        } else {
             window.history.back();
             localStorage.removeItem('jwt');
             window.location.reload(true);

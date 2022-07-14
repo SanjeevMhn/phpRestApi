@@ -16,44 +16,15 @@ $validateUser = $user->isValid();
 
 //$data = json_decode(file_get_contents("php://input"),true);
 
-if($_SERVER['REQUEST_METHOD'] !== "POST"){
+if ($_SERVER['REQUEST_METHOD'] !== "POST") {
 	echo json_encode(array(
 		"success" => 0,
 		"message" => "Page does not exist"
 	));
-}else{
-	if($validateUser['success'] == 1){
-
-		// if(!isset($data['user_level'])
-		// 	|| empty(trim($data['user_level']))
-		// ){
-		// 	echo json_encode(array(
-		// 		"success" => 0,
-		// 		"message" => "User fitness level not provided"
-		// 	));
-		// }else{
-		// 	if(trim($data['user_level'])){
-		// 		$userLevelTypes = ["beginner","intermediate","advance"];
-		// 		$ulCount = 0;
-
-		// 		foreach($userLevelTypes as $ul){
-		// 			if(strcmp(trim($data['user_level']),$ul) == 0){
-		// 				$ulCount = $ulCount + 1;	
-		// 			}
-		// 		}
-
-		// 		if($ulCount == 1){
-
-                    $userId = $user->getUserByEmail($validateUser['user']['email']);
-                    $userFitLevel = $user->getUserFitnessLevel($userId['id']);
-					$user->getRecommendedWorkouts($userFitLevel['user_level']);
-				// }else{
-				// 	echo json_encode(array(
-				// 		"success" => 0,
-				// 		"message" => "Invalid user level (beginner,intermediate,advance)"
-				// 	));
-				// }
-		// 	}
-		// }
+} else {
+	if ($validateUser['success'] == 1) {
+		$userId = $user->getUserByEmail($validateUser['user']['email']);
+		$userFitLevel = $user->getUserFitnessLevel($userId['id']);
+		$user->getRecommendedWorkouts($userFitLevel['user_level']);
 	}
 }

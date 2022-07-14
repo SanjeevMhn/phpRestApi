@@ -18,7 +18,14 @@ a{
 :root {
     --sidenav-width: 250px;
 }
-
+.header-text{
+    font-size: 30px;
+    color: #000;
+}
+.underline{
+    text-decoration: underline;
+    text-underline-offset: 10px;
+}
 .table{
     padding: 0;
     margin: 0;
@@ -207,6 +214,9 @@ button[type="submit"]{
 }
 button[type="reset"]{
     background-color: maroon;
+}
+button{
+    color: #fff;
 }
 
 .modal {
