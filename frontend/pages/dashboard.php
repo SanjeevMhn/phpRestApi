@@ -18,6 +18,23 @@
             <h2 class="header-text underline">Recommended Workouts</h2>
             <div class="recommended-workouts-list list"></div>
         </div>
+
+        <div class="rec-workout-detail-modal workout-detail-modal modal ft-poppins">
+            <h2 class="modal-rec-workout-name modal-workout-name"></h2>
+            <div class="modal-rec-workout-duration modal-workout-duration">
+                Workout Duration <br/>
+                <span class="hrs"></span>
+                <span class="mins"></span>
+                <span class="secs"></span>
+            </div>
+            <div class="exercise-list">
+
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="add-workout">Add Workout</button>
+                <button type="reset" class="close-rec-workout">Cancel</button>
+            </div>
+        </div>
         <form method="post" class="user-goal-form ft-poppins">
             <div class="form-data">
                 <label for="user-weight">

@@ -117,10 +117,16 @@ $(document).ready(function () {
                 }
 
                 $.ajax(getRecommendWorkouts).done(function (response) {
+                    console.log(response);
                     if (response.success == 1) {
                         let recommendedWorkouts = $('.recommended-workouts-list');
                         $.map(response.workouts, (workout, index) => {
                             let recWorkoutCardContainer = $('<div class="rec-workout-card list-item"></div>');
+                            recWorkoutCardContainer.data('recWorkoutId', workout.rec_workout_id);
+                            recWorkoutCardContainer.data('recWorkoutDurationHrs', workout.rec_workout_duration_hrs);
+                            recWorkoutCardContainer.data('recWorkoutDurationMins', workout.rec_workout_duration_mins);
+                            recWorkoutCardContainer.data('recWorkoutDurationSecs', workout.rec_workout_duration_secs);
+                            recWorkoutCardContainer.data('recWorkoutName', workout.rec_workout_name);
                             let recWorkoutCard = $('<div class="inner-container"></div>');
                             let recWorkoutName = $('<h2 class="rec-workout-name"></h2>');
                             let recWorkoutDuration = $('<div class="rec-workout-duration"></div>');
@@ -145,6 +151,53 @@ $(document).ready(function () {
                     }
                 })
             }
+
+            $(document).on('click', '.rec-workout-card', function () {
+                console.log($(this).data('recWorkoutId'));
+                $('.rec-workout-detail-modal').addClass('dsp-flex');
+                $('body').addClass('overlay');
+                $('.rec-workout-detail-modal .modal-rec-workout-name').text($(this).data('recWorkoutName'));
+                $('.rec-workout-detail-modal .modal-rec-workout-duration .hrs').text($(this).data('recWorkoutDurationHrs') + " hrs  :  ");
+                $('.rec-workout-detail-modal .modal-rec-workout-duration .mins').text($(this).data('recWorkoutDurationMins') + " mins  :  ");
+                $('.rec-workout-detail-modal .modal-rec-workout-duration .secs').text($(this).data('recWorkoutDurationSecs') + " secs");
+
+                let getExercises = {
+                    "url": "api/users/getRecommendedExercises.php",
+                    "method": "POST",
+                    "timeout": 0,
+                    "headers": {
+                        "Authorization": `Bearer ${token.token}`
+                    },
+                    "data": JSON.stringify({
+                        "rec_workout_id": $(this).data('recWorkoutId')
+                    })
+                };
+
+                $.ajax(getExercises).done(function (response) {
+                    let exerciseList = $('.rec-workout-detail-modal .exercise-list');
+                    if (response.success == 1) {
+                        $.map(response.exercises, (exercise, index) => {
+                            let exerciseItem = $('<div class="exercise-item"></div>');
+                            let exerciseName = $('<span class="exercise-name"></span>');
+                            let exerciseSets = $('<span class="exercise-sets"></span>');
+                            let exerciseReps = $('<span class="exercise-reps"></span>');
+                            exerciseName.text(exercise.rec_exercise_name + " : ");
+                            exerciseSets.text(exercise.rec_exercise_sets + " sets");
+                            exerciseReps.text(exercise.rec_exercise_reps + " reps");
+                            exerciseItem.append(exerciseName);
+                            exerciseItem.append(exerciseSets);
+                            exerciseItem.append(exerciseReps);
+                            exerciseList.append(exerciseItem);
+                        })
+                    }
+                })
+            });
+
+            $('.close-rec-workout').click(function () {
+                $('.rec-workout-detail-modal').removeClass('dsp-flex');
+                $('.rec-workout-detail-modal .exercise-list').html('');
+                $('body').removeClass('overlay');
+            })
 
 
         } else {

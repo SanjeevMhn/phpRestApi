@@ -15,7 +15,7 @@ $db = $dbConn->connect();
 
 $data = json_decode(file_get_contents("php://input"));
 
-if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(array(
         "success" => 0,
         "message" => "Page not found"

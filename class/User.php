@@ -72,11 +72,38 @@ class User extends JwtHandler
         }
     }
 
+    public function getRecommendedExercises($recWorkoutId){
+        try{
+
+            $query = "SELECT rec_exercise_name, rec_exercise_sets,rec_exercise_reps FROM recommend_exercises WHERE rec_workout_id = :id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindValue(":id",$recWorkoutId);
+            $stmt->execute();
+            if($stmt->rowCount()){
+                return array(
+                    "success" => 1,
+                    "exercises" => $stmt->fetchAll(PDO::FETCH_ASSOC)
+                );
+            }else{
+                return array(
+                    "success" => 0,
+                    "message" => "No exercises available"
+                );
+            }
+
+        }catch(PDOException $ex){
+            echo json_encode(array(
+                "success" => 0,
+                "message" => $ex->getMessage()
+            ));
+        }
+    }
+
     public function getRecommendedWorkouts($userLevel){
 
         try{
             //$userLevel = $this->getUserFitnessLevel($userId);
-            $query = "SELECT rec_workout_level,rec_workout_name,rec_workout_duration_hrs,rec_workout_duration_mins,rec_workout_duration_secs FROM recommend_workouts WHERE rec_workout_level = :level";
+            $query = "SELECT rec_workout_id,rec_workout_level,rec_workout_name,rec_workout_duration_hrs,rec_workout_duration_mins,rec_workout_duration_secs FROM recommend_workouts WHERE rec_workout_level = :level";
 
             $stmt = $this->conn->prepare($query);
             //$stmt->bindValue(":level",$userLevel['user_level']);

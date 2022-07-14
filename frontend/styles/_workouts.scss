@@ -2,51 +2,5 @@
 
 
 .workouts-sec {
-	.workout-detail-modal{
-		padding: 50px;
-		flex-direction: column;
-		.modal-workout-name{
-			text-align: center;
-			padding-bottom: 20px;
-			font-size: 30px;
-		}
-		.modal-workout-duration{
-			font-size: 25px;
-			padding-bottom: 20px;
-			font-weight: 500;
-			text-align: center;
-		}
-		.exercise-list{
-			overflow: auto;
-			padding-bottom: 20px;
-			.exercise-item{
-				padding-bottom: 15px;
-				padding-top: 15px;
-				font-size: 22px;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				border-bottom: 2px solid #000;
-				>*{
-					flex: 0 0 calc(100% / 4);
-					display: flex;
-					justify-content: flex-end;
-					text-overflow: ellipsis;
-					white-space: nowrap;
-				}
-			}
-
-		}
-		.modal-actions{
-			margin-top: auto;
-			padding-top: 20px;
-			margin-left: auto;
-			button{
-				color: #fff;
-				margin-right: 20px;
-			}
-			
-		}
-
-	}   
+	  
 }
