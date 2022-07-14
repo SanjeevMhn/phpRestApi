@@ -24,8 +24,14 @@
             <div class="modal-rec-workout-duration modal-workout-duration">
                 Workout Duration <br/>
                 <span class="hrs"></span>
+                <span>&nbsp;hrs&nbsp;:&nbsp;</span>
                 <span class="mins"></span>
+                <span>&nbsp;mins&nbsp;:&nbsp;</span>
                 <span class="secs"></span>
+                <span>&nbsp;secs</span>
+            </div>
+            <div class="modal-rec-workout-type modal-workout-duration">
+                Workout Type: <span class="type"></span>
             </div>
             <div class="exercise-list">
 

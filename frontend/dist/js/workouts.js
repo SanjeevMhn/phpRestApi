@@ -90,12 +90,14 @@ $(document).ready(function () {
                             let exerciseName = $('<span class="exercise-name"></span>');
                             let exerciseSets = $('<span class="exercise-sets"></span>');
                             let exerciseReps = $('<span class="exercise-reps"></span>');
-                            exerciseName.text(exercise.exercise_name + " : ");
-                            exerciseSets.text(exercise.exercise_sets + " sets");
-                            exerciseReps.text(exercise.exercise_reps + " reps");
+                            exerciseName.text(exercise.exercise_name);
+                            exerciseSets.text(exercise.exercise_sets);
+                            exerciseReps.text(exercise.exercise_reps);
                             exerciseItem.append(exerciseName);
                             exerciseItem.append(exerciseSets);
+                            exerciseItem.append('<span>sets</span>')
                             exerciseItem.append(exerciseReps);
+                            exerciseItem.append('<span>reps</span>')
                             $('.exercise-list').append(exerciseItem);
                         }); 
                     }

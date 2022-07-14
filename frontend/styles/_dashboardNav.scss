@@ -19,7 +19,7 @@
         left: 0;
         flex: 0 0 var(--sidenav-width);
         width: var(--sidenav-width);
-        background-color: $mainColor;
+        background: $mainColor;
         transition: all 0.3s;
         height: 100vh;
         padding-top: 5px;

@@ -103,7 +103,7 @@ class User extends JwtHandler
 
         try{
             //$userLevel = $this->getUserFitnessLevel($userId);
-            $query = "SELECT rec_workout_id,rec_workout_level,rec_workout_name,rec_workout_duration_hrs,rec_workout_duration_mins,rec_workout_duration_secs FROM recommend_workouts WHERE rec_workout_level = :level";
+            $query = "SELECT rec_workout_id,rec_workout_level,rec_workout_name,rec_workout_type,rec_workout_duration_hrs,rec_workout_duration_mins,rec_workout_duration_secs FROM recommend_workouts WHERE rec_workout_level = :level";
 
             $stmt = $this->conn->prepare($query);
             //$stmt->bindValue(":level",$userLevel['user_level']);
