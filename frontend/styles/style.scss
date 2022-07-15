@@ -32,13 +32,16 @@ a {
     color: inherit;
 }
 
+body{
+    color: $activeMainColor;
+}
+
 :root {
     --sidenav-width: 250px;
 }
 
-.header-text {
+.header-text{
     font-size: 30px;
-    color: $activeMainColor;
 }
 
 .underline {
@@ -49,13 +52,13 @@ a {
 .table {
     padding: 0;
     margin: 0;
-    border: 1px solid #000;
+    border: 2px solid $activeMainColor;
 
     .tbl-row {
         display: flex;
 
         &:not(:last-child) {
-            border-bottom: 1px solid #000;
+            border-bottom: 2px solid $activeMainColor;
         }
     }
 
@@ -73,7 +76,7 @@ a {
         }
 
         &:not(:last-child) {
-            border-right: 1px solid #000;
+            border-right: 2px solid $activeMainColor;
         }
     }
 }
