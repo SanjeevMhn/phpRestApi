@@ -17,7 +17,8 @@
     }
 
     .side-nav,
-    .top-nav {
+    .top-nav,
+    .side-nav-sp {
         top: 0;
         position: fixed;
     }
@@ -26,6 +27,24 @@
         left: 0;
         flex: 0 0 var(--sidenav-width);
         width: var(--sidenav-width);
+    }
+    .side-nav-sp{
+        left: -400px;
+        width: 250px;
+        z-index: 1200;
+        .brand-link{
+            padding-left: 20px;
+            color: #fff;
+        }
+        header{
+            padding-right: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+    }
+
+    .side-nav,.side-nav-sp{
         //background: $mainColor;
         background: $gradient2;
         transition: all 0.3s;
@@ -189,11 +208,14 @@
         header {
             display: none;
         }
+        .sidenav-toggler{
+            display: flex;
+        }
 
-        .sidenav-toggler {
+        .sidenav-toggler,
+        .sidenav-toggler-sp {
             height: 25px;
             width: 25px;
-            display: flex;
             align-items: center;
             justify-content: center;
             padding: 0;
@@ -206,7 +228,9 @@
             }
         }
 
-
+        .sidenav-toggler-sp{
+            display: none;
+        }
 
         .dash-search-form {
             background: none;
@@ -333,7 +357,7 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            background-color: $userSettings;
+            background-color: $mainColor;
             border-radius: 50%;
             height: 40px;
             width: 40px;
@@ -426,7 +450,13 @@
 
             }
 
+            .sidenav-toggler{
+                display: none;
+            }
 
+            .sidenav-toggler-sp{
+                display: flex
+            }
 
             .dash-search-form-sp {
                 padding-left: 0;
@@ -449,7 +479,8 @@
         .top-nav {
             padding: 15px;
 
-            .sidenav-toggler {
+            .sidenav-toggler,
+            .sidenav-toggler-sp {
                 display: none;
             }
         }

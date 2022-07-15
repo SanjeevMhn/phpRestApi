@@ -40,6 +40,7 @@ a {
 
 body{
     color: $activeMainColor;
+    position: relative;
 }
 // 
 :root {
@@ -449,7 +450,8 @@ button {
 }
 
 @media screen and (max-width: 768px){
-    .modal{
+    .modal,
+    .form{
         width: 90%;
     }
 }

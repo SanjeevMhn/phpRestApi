@@ -1,6 +1,8 @@
 $(document).ready(function () {
     //sidenav toggle//
     let sideNavToggle = $(".sidenav-toggler");
+    let sideNavToggleSp = $(".sidenav-toggler-sp");
+    let closeSideNavBtn = $(".close-side-nav-btn");
     let sideNavExp = false;
     $(".brand-exp").css("display", "block");
     $(".brand-mini").css("display", "none");
@@ -21,6 +23,14 @@ $(document).ready(function () {
             $(".side-nav").addClass("mini-nav");
         }
     });
+
+    sideNavToggleSp.click(function(){
+        $(".side-nav-sp").css("left","0");
+    })
+
+    closeSideNavBtn.click(function(){
+        $(".side-nav-sp").css("left","-300px");
+    })
 
     //logout
     $(".log-out").click(function () {
