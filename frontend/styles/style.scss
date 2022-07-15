@@ -141,8 +141,8 @@ form {
 form,
 .modal {
     border-radius: 10px;
-    background-color: $activeMainColor;
-    border: 1px solid #000;
+    //background-color: $mainColor;
+    background: $gradient;
     color: #fff;
 }
 
@@ -275,7 +275,7 @@ button {
 
     .inner-container {
         border-radius: 8px;
-        border: 4px solid $activeMainColor;
+        border: 2px solid $activeMainColor;
         padding: 5px 10px;
         position: relative;
         isolation: isolate;
@@ -296,7 +296,7 @@ button {
             left: 0;
             top: 0;
             z-index: -1;
-            background: linear-gradient(-45deg,$userSettings,$activeMainColor);
+            background: $gradient2;
         }
 
         &:hover {

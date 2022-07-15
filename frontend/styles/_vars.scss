@@ -1,10 +1,12 @@
 $mainColor: #764d79;
-$activeMainColor:#333159;
+$activeMainColor: #333159;
 $topNavColor: #e5ccf4;
 $buttonColor: #fc6a97;
 $userSettings: #c897d8;
+$gradient : linear-gradient(60deg, $mainColor, $buttonColor, $userSettings);
+$gradient2 : linear-gradient(60deg, $mainColor, $buttonColor);
 
-$color1:#333159;
+$color1: #333159;
 $color2: #764d79;
 $color3: #3878e2;
 $color4: #fc6a97;

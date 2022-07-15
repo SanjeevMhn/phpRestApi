@@ -1,6 +1,9 @@
+@import "./vars";
+
 .main-nav {
     position: relative;
     isolation: isolate;
+    background: linear-gradient(45deg,$mainColor,$buttonColor,$userSettings);
     &:after{
         content: '';
         position: absolute;
@@ -24,7 +27,7 @@
     }
     .nav-link,.brand-name{
         text-decoration: none;
-        color: #000;
+        color: #fff;
     }
     .brand-name{
         font-size: 24px;
@@ -33,11 +36,21 @@
         font-size: 18px;
         padding: 20px;
         display: inline-block;
+        position: relative;
         &:hover,
         &.active{
-            background-color: rgb(250, 115, 18);
             color: #fff;
-            outline: #fff solid 2px;
+            &:after{
+                content: '';
+                position: absolute;
+                bottom: 10px;
+                height: 2px;
+                width: 80%;
+                border-radius: 10px;
+                background-color: #fff;
+                left: 50%;
+                transform: translateX(-50%);
+            }
         }
         
     }
