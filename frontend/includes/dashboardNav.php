@@ -60,12 +60,20 @@
         </footer>
     </section>
     <section class="top-nav">
+        <header>
+            <a href="/dashboard" class="brand-link brand-exp ft-poppins">FTracker</a>
+        </header>
         <button class="sidenav-toggler">
             <img src="frontend/assets/images/bars_icon.svg" alt="">
         </button>
         <form method="post" class="dash-search-form">
             <input type="text" name="search-text" id="" class="form-inp" placeholder="Search...">
         </form>
+        <div class="dash-search-form-sp">
+            <div class="icon-container-lg">
+                <img src="frontend/assets/images/search_icon.svg" alt="">
+            </div>
+        </div>
         <ul class="user-actions">
             <li class="action">
                 <div class="action-link create">
@@ -105,4 +113,52 @@
         </ul>
 
     </section>
+</nav>
+
+<nav class="dashboard-nav dashboard-nav-bottom ft-poppins">
+    <ul class="user-actions">
+        <li class="action home">
+            <div class="action-link home">
+                <div class="icon-container-md">
+                    <img src="frontend/assets/images/home_icon.svg" alt="">
+                </div>
+            </div>
+        </li>
+        <li class="action home">
+            <div class="action-link home">
+                <div class="icon-container-md">
+                    <img src="frontend/assets/images/dumbell_icon.svg" alt="">
+                </div>
+            </div>
+        </li>
+        <li class="action">
+            <div class="action-link create">
+                <!-- <span class="label-text">Create</span> -->
+                <div class="icon-container-lg">
+                    <img src="frontend/assets/images/plus_icon.svg" alt="">
+                </div>
+                <div class="drpdown-content ft-source">
+                    <a href="javascript:void(0)" class="dp-item create-workout">Create Workout</a>
+                    <a href="javascript:void(0)" class="dp-item create-diet">Create Diet</a>
+                    <a href="javascript:void(0)" class="dp-item create-workout">Create Workout Log</a>
+                    <a href="javascript:void(0)" class="dp-item create-diet">Create Diet Log</a>
+                </div>
+            </div>
+        </li>
+        <li class="action">
+            <div class="action-link diet">
+                <div class="icon-container-md">
+                    <img src="frontend/assets/images/food_icon.svg" alt="">
+                </div>
+            </div>
+        </li>
+        <li class="action">
+            <div class="action-link log">
+                <div class="icon-container-md">
+                    <img src="frontend/assets/images/notebook_icon.svg" alt="">
+                </div>
+            </div>
+        </li>
+    </ul>
+
 </nav>
