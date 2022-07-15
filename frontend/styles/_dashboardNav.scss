@@ -19,7 +19,8 @@
         left: 0;
         flex: 0 0 var(--sidenav-width);
         width: var(--sidenav-width);
-        background: $mainColor;
+        //background: $mainColor;
+        background: $gradient2;
         transition: all 0.3s;
         height: 100vh;
         padding-top: 5px;
@@ -46,7 +47,7 @@
                 color: #fff;
                 display: flex;
                 width: 100%;
-                background-color: $activeMainColor;
+                background: inherit;
                 padding: 7.5px 20px;
 
                 .icon-container {
@@ -97,7 +98,7 @@
 
                 &:hover,
                 &.active {
-                    background-color: $activeMainColor;
+                    background-color: $mainColor;
                     color: #fff;
                     border-bottom: 2px solid #fff;
                 }
