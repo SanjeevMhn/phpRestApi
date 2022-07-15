@@ -14,7 +14,7 @@
             <input type="password" name="usr-password" id="password" class="form-inp" placeholder="Your password">
             <span class="err-msg err-password ft-source">Please enter password</span>
         </div>
-        <div class="go-to-resgister">
+        <div class="go-to-resgister form-data">
             <a href="/register" class="">Not registered? Register Now</a>
         </div>
         <div class="form-data">

@@ -34,7 +34,7 @@
             </select>
             <span class="err-msg err-goal ft-source">Please Select your workout goal</span>
         </div> -->
-        <div class="go-to-login">
+        <div class="go-to-login form-data">
             <a href="/login" class="">Already registered? Go to login</a>
         </div>
         <div class="form-data">
