@@ -247,6 +247,10 @@ $(document).ready(function () {
                     "workout_duration": workoutDuration,
                     "workout_desc": exerciseList
                 });
+
+                addWorkout(data);
+                $(".workout-detail-modal").removeClass("dsp-flex");
+                $("body").removeClass('overlay');
             });
 
             //add or delete exercise//
