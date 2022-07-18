@@ -48,6 +48,32 @@ class User extends JwtHandler
         }
     }
 
+    public function deleteWorkout($workoutId){
+        try{
+
+            $query = "DELETE FROM user_workouts WHERE workout_id = :id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindValue(":id",$workoutId);
+            if($stmt->execute()){
+                return json_encode(array(
+                    "success" => 1,
+                    "message" => "Workout deleted successfully"
+                ));
+            }else{
+                return json_encode(array(
+                    "success" => 0,
+                    "message" => "Error while deleting workout"
+                ));
+            }
+
+        }catch(PDOException $ex){
+            echo json_encode(array(
+                "success" => 0,
+                "message" => $ex
+            ));
+        }
+    }
+
     public function getUserFitnessLevel($userId){
         try{
 

@@ -19,6 +19,8 @@
             </div>
             <div class="modal-actions">
                 <button type="button" class="start-workout">Start Workout</button>
+                <button type="button" class="edit-workout">Edit Workout</button>
+                <button type="button" class="delete-workout">Delete Workout</button>
                 <button type="reset">Cancel</button>
             </div>
         </div>

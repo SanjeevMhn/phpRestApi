@@ -2,5 +2,24 @@
 
 
 .workouts-sec {
-	  
+    .workout-item{
+        position: relative;
+        overflow: visible!important;
+        .close-btn{
+            height: 20px!important;
+            width: 20px!important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: calc(-1 * calc(25px / 2));
+            right: calc(25px / 2);
+            background-color: #000;
+            border-radius: 50%;
+            img{
+                width: 50%;
+                object-fit: cover;
+            }
+        }
+    }
 }
