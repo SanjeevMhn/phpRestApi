@@ -2,12 +2,13 @@
 
 
 .workouts-sec {
-    .workout-item{
+    .workout-item {
         position: relative;
-        overflow: visible!important;
-        .close-btn{
-            height: 20px!important;
-            width: 20px!important;
+        overflow: visible !important;
+
+        .close-btn {
+            height: 20px !important;
+            width: 20px !important;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -16,9 +17,77 @@
             right: calc(25px / 2);
             background-color: #000;
             border-radius: 50%;
-            img{
+
+            img {
                 width: 50%;
                 object-fit: cover;
+            }
+        }
+    }
+
+    .edit-workout-modal {
+        .exercise-container {
+            overflow: auto;
+            padding-bottom: 20px;
+        }
+
+        .duration-set,
+        .exercise-block {
+            display: flex;
+            align-items: center;
+
+            .duration,.block {
+                flex: 0 0 calc(100% / 3);
+
+                &:not(:last-child) {
+                    padding-right: 20px;
+                }
+            }
+        }
+
+        
+
+        .add-exercise {
+            margin-top: 10px;
+        }
+
+        .del-exer-block {
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            background-color: #000;
+            background-image: url('/frontend/assets/images/close_icon.svg');
+            background-size: 40%;
+            background-position: center center;
+            background-repeat: no-repeat;
+            object-fit: cover;
+        }
+    }
+
+    .workout-detail-modal {
+        .exercise-list-table {
+            font-size: 20px;
+            margin: 0 auto;
+            border: 2px solid #fff;
+
+            .exercise-item-row {
+                display: flex;
+
+                &:not(:last-child) {
+                    border-bottom: 2px solid #fff;
+                }
+
+                &:first-child {}
+
+                >* {
+                    padding: 8px;
+                    text-align: center;
+                    flex: 0 0 calc(100% / 3);
+
+                    &:not(:last-child) {
+                        border-right: 2px solid #fff;
+                    }
+                }
             }
         }
     }

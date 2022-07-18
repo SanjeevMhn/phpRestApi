@@ -35,6 +35,7 @@ $(document).ready(function () {
                         workouts = $('<div class="workout-item list-item ft-poppins"></div>');
                         workouts.data('workoutId', userWorkout.workout_id);
                         workouts.data('workoutDuration', { "hrs": userWorkout.workout_duration_hrs, "mins": userWorkout.workout_duration_mins, "secs": userWorkout.workout_duration_secs });
+                        workouts.data('workoutType', userWorkout.workout_type);
                         workouts.attr('workoutName', userWorkout.workout_name);
                         workouts.data('userId', userWorkout.workout_id);
                         let container = $('<div class="inner-container"></div>')
@@ -53,6 +54,7 @@ $(document).ready(function () {
                         workoutDuration.append(durationMins);
                         workoutDuration.append(durationSecs);
                         container.append(workoutName);
+                        container.append(workoutName);
                         workouts.append(container);
                         //workouts.append(closeBtn);
                         $('.workouts-list').append(workouts);
@@ -66,14 +68,13 @@ $(document).ready(function () {
             $(document).on('click', '.workout-item', function () {
                 let workoutId = parseInt($(this).data('workoutId'));
                 let workoutName = $(this).attr('workoutName');
+                let workoutType = $(this).data('workoutType');
                 let workoutDuration = $(this).data('workoutDuration');
-                getUserExercises(workoutId, workoutName, workoutDuration);
-
-
-
+                console.log(workoutType);
+                getUserExercises(workoutId, workoutName, workoutType, workoutDuration);
             })
 
-            function getUserExercises(workoutId, workoutName, workoutDuration) {
+            function getUserExercises(workoutId, workoutName, workoutType, workoutDuration) {
                 let getExercises = {
                     "url": "/api/users/getExercises.php",
                     "method": "POST",
@@ -92,23 +93,23 @@ $(document).ready(function () {
                         $('.workout-detail-modal').addClass('dsp-flex');
                         $('.workout-detail-modal').data('workoutId', workoutId);
                         $('.modal-workout-name').text(workoutName);
+                        $('.modal-workout-type').text(workoutType);
                         $('.modal-workout-duration .hrs').text(workoutDuration.hrs + " hrs");
                         $('.modal-workout-duration .mins').text(workoutDuration.mins + " mins");
                         $('.modal-workout-duration .secs').text(workoutDuration.secs + " secs");
                         $.map(response.exercises, function (exercise, index) {
-                            let exerciseItem = $('<div class="exercise-item"></div>');
-                            let exerciseName = $('<span class="exercise-name"></span>');
-                            let exerciseSets = $('<span class="exercise-sets"></span>');
-                            let exerciseReps = $('<span class="exercise-reps"></span>');
+                            //let exerciseItem = $('<div class="exercise-item tbl-row"></div>');
+                            let exerciseItem = $('<div class="exercise-item-row"></div>');
+                            let exerciseName = $('<div class="exercise-name-data"></div>');
+                            let exerciseSets = $('<div class="exercise-sets-data"></div>');
+                            let exerciseReps = $('<div class="exercise-reps-data"></div>');
                             exerciseName.text(exercise.exercise_name);
                             exerciseSets.text(exercise.exercise_sets);
                             exerciseReps.text(exercise.exercise_reps);
                             exerciseItem.append(exerciseName);
                             exerciseItem.append(exerciseSets);
-                            exerciseItem.append('<span>sets</span>')
                             exerciseItem.append(exerciseReps);
-                            exerciseItem.append('<span>reps</span>')
-                            $('.exercise-list').append(exerciseItem);
+                            $('.exercise-list-table').append(exerciseItem);
                         });
                     }
                 });
@@ -116,7 +117,7 @@ $(document).ready(function () {
 
             $('.workout-detail-modal .modal-actions button[type="reset"]').click(function () {
                 $('.workout-detail-modal').removeClass('dsp-flex');
-                $('.workout-detail-modal .exercise-list').html('');
+                $('.workout-detail-modal .exercise-list-table .exercise-item-row').not('.heading').remove();
                 $('body').removeClass('overlay');
             })
 
@@ -135,12 +136,66 @@ $(document).ready(function () {
                     })
                 }
 
-                $.ajax(delWorkout).done(function(response){
+                $.ajax(delWorkout).done(function (response) {
                     console.log(response);
-                   
+
                 });
             });
 
+
+            $('.workout-detail-modal .modal-actions .edit-workout').click(function () {
+                $('body').addClass('overlay');
+                $('.edit-workout-modal').addClass('dsp-flex');
+                $('.edit-workout-modal input[name="workout-name"]').val($('.workout-detail-modal .modal-workout-name').text());
+                let option = $('.edit-workout-modal select[name="workout-type"] option').toArray();
+                $.map(option, (opt, index) => {
+                    if ($(opt).val() === $('.workout-detail-modal .modal-workout-type').text()) {
+                        $(opt).attr("selected", "selected");
+                    }
+                })
+                $('.edit-workout-modal .duration-set input[name="hrs"]').val(parseInt($('.workout-detail-modal .modal-workout-duration .hrs').text()));
+                $('.edit-workout-modal .duration-set input[name="mins"]').val(parseInt($('.workout-detail-modal .modal-workout-duration .mins').text()));
+                $('.edit-workout-modal .duration-set input[name="secs"]').val(parseInt($('.workout-detail-modal .modal-workout-duration .secs').text()));
+
+                let exerciseCount = $('.exercise-list-table .exercise-item-row').not('.heading').toArray();
+                let exeDetails = [];
+                $.map(exerciseCount, (ec, index) => {
+                    exeDetails.push({
+                        "exercise_name": $(ec).children('.exercise-name-data').not('.heading').text(),
+                        "exercise_sets": parseInt($(ec).children('.exercise-sets-data').not('.heading').text()),
+                        "exercise_reps": parseInt($(ec).children('.exercise-reps-data').not('.heading').text())
+                    });
+                })
+                let container = $('.edit-workout-modal .exercise-container');
+
+
+                $.map(exeDetails, (ed, index) => {
+                    let exerciseBlock = $('<div class="exercise-block pb-10"></div>');
+                    let nameBlock = $('<div class="block"></div>');
+                    let setsBlock = $('<div class="block"></div>');
+                    let repsBlock = $('<div class="block"></div>');
+                    let inputExName = $('<input type="text" name="exercise-name" id="" class="form-inp" placeholder="Exercise Name">');
+                    let inputExSets = $('<input type="number" name="exercise-sets" id="" class="form-inp" placeholder="Exercise Sets">');
+                    let inputExReps = $('<input type="number" name="exercise-sets" id="" class="form-inp" placeholder="Exercise Reps">');
+                    nameBlock.append(inputExName.val(ed.exercise_name));
+                    exerciseBlock.append(nameBlock);
+                    container.append(exerciseBlock);
+                    setsBlock.append(inputExSets.val(ed.exercise_sets));
+                    exerciseBlock.append(setsBlock);
+                    container.append(exerciseBlock);
+                    repsBlock.append(inputExReps.val(ed.exercise_reps));
+                    exerciseBlock.append(repsBlock);
+                    container.append(exerciseBlock);
+                    console.log(ed);
+                })
+
+            });
+
+
+            $('.edit-workout-modal button[type="reset"]').click(function () {
+                $(this).parent().parent().removeClass('dsp-flex');
+                $('.edit-workout-modal .exercise-container').html('');
+            })
 
         } else {
             localStorage.removeItem('jwt');
