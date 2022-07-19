@@ -7,6 +7,9 @@
         </div>
 
         <div class="workout-detail-modal modal ft-poppins">
+            <div class="close-btn icon-container">
+                <img src="frontend/assets/images/close_icon.svg" alt="" srcset="">
+            </div>
             <h2 class="modal-workout-name pb-10"></h2>
             <h3 class="modal-workout-type capitalize pb-10"></h3>
             <div class="modal-workout-duration pb-10">
@@ -18,9 +21,9 @@
             <div class="table-resp">
                 <div class="exercise-list-table ft-poppins">
                     <div class="exercise-item-row heading">
-                        <div class="exercise-name-data text-bold">Exercise Name</div>
-                        <div class="exercise-sets-data text-bold">Sets</div>
-                        <div class="exercise-reps-data text-bold">Reps</div>
+                        <div class="exercise-name-data data-col text-bold">Exercise Name</div>
+                        <div class="exercise-sets-data data-col text-bold">Sets</div>
+                        <div class="exercise-reps-data data-col text-bold">Reps</div>
                     </div>
                 </div>
             </div>

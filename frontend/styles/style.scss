@@ -19,12 +19,12 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: $activeMainColor;
+  background: $mainColor;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: $mainColor;
+  background: $activeMainColor;
 }
 
 .text-bold{

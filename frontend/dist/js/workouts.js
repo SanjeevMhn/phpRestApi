@@ -64,6 +64,10 @@ $(document).ready(function () {
 
             });
 
+            $('.workout-detail-modal .close-btn').click(function(){
+                $(this).parent().removeClass('dsp-flex');
+                $('body').removeClass('overlay');
+            })
 
             $(document).on('click', '.workout-item', function () {
                 let workoutId = parseInt($(this).data('workoutId'));
@@ -100,9 +104,9 @@ $(document).ready(function () {
                         $.map(response.exercises, function (exercise, index) {
                             //let exerciseItem = $('<div class="exercise-item tbl-row"></div>');
                             let exerciseItem = $('<div class="exercise-item-row"></div>');
-                            let exerciseName = $('<div class="exercise-name-data"></div>');
-                            let exerciseSets = $('<div class="exercise-sets-data"></div>');
-                            let exerciseReps = $('<div class="exercise-reps-data"></div>');
+                            let exerciseName = $('<div class="exercise-name-data data-col"></div>');
+                            let exerciseSets = $('<div class="exercise-sets-data data-col"></div>');
+                            let exerciseReps = $('<div class="exercise-reps-data data-col"></div>');
                             exerciseName.text(exercise.exercise_name);
                             exerciseSets.text(exercise.exercise_sets);
                             exerciseReps.text(exercise.exercise_reps);

@@ -36,7 +36,8 @@
             display: flex;
             align-items: center;
 
-            .duration,.block {
+            .duration,
+            .block {
                 flex: 0 0 calc(100% / 3);
 
                 &:not(:last-child) {
@@ -45,7 +46,7 @@
             }
         }
 
-        
+
 
         .add-exercise {
             margin-top: 10px;
@@ -65,27 +66,66 @@
     }
 
     .workout-detail-modal {
+        .close-btn{
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            height: 20px;
+            width: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            img{
+                width: 80%;
+                object-fit: cover;
+            }
+        }
         .exercise-list-table {
             font-size: 20px;
             margin: 0 auto;
-            border: 2px solid #fff;
+            overflow: auto;
+            border-top: 2px solid #fff;
+            border-left: 2px solid #fff;
+            border-right: 2px solid #fff;
 
             .exercise-item-row {
                 display: flex;
 
-                &:not(:last-child) {
-                    border-bottom: 2px solid #fff;
-                }
-
-                &:first-child {}
-
-                >* {
+                .data-col {
                     padding: 8px;
                     text-align: center;
                     flex: 0 0 calc(100% / 3);
+                    white-space: nowrap;
+                    border-bottom: 2px solid #fff;
 
                     &:not(:last-child) {
                         border-right: 2px solid #fff;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@media screen and (max-width: 620px) {
+    .workouts-sec {
+        .workout-detail-modal {
+            .exercise-list-table {
+                .exercise-item-row {
+                    .data-col {
+                        //flex: 0 0 calc(100% / 2);
+                        flex: 0 0 200px;
+
+                    }
+
+                    &:not(:last-child) {
+                        .data-col {
+                            &:last-child {
+                                border-bottom: 2px solid #fff;
+                            }
+                        }
                     }
                 }
             }
