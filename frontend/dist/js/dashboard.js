@@ -262,7 +262,27 @@ $(document).ready(function () {
             });
 
            
+            function addWorkout(data) {
+                let createWorkoutRequest = {
+                    "url": "/api/users/createWorkout.php",
+                    "method": "POST",
+                    "timeout": 0,
+                    "headers": {
+                        "Authorization": `Bearer ${token.token}`,
+                        "Content-Type": "application/json"
+                    },
+                    "data": data,
+                };
 
+                $.ajax(createWorkoutRequest).done(function (response) {
+                    console.log(response);
+                    if (response.success == 1) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                });
+            }
 
 
             
