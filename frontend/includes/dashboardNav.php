@@ -61,8 +61,7 @@
     </section>
     <section class="side-nav-sp">
         <header>
-            <a href="/dashboard" class="brand-link brand-exp ft-poppins">FTracker</a>
-            <a href="/dashboard" class="brand-link brand-mini ft-poppins">FTracker</a>
+            <a href="/dashboard" class="brand-link ft-poppins">FTracker</a>
 
             <div class="icon-container-md close-side-nav-btn">
                 <img src="frontend/assets/images/close_icon.svg" alt="">
