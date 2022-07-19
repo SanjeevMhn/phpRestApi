@@ -1,17 +1,22 @@
-.dashboard-container{
-}
-.dashboard-sec {
+.dashboard-container {}
 
-    .user-detail{
-        .current-time{
+.dashboard-sec {
+    .recommended-workouts-list {
+        padding-bottom: 110px;
+    }
+
+    .user-detail {
+        .current-time {
             padding-bottom: 10px;
             font-size: 30px;
             line-height: 20px;
         }
-        .user-name{
+
+        .user-name {
             font-size: 25px;
         }
     }
+
     .user-goal-form {
         margin-top: 10px;
         display: none;
@@ -19,20 +24,24 @@
 
         .form-data {
             padding: 0;
-            
-            &:not(:last-child){
+
+            &:not(:last-child) {
                 padding-bottom: 15px;
             }
-            button{
+
+            button {
                 color: #fff;
             }
-            .input-group{
+
+            .input-group {
                 display: flex;
                 align-items: center;
-                >*{
+
+                >* {
                     flex: 0 0 calc(100% / 4);
                 }
-                .input-container{
+
+                .input-container {
                     flex: 1;
                     padding-right: 30px;
                 }
@@ -40,40 +49,51 @@
         }
     }
 
-    .add-workout-modal{
+    .add-workout-modal {
         flex-direction: column;
-        button{
+
+        button {
             color: #fff;
         }
-        .exercise-container{
+
+        .exercise-container {
             overflow: auto;
             padding-bottom: 20px;
         }
-        .duration-set,.exercise-block{
+
+        .duration-set,
+        .exercise-block {
             display: flex;
             align-items: center;
-            .duration{
+
+            .duration {
                 flex: 0 0 calc(100% / 3);
-                &:not(:last-child){
+
+                &:not(:last-child) {
                     padding-right: 20px;
                 }
             }
         }
-        .exercise-block{
-            &:not(:last-child){
+
+        .exercise-block {
+            &:not(:last-child) {
                 padding-bottom: 10px;
             }
-            .block{
+
+            .block {
                 flex: 1 0 calc(100% / 4);
-                &:not(:last-child){
+
+                &:not(:last-child) {
                     padding-right: 20px;
                 }
             }
         }
-        .add-exercise{
+
+        .add-exercise {
             margin-top: 10px;
         }
-        .del-exer-block{
+
+        .del-exer-block {
             height: 30px;
             width: 30px;
             border-radius: 50%;
@@ -85,7 +105,8 @@
             object-fit: cover;
         }
     }
-    .recommended-workouts{
+
+    .recommended-workouts {
         display: none;
     }
 }
