@@ -24,13 +24,13 @@ $(document).ready(function () {
                     let number = 0;
                     $.map(users, (user, index) => {
                         number++;
-                        let sNtd = $('<span></span>');
-                        let userNameTd = $('<span></span>');
-                        let userEmailTd = $('<span></span>');
-                        let userGoalTd = $('<span></span>');
-                        let userWeightTd = $('<span></span>');
-                        let weightMetricTd = $('<span></span>');
-                        let tr = $('<div class="tbl-row"></div>');
+                        let sNtd = $('<span class="data-col"></span>');
+                        let userNameTd = $('<span class="data-col"></span>');
+                        let userEmailTd = $('<span class="data-col"></span>');
+                        let userGoalTd = $('<span class="data-col"></span>');
+                        let userWeightTd = $('<span class="data-col"></span>');
+                        let weightMetricTd = $('<span class="data-col"></span>');
+                        let tr = $('<div class="user-tbl-row"></div>');
                         sNtd.text(number);
                         userNameTd.text(user.name);
                         userEmailTd.text(user.email);

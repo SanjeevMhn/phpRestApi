@@ -91,6 +91,8 @@
                 <button type="reset">Cancel</button>
             </div>
         </form>
+
+        <?php include_once "frontend/includes/addWorkoutModal.php" ?>
     </section>
 </main>
 

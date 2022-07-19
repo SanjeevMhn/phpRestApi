@@ -7,6 +7,7 @@
 @import "./header";
 @import "./dashboardNav";
 @import "./workouts";
+@import "./users";
 @import "./vars";
 @import "./fonts";
 
@@ -198,6 +199,8 @@ form,
     background: $gradient2;
     color: #fff;
     flex-direction: column;
+    overscroll-behavior-y: contain;
+    overflow-y: auto;
 }
 
 .form-inp,
@@ -502,25 +505,54 @@ button {
     }
 }
 
-.exercise-list-table {
+.exercise-list-table,
+.user-table {
     font-size: 20px;
     overflow: auto;
-    border-top: 2px solid #fff;
-    border-left: 2px solid #fff;
-    border-right: 2px solid #fff;
     margin-top: 20px;
-    .exercise-item-row {
+
+    .exercise-item-row,
+    .user-tbl-row {
         display: flex;
 
         .data-col {
             padding: 8px;
             text-align: center;
-            flex: 0 0 calc(100% / 3);
             white-space: nowrap;
+
+        }
+    }
+}
+
+.exercise-list-table {
+    border-top: 2px solid #fff;
+    border-left: 2px solid #fff;
+    border-right: 2px solid #fff;
+
+    .exercise-item-row {
+        .data-col {
             border-bottom: 2px solid #fff;
+            flex: 0 0 calc(100% / 3);
 
             &:not(:last-child) {
                 border-right: 2px solid #fff;
+            }
+        }
+    }
+}
+
+.user-table {
+    border-top: 2px solid $activeMainColor;
+    border-left: 2px solid $activeMainColor;
+    border-right: 2px solid $activeMainColor;
+
+    .user-tbl-row {
+        .data-col {
+            border-bottom: 2px solid $activeMainColor;
+            flex: 0 0 calc(100% / 4);
+
+            &:not(:last-child) {
+                border-right: 2px solid $activeMainColor;
             }
         }
     }
@@ -543,6 +575,22 @@ button {
                 .data-col {
                     &:last-child {
                         border-bottom: 2px solid #fff;
+                    }
+                }
+            }
+        }
+    }
+
+    .user-table {
+        .user-tbl-row {
+            .data-col {
+                flex: 1 0 225px;
+            }
+
+            &:not(:last-child) {
+                .data-col {
+                    &:last-child {
+                        border-bottom: 2px solid $activeMainColor;
                     }
                 }
             }
