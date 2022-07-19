@@ -162,7 +162,11 @@ $(document).ready(function () {
                 $('.rec-workout-detail-modal .modal-rec-workout-duration .mins').text($(this).data('recWorkoutDurationMins'));
                 $('.rec-workout-detail-modal .modal-rec-workout-duration .secs').text($(this).data('recWorkoutDurationSecs'));
                 $('.rec-workout-detail-modal .modal-rec-workout-type .type').text($(this).data('recWorkoutType'));
-
+                let exerciseItemHeading = $('<div class="exercise-item-row heading"></div>');
+                let headingName = $('<div class="exercise-name-data data-col text-bold">Exercise Name</div>');
+                let headingSets = $('<div class="exercise-name-data data-col text-bold">Exercise Sets</div>');
+                let headingReps = $('<div class="exercise-name-data data-col text-bold">Exercise Name</div>');
+                $('.exercise-list-table').append(exerciseItemHeading);
                 let getExercises = {
                     "url": "api/users/getRecommendedExercises.php",
                     "method": "POST",
@@ -180,9 +184,14 @@ $(document).ready(function () {
                     if (response.success == 1) {
                         $.map(response.exercises, (exercise, index) => {
                             let exerciseItem = $('<div class="exercise-item-row"></div>');
+
                             let exerciseName = $('<div class="exercise-name-data data-col"></div>');
                             let exerciseSets = $('<div class="exercise-sets-data data-col"></div>');
                             let exerciseReps = $('<div class="exercise-reps-data data-col"></div>');
+
+                            exerciseItemHeading.append(headingName);
+                            exerciseItemHeading.append(headingSets);
+                            exerciseItemHeading.append(headingReps);
                             exerciseName.text(exercise.rec_exercise_name);
                             exerciseSets.text(exercise.rec_exercise_sets);
                             exerciseReps.text(exercise.rec_exercise_reps);
@@ -198,7 +207,7 @@ $(document).ready(function () {
 
             $('.close-rec-workout').click(function () {
                 $('.rec-workout-detail-modal').removeClass('dsp-flex');
-                $('.rec-workout-detail-modal .exercise-list').html('');
+                $('.rec-workout-detail-modal .exercise-list-table').html('');
                 $('body').removeClass('overlay');
             })
 
@@ -211,14 +220,14 @@ $(document).ready(function () {
                 let workoutDurationHrs = parseInt($('.modal-rec-workout-duration .hrs').text());
                 let workoutDurationMins = parseInt($('.modal-rec-workout-duration .mins').text());
                 let workoutDurationSecs = parseInt($('.modal-rec-workout-duration .secs').text());
-                let workoutDescList = $('.rec-workout-detail-modal .exercise-list .exercise-item');
+                let workoutDescList = $('.rec-workout-detail-modal .exercise-list-table .exercise-item-row').not('.heading');
 
                 let exerciseList = [];
 
                 $.map(workoutDescList, (wl, index) => {
-                    let exerciseName = $(wl).children('.exercise-name').text();
-                    let exerciseSets = parseInt($(wl).children('.exercise-sets').text());
-                    let exerciseReps = parseInt($(wl).children('.exercise-reps').text());
+                    let exerciseName = $(wl).children('.exercise-name-data').text();
+                    let exerciseSets = parseInt($(wl).children('.exercise-sets-data').text());
+                    let exerciseReps = parseInt($(wl).children('.exercise-reps-data').text());
                     //exerciseName = $('.execise-name');
                     // exerciseSets = $(`${wl},.execise-sets`);
                     // exerciseReps = $(`${wl},.execise-reps`);

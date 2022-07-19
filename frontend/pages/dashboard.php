@@ -35,9 +35,9 @@
             </div>
             <div class="exercise-list-table">
                 <div class="exercise-item-row heading">
-                    <div class="exercise-name-data data-col text-bold">Exercise Name</div>
+                    <!-- <div class="exercise-name-data data-col text-bold">Exercise Name</div>
                     <div class="exercise-sets-data data-col text-bold">Sets</div>
-                    <div class="exercise-reps-data data-col text-bold">Reps</div>
+                    <div class="exercise-reps-data data-col text-bold">Reps</div> -->
                 </div>
             </div>
             <div class="modal-actions">
