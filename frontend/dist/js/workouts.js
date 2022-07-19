@@ -174,7 +174,7 @@ $(document).ready(function () {
 
 
                 $.map(exeDetails, (ed, index) => {
-                    let exerciseBlock = $('<div class="exercise-block pb-10"></div>');
+                    let exerciseBlock = $('<div class="exercise-block pb-20"></div>');
                     let nameBlock = $('<div class="block"></div>');
                     let setsBlock = $('<div class="block"></div>');
                     let repsBlock = $('<div class="block"></div>');

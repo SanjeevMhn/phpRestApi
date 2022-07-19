@@ -1,4 +1,3 @@
-
 @import './reset';
 @import "./homepage";
 @import "./userprofile";
@@ -14,20 +13,20 @@
 
 /* width */
 ::-webkit-scrollbar {
-  width: 0;
+    width: 0;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: $mainColor;
+    background: $mainColor;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: $activeMainColor;
+    background: $activeMainColor;
 }
 
-.text-bold{
+.text-bold {
     font-weight: bolder;
 }
 
@@ -39,16 +38,17 @@ a {
 
 
 
-body{
+body {
     color: $activeMainColor;
     position: relative;
 }
+
 // 
 :root {
     --sidenav-width: 250px;
 }
 
-.header-text{
+.header-text {
     font-size: 30px;
 }
 
@@ -56,15 +56,19 @@ body{
     text-decoration: underline;
     text-underline-offset: 10px;
 }
-.capitalize{
+
+.capitalize {
     text-transform: capitalize;
 }
-.text-center{
+
+.text-center {
     text-align: center;
 }
-.pb-10{
-    padding-bottom: 10px;
+
+.pb-20 {
+    padding-bottom: 20px;
 }
+
 .table {
     padding: 0;
     margin: 0;
@@ -299,7 +303,7 @@ button {
 
 .modal {
     display: none;
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -307,8 +311,7 @@ button {
     height: calc(100vh - 15%);
     overflow-y: auto;
     width: 55vw;
-    padding: 50px;
-    padding-bottom: 20px;
+    padding: 20px 50px;
 }
 
 .overlay {
@@ -412,6 +415,7 @@ button {
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+
     button {
         color: #fff;
         margin-right: 10px;
@@ -441,67 +445,210 @@ button {
 
 }
 
+.add-workout-modal {
+    flex-direction: column;
 
+    button {
+        color: #fff;
+    }
+
+    .exercise-container {
+        overflow: auto;
+        padding-bottom: 20px;
+    }
+
+    .duration-set,
+    .exercise-block {
+        display: flex;
+        align-items: center;
+
+        .duration {
+            flex: 0 0 calc(100% / 3);
+
+            &:not(:last-child) {
+                padding-right: 20px;
+            }
+        }
+    }
+
+    .exercise-block {
+        &:not(:last-child) {
+            padding-bottom: 10px;
+        }
+
+        .block {
+            flex: 1 0 calc(100% / 4);
+
+            &:not(:last-child) {
+                padding-right: 20px;
+            }
+        }
+    }
+
+    .add-exercise {
+        margin-top: 10px;
+    }
+
+    .del-exer-block {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        background-color: #000;
+        background-image: url('/frontend/assets/images/close_icon.svg');
+        background-size: 40%;
+        background-position: center center;
+        background-repeat: no-repeat;
+        object-fit: cover;
+    }
+}
+
+.exercise-list-table {
+    font-size: 20px;
+    overflow: auto;
+    border-top: 2px solid #fff;
+    border-left: 2px solid #fff;
+    border-right: 2px solid #fff;
+    margin-top: 20px;
+    .exercise-item-row {
+        display: flex;
+
+        .data-col {
+            padding: 8px;
+            text-align: center;
+            flex: 0 0 calc(100% / 3);
+            white-space: nowrap;
+            border-bottom: 2px solid #fff;
+
+            &:not(:last-child) {
+                border-right: 2px solid #fff;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1150px) {
+    .list {
+        .list-item {
+            flex: 0 0 calc(100% / 2);
+        }
+    }
+
+    .exercise-list-table {
+        .exercise-item-row {
+            .data-col {
+                flex: 1 0 200px;
+            }
+
+            &:not(:last-child) {
+                .data-col {
+                    &:last-child {
+                        border-bottom: 2px solid #fff;
+                    }
+                }
+            }
+        }
+    }
+}
 
 @media screen and (max-width: 998px) {
-    .content{
+    .content {
         margin-left: 0;
         padding: 0 30px;
     }
-    .modal{
+
+    .modal {
         padding: 25px;
     }
-    .list{
+
+    .list {
         padding-right: 0;
-        .list-item{
-            &:nth-child(4n + 4){
+
+        .list-item {
+            &:nth-child(2n + 2) {
                 padding-right: 0;
             }
         }
     }
 }
 
-@media screen and (max-width: 768px){
+@media screen and (max-width: 768px) {
+
     .modal,
-    .form{
+    .form {
         width: 90%;
     }
 }
 
-@media screen and (max-width: 620px){
-    .header-text{
+@media screen and (max-width: 620px) {
+    .header-text {
         font-size: 22px;
     }
-    .top-nav{
+
+    .top-nav {
         padding: 15px;
     }
-    .content{
+
+    .content {
         padding: 0 15px;
     }
-    .list{
-        .list-item{
-            flex: 1 0 calc(100% / 2);
-            &:nth-child(2n + 2){
-                padding-right: 0;
-            }
+
+    .list {
+        .list-item {
+            flex: 1 0 100%;
+            padding-right: 0 !important;
         }
     }
-    .form-data{
-        &:last-child{
+
+    .form-data {
+
+        &:last-child {
+            margin-left: unset;
             flex-direction: column;
             align-items: center;
-            >*{
+            margin-right: 0;
+
+            >* {
                 margin-bottom: 20px;
+                width: 100%;
             }
         }
     }
-    .modal-actions{
+
+    .modal-actions {
         margin: 0 auto;
-        button{
+
+        button {
             flex: 0 0 100%;
-            &:not(:last-child){
+
+            &:not(:last-child) {
                 margin-bottom: 10px;
             }
+        }
+    }
+
+    .add-workout-modal,
+    .edit-workout-modal {
+
+        .duration-set,
+        .exercise-block {
+            flex-direction: column;
+            align-items: unset;
+
+            .duration,
+            .block {
+                flex: 0 0 100%;
+                padding-right: 0 !important;
+
+                &:not(:last-child) {
+                    padding-bottom: 20px;
+                }
+            }
+        }
+    }
+
+    .workout-detail-modal {
+        .modal-workout-name {
+            font-size: 22px;
         }
     }
 }

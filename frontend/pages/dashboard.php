@@ -2,7 +2,7 @@
 <main class="dashboard-container">
     <section class="dashboard-sec content">
         <div class="user-detail">
-            <div class="current-time ft-poppins"></div> 
+            <div class="current-time ft-poppins"></div>
             <span class="user-name ft-source"></span>
         </div>
         <div class="links-list list ft-poppins">
@@ -22,7 +22,7 @@
         <div class="rec-workout-detail-modal workout-detail-modal modal ft-poppins">
             <h2 class="modal-rec-workout-name modal-workout-name"></h2>
             <div class="modal-rec-workout-duration modal-workout-duration">
-                Workout Duration <br/>
+                Workout Duration <br />
                 <span class="hrs"></span>
                 <span>&nbsp;hrs&nbsp;:&nbsp;</span>
                 <span class="mins"></span>
@@ -33,8 +33,12 @@
             <div class="modal-rec-workout-type modal-workout-duration">
                 Workout Type: <span class="type"></span>
             </div>
-            <div class="exercise-list">
-
+            <div class="exercise-list-table">
+                <div class="exercise-item-row heading">
+                    <div class="exercise-name-data data-col text-bold">Exercise Name</div>
+                    <div class="exercise-sets-data data-col text-bold">Sets</div>
+                    <div class="exercise-reps-data data-col text-bold">Reps</div>
+                </div>
             </div>
             <div class="modal-actions">
                 <button type="button" class="add-workout">Add Workout</button>
@@ -117,7 +121,7 @@
                 <div class="exercise-container">
                     <div class="exercise-block">
                         <div class="block">
-                            <input type="text" name="exercise-name" id="" class="form-inp" placeholder="Exercise Name"> 
+                            <input type="text" name="exercise-name" id="" class="form-inp" placeholder="Exercise Name">
                         </div>
                         <div class="block">
                             <input type="number" name="exercise-sets" id="" class="form-inp" placeholder="No of sets">

@@ -1,134 +1,101 @@
 @import "./vars";
 
 
-.workouts-sec {
-    .workout-item {
-        position: relative;
-        overflow: visible !important;
+.workout-item {
+    position: relative;
+    overflow: visible !important;
 
-        .close-btn {
-            height: 20px !important;
-            width: 20px !important;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: absolute;
-            top: calc(-1 * calc(25px / 2));
-            right: calc(25px / 2);
-            background-color: #000;
-            border-radius: 50%;
+    .close-btn {
+        height: 20px !important;
+        width: 20px !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: calc(-1 * calc(25px / 2));
+        right: calc(25px / 2);
+        background-color: #000;
+        border-radius: 50%;
 
-            img {
-                width: 50%;
-                object-fit: cover;
-            }
+        img {
+            width: 50%;
+            object-fit: cover;
+        }
+    }
+}
+
+.edit-workout-modal {
+    .exercise-container {
+        overflow: auto;
+        padding-bottom: 20px;
+    }
+
+    .exercise-block {
+        &:not(:first-child) {
+            border-top: 2px solid #fff;
         }
     }
 
-    .edit-workout-modal {
-        .exercise-container {
-            overflow: auto;
-            padding-bottom: 20px;
+    .exercise-block {
+        &:not(:first-child) {
+            padding-top: 20px;
         }
+    }
 
-        .duration-set,
-        .exercise-block {
-            display: flex;
-            align-items: center;
+    .duration-set,
+    .exercise-block {
+        display: flex;
+        align-items: center;
 
-            .duration,
-            .block {
-                flex: 0 0 calc(100% / 3);
+        .duration,
+        .block {
+            flex: 0 0 calc(100% / 3);
 
-                &:not(:last-child) {
-                    padding-right: 20px;
-                }
+            &:not(:last-child) {
+                padding-right: 20px;
             }
         }
 
+    }
 
 
-        .add-exercise {
-            margin-top: 10px;
-        }
 
-        .del-exer-block {
-            height: 30px;
-            width: 30px;
-            border-radius: 50%;
-            background-color: #000;
-            background-image: url('/frontend/assets/images/close_icon.svg');
-            background-size: 40%;
-            background-position: center center;
-            background-repeat: no-repeat;
+    .add-exercise {
+        margin-top: 10px;
+    }
+
+    .del-exer-block {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        background-color: #000;
+        background-image: url('/frontend/assets/images/close_icon.svg');
+        background-size: 40%;
+        background-position: center center;
+        background-repeat: no-repeat;
+        object-fit: cover;
+    }
+}
+
+.workout-detail-modal {
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        height: 20px;
+        width: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        img {
+            width: 80%;
             object-fit: cover;
         }
     }
 
-    .workout-detail-modal {
-        .close-btn{
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            height: 20px;
-            width: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            img{
-                width: 80%;
-                object-fit: cover;
-            }
-        }
-        .exercise-list-table {
-            font-size: 20px;
-            margin: 0 auto;
-            overflow: auto;
-            border-top: 2px solid #fff;
-            border-left: 2px solid #fff;
-            border-right: 2px solid #fff;
-
-            .exercise-item-row {
-                display: flex;
-
-                .data-col {
-                    padding: 8px;
-                    text-align: center;
-                    flex: 0 0 calc(100% / 3);
-                    white-space: nowrap;
-                    border-bottom: 2px solid #fff;
-
-                    &:not(:last-child) {
-                        border-right: 2px solid #fff;
-                    }
-                }
-            }
-        }
-    }
+    
 }
 
 
-@media screen and (max-width: 620px) {
-    .workouts-sec {
-        .workout-detail-modal {
-            .exercise-list-table {
-                .exercise-item-row {
-                    .data-col {
-                        //flex: 0 0 calc(100% / 2);
-                        flex: 0 0 200px;
-
-                    }
-
-                    &:not(:last-child) {
-                        .data-col {
-                            &:last-child {
-                                border-bottom: 2px solid #fff;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}

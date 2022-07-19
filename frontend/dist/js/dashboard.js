@@ -179,19 +179,18 @@ $(document).ready(function () {
                     let exerciseList = $('.rec-workout-detail-modal .exercise-list');
                     if (response.success == 1) {
                         $.map(response.exercises, (exercise, index) => {
-                            let exerciseItem = $('<div class="exercise-item"></div>');
-                            let exerciseName = $('<span class="exercise-name"></span>');
-                            let exerciseSets = $('<span class="exercise-sets"></span>');
-                            let exerciseReps = $('<span class="exercise-reps"></span>');
+                            let exerciseItem = $('<div class="exercise-item-row"></div>');
+                            let exerciseName = $('<div class="exercise-name-data data-col"></div>');
+                            let exerciseSets = $('<div class="exercise-sets-data data-col"></div>');
+                            let exerciseReps = $('<div class="exercise-reps-data data-col"></div>');
                             exerciseName.text(exercise.rec_exercise_name);
                             exerciseSets.text(exercise.rec_exercise_sets);
                             exerciseReps.text(exercise.rec_exercise_reps);
                             exerciseItem.append(exerciseName);
                             exerciseItem.append(exerciseSets);
-                            exerciseItem.append('<span>sets</span>')
                             exerciseItem.append(exerciseReps);
-                            exerciseItem.append('<span>reps</span>')
                             exerciseList.append(exerciseItem);
+                            $('.exercise-list-table').append(exerciseItem);
                         })
                     }
                 })
