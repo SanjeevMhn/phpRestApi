@@ -45,7 +45,25 @@
                 <button type="reset" class="close-rec-workout">Cancel</button>
             </div>
         </div>
-        <form method="post" class="user-goal-form ft-poppins">
+        <form method="post" class="user-goal-form ft-poppins modal">
+            <div class="form-data">
+                <label for="user-age">Your age:</label>
+                <input type="number" name="user-age" id="user-age" class="form-inp" placeholder="Your Age">
+                <span class="err-msg err-age">Please enter your age</span>
+            </div>
+            <div class="form-data">
+                <div class="input-gender-group">
+                    <div class="grp">
+                        <input type="radio" name="user-gender" id="male" value="male">
+                        <label for="male">Male</label>
+                    </div>
+                    <div class="grp">
+                        <input type="radio" name="user-gender" id="female" value="female">
+                        <label for="female">Female</label>
+                    </div>
+                </div>
+                <span class="err-msg err-gender">Please select your gender</span>
+            </div>
             <div class="form-data">
                 <label for="user-weight">
                     Current Weight
@@ -78,6 +96,14 @@
                     <option value="intermediate">Intermediate</option>
                     <option value="advance">Advance</option>
                 </select>
+            </div>
+            <div class="form-data">
+                <label for="user-height">Your height</label>
+                <div class="input-group-2">
+                    <input type="number" name="height-ft" id="user-height" class="form-inp" placeholder="Feet">
+                    <input type="number" name="height-inches" id="user-height" class="form-inp" placeholder="Inches">
+                </div>
+                <span class="err-msg err-height">Please Enter your height</span>
             </div>
             <div class="form-data">
                 <button type="submit">Done</button>

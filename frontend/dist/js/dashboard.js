@@ -36,7 +36,8 @@ $(document).ready(function () {
             $.ajax(userGoal).done(function (response) {
                 console.log(response);
                 if (response.success == 0) {
-                    $(".user-goal-form").css("display", "flex");
+                    $(".user-goal-form").addClass('dsp-flex');
+                    $('body').addClass('overlay');
                     $(".recommended-workouts").css("display", "none");
                 } else if (response.success == 1) {
                     $(".recommended-workouts").css("display", "block");
@@ -49,11 +50,34 @@ $(document).ready(function () {
             //submitting user goal form//
             $(".user-goal-form").submit(function (e) {
                 e.preventDefault();
+                let userAge = $('input[name="user-age"]').val();
+                let userGender = $('input[name="user-gender"]:checked').val();
                 let weightInput = $('input[name="user-weight"]').val();
                 let weightMetric = $('select[name="weight-metric"] option:selected').val();
                 let goalSelect = $('select[name="user-goal"] option:selected').val();
                 let levelSelect = $('select[name="workout-level"] option:selected').val();
+                let userHeightFeet = $('input[name="height-ft"]').val();
+                let userHeightInches = $('input[name="height-inches"]').val();
                 let counter = 0;
+
+                if(userAge !== ''){
+                    $('input[name="user-age"]').removeClass("err-field");
+                    $(".err-age").css('display',"none");
+                }else{
+                    counter++;
+                    $('.err-age').css("display","block");
+                    $('input[name="user-age"]').addClass("err-field");
+                }
+
+                if(userGender !== ''){
+                    $(".err-gender").css('display','none');
+                    $('input[name="user-gender"]').removeClass("err-field");
+                }else{
+                    counter++;
+                    $(".err-gender").css("display","block");
+                    $('input[name="user-gender"]').addClass("err-field");
+                }
+
                 if (goalSelect !== "default") {
                     $('select[name="user-goal"]').removeClass("err-field");
                     $(".err-goal").css("display", "none");
@@ -71,13 +95,32 @@ $(document).ready(function () {
                     $('input[name="user-weight"]').addClass("err-field");
                 }
 
+                if(userHeightFeet !== ''){
+                    $('.err-height').css("display","none");
+                    $('input[name="height-ft"]').removeClass("err-field");
+                    $('input[name="height-inches"]').removeClass("err-field");
+                }else{
+                    counter++;
+                    $('.err-height').css('display','block');
+                    $('input[name="height-ft"]').addClass("err-field");
+                    $('input[name="height-inches"]').addClass("err-field");
+                }
+
                 if (counter == 0) {
-                    setUserWorkoutGoal(weightInput, weightMetric, goalSelect, levelSelect);
+                    $('.user-goal-form').removeClass('dsp-flex');
+                    setUserWorkoutGoal(userAge,weightInput,userGender,weightMetric, goalSelect, levelSelect,userHeightFeet,userHeightInches);
+                    $('body').removeClass('overlay');
                 }
             });
 
-            function setUserWorkoutGoal(weightInput, weightMetric, goalSelect, levelSelect) {
-                console.log(weightInput, weightMetric, goalSelect);
+            function setUserWorkoutGoal(userAge,weightInput,userGender, weightMetric, goalSelect, levelSelect,userHeightFeet,userHeightInches) {
+                if(userHeightInches == '' || userHeightInches == null){
+                    userHeightInches = 0;
+                }
+                let parsedHeightFeet = parseInt(userHeightFeet);
+                let parsedHeightInches = parseInt(userHeightInches);
+
+                let ftToCm = parseInt(((parsedHeightFeet*12)+parsedHeightInches)*2.54);
                 let parsedWeight = parseInt(weightInput);
                 let setGoal = {
                     "url": "/api/users/setUserWorkoutGoal.php",
@@ -88,10 +131,13 @@ $(document).ready(function () {
                         "Content-Type": "application/json"
                     },
                     "data": JSON.stringify({
+                        "user_age": parseInt(userAge),
+                        "user_gender": userGender,
                         "goal": goalSelect,
                         "start_weight": parsedWeight,
                         "weight_metric": weightMetric,
-                        "user_level": levelSelect
+                        "user_level": levelSelect,
+                        "user_height": ftToCm
                     }),
                 }
 

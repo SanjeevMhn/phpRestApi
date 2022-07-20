@@ -32,7 +32,34 @@
             button {
                 color: #fff;
             }
-
+            .input-gender-group{
+                display: flex;
+                align-items: center;
+                .grp{
+                    flex: 0 0 calc(100% / 6);
+                    display: flex;
+                    align-items: center;
+                    label{
+                        padding-left: 10px;
+                    }
+                    input{
+                        margin: 0;
+                        height: 15px;
+                        width: 15px;
+                    }
+                }
+            }
+            .input-group-2{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                >*{
+                    flex: 1 0 calc(100% / 3);
+                    &:not(:last-child){
+                        margin-right: 15px;
+                    }
+                }
+            }
             .input-group {
                 display: flex;
                 align-items: center;
@@ -57,3 +84,16 @@
 }
 
 
+@media screen and (max-width: 620px) {
+    .dashboard-sec{
+        .user-goal-form{
+            .form-data{
+                .input-gender-group{
+                    .grp{
+                        flex: 0 0 calc(100% / 2);
+                    }
+                }
+            }
+        }
+    }
+}
