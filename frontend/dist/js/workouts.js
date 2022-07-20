@@ -66,6 +66,7 @@ $(document).ready(function () {
 
             $('.workout-detail-modal .close-btn').click(function(){
                 $(this).parent().removeClass('dsp-flex');
+                $('.workout-detail-modal .exercise-list-table .exercise-item-row').not('.heading').remove();
                 $('body').removeClass('overlay');
             })
 
