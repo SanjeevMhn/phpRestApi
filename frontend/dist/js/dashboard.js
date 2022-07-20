@@ -1,3 +1,9 @@
+/*
+    TODO: use the fitness api to generate the amount of calories needed 
+    for an individual to consume to either lose, maintain or gain weight,
+    use either "fitness api" from rapid api or figure out a way to web scrape
+    the calorie calculator website.
+*/
 $(document).ready(function () {
 
     let token = JSON.parse(localStorage.getItem("jwt"));
