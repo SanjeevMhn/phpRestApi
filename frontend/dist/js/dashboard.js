@@ -48,11 +48,12 @@ $(document).ready(function () {
                 } else if (response.success == 1) {
                     $(".recommended-workouts").css("display", "block");
                     recommendedWorkouts();
+                    getUserIdealCalories();
                 }
             });
 
-            getUserIdealCalories();
 
+            getUserIdealCalories();
             function getUserIdealCalories() {
                 let userLevel;
                 let userActivityLevel;
@@ -140,7 +141,7 @@ $(document).ready(function () {
                                             break;
 
                                         case "maintain":
-                                            calorie = Math.floor(response.data.goals['maintian weight']);
+                                            calorie = Math.floor(response.data.goals['maintain weight']);
                                             $('.user-ideal-calorie-intake .calorie-number').html(calorie);
                                             setDailyUserCalorie(calorie);
                                             break;
@@ -307,7 +308,7 @@ $(document).ready(function () {
                             recWorkoutCardContainer.data('recWorkoutDurationSecs', workout.rec_workout_duration_secs);
                             recWorkoutCardContainer.data('recWorkoutName', workout.rec_workout_name);
                             let recWorkoutCard = $('<div class="inner-container"></div>');
-                            let recWorkoutName = $('<h2 class="rec-workout-name"></h2>');
+                            let recWorkoutName = $('<h2 class="rec-workout-name header-text"></h2>');
                             let recWorkoutDuration = $('<div class="rec-workout-duration"></div>');
                             let recWorkoutDuHrs = $('<span class="hrs"></span>');
                             let recWorkoutDuMins = $('<span class="mins"></span>');

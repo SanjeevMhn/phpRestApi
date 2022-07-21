@@ -10,6 +10,7 @@ $(document).ready(function () {
     let userEmail;
     let userPassword;
 
+    $('.res-form input[name="usr-name"]').focus();
     resForm.submit(function (e) {
 
         e.preventDefault();

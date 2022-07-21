@@ -8,14 +8,14 @@
         <div class="links-list list ft-poppins">
             <a href="/workouts" class="link-item list-item">
                 <div class="inner-container">
-                    <h2>
+                    <h2 class="header-text">
                         Your Workouts
                     </h2>
                 </div>
             </a>
         </div>
         <div class="user-ideal-calorie-intake pb-20">
-            <h2 class="ft-poppins">For your goal you need to be consuming atmost <span class="calorie-number"></span> calories everyday!</h2>
+            <h2 class="header-text ft-poppins">For your goal you need to be consuming atmost <span class="calorie-number"></span> calories everyday!</h2>
         </div>
         <div class="recommended-workouts ft-poppins">
             <h2 class="header-text underline">Recommended Workouts</h2>

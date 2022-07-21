@@ -13,7 +13,7 @@ $(document).ready(function () {
             }
         } else {
             let loginForm = $('.login-form');
-
+            $('.login-form input[name="usr-email"]').focus();
             loginForm.submit(function (e) {
 
                 e.preventDefault();

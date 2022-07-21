@@ -1,10 +1,21 @@
+@import './vars';
+
+
 .dashboard-container {}
 
 .dashboard-sec {
+    .calorie-number{
+        padding: 0 20px;
+        background-color: $buttonColor;
+        color: #fff;
+        border-radius: 8px;
+        display: inline-block;
+        line-height: 30px;
+        padding-top: 2px;
+    }
     .recommended-workouts-list {
         padding-bottom: 110px;
     }
-
     .user-detail {
         .current-time {
             padding-bottom: 10px;

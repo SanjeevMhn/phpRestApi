@@ -54,6 +54,10 @@ body {
     font-size: 30px;
 }
 
+.header-text {
+    font-size: 25px;
+}
+
 .underline {
     text-decoration: underline;
     text-underline-offset: 10px;
@@ -175,6 +179,7 @@ body {
     margin-left: calc(var(--sidenav-width) + 50px);
     transition: 0.3s all;
     padding-bottom: 150px;
+    padding-right: 50px;
 }
 
 .form-container {
@@ -338,7 +343,6 @@ button {
     padding-top: 20px;
     display: flex;
     flex-wrap: wrap;
-    padding-right: 50px;
 
     .list-item {
         flex: 0 0 calc(100% / 4);
@@ -346,6 +350,9 @@ button {
         cursor: pointer;
         padding-right: 20px;
         padding-bottom: 20px;
+        &:nth-child(4n+4){
+            padding-right: 0!important;
+        }
     }
 
     .inner-container {
@@ -553,9 +560,11 @@ button {
         .data-col {
             border-bottom: 2px solid $activeMainColor;
             flex: 0 0 calc(100% / 4);
-            &:first-child{
+
+            &:first-child {
                 flex: 0 0 100px;
             }
+
             &:not(:last-child) {
                 border-right: 2px solid $activeMainColor;
             }
@@ -563,14 +572,31 @@ button {
     }
 }
 
+@media screen and (max-width: 1350px){
+    .list {
+        .list-item {
+            flex: 0 0 calc(100% / 3);
+            &:nth-child(3n+3){
+                padding-right: 0;
+            }
+        }
+    }
+}
+
 @media screen and (max-width: 1150px) {
+
     .modal,
-    form{
+    form {
         width: 90%;
     }
+
     .list {
         .list-item {
             flex: 0 0 calc(100% / 2);
+            padding-right: 20px!important;
+            &:nth-child(2n+2){
+                padding-right: 0!important;
+            }
         }
     }
 
@@ -593,7 +619,7 @@ button {
     .user-table {
         .user-tbl-row {
             .data-col {
-                
+
                 flex: 1 0 200px;
             }
 
@@ -613,7 +639,8 @@ button {
         margin-left: 0;
         padding: 0 30px;
     }
-    .container{
+
+    .container {
         width: 100%;
         padding: 0 20px;
     }
@@ -633,17 +660,19 @@ button {
     }
 }
 
-@media screen and (max-width: 768px) {
-
-    
-}
+@media screen and (max-width: 768px) {}
 
 @media screen and (max-width: 620px) {
-    form{
+    form {
         width: 100%;
     }
+
     .header-text {
         font-size: 22px;
+    }
+
+    .header-text-sm {
+        font-size: 18px;
     }
 
     .top-nav {
