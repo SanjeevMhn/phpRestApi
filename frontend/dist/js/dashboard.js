@@ -51,7 +51,133 @@ $(document).ready(function () {
                 }
             });
 
+            getUserIdealCalories();
 
+            function getUserIdealCalories() {
+                let userLevel;
+                let userActivityLevel;
+                let userAge;
+                let userGender;
+                let userHeight;
+                let userWeight;
+                let weightMetric;
+                let convertedWeight;
+                let getUserIdealDailyCalorie = {
+                    "url": "/api/users/getUserDailyCalorie.php",
+                    "method": "GET",
+                    "timeout": 0,
+                    "headers": {
+                        "Authorization": `Bearer ${token.token}`
+                    },
+                }
+                $.ajax(getUserIdealDailyCalorie).done(function (response) {
+                    if (parseInt(response.data.user_daily_calorie) == 0) {
+                        let getUserPhysicalInfo = {
+                            "url": '/api/users/getUserPhysicalInfo.php',
+                            "method": "GET",
+                            "timeout": 0,
+                            "headers": {
+                                "Authorization": `Bearer ${token.token}`
+                            }
+                        }
+                        $.ajax(getUserPhysicalInfo).done(function (response) {
+                            console.log(response);
+
+                            if (response.success == 1) {
+                                userLevel = response.data.user_level;
+                                userAge = response.data.user_age;
+                                userGender = response.data.user_gender;
+                                userHeight = response.data.user_height;
+                                userWeight = response.data.user_weight;
+                                weightMetric = response.data.weight_metric;
+                                userGoal = response.data.user_goal;
+                                console.log(userGoal, userLevel);
+
+                                switch (userLevel) {
+                                    case "beginner":
+                                        userActivityLevel = "level_1";
+                                        break;
+
+                                    case "intermediate":
+                                        userActivityLevel = "level_3";
+                                        break;
+
+                                    case "advanced":
+                                        userActivityLevel = "level_4";
+                                        break;
+                                }
+
+                                if (weightMetric == 'lbs') {
+                                    convertedWeight = Math.floor(userWeight * 0.453592);
+                                } else {
+                                    convertedWeight = userWeight;
+                                }
+
+                                let fitnessApi = {
+                                    "crossDomain": true,
+                                    "url": `https://fitness-calculator.p.rapidapi.com/dailycalorie?age=${userAge}&gender=${userGender}&height=${userHeight}&weight=${convertedWeight}&activitylevel=${userActivityLevel}`,
+                                    "method": "GET",
+                                    "headers": {
+                                        'X-RapidAPI-Key': '8ffde56148mshe6633e69b0ac1c5p19c4fcjsn33346e2c8b26',
+                                        'X-RapidAPI-Host': 'fitness-calculator.p.rapidapi.com'
+                                    },
+                                    "Content-Type": "application/json"
+                                }
+
+                                $.ajax(fitnessApi).done(function (response) {
+
+                                    switch (userGoal) {
+                                        case "lose":
+                                            calorie = Math.floor(response.data.goals['Weight loss']['calory']);
+                                            $('.user-ideal-calorie-intake .calorie-number').html(calorie);
+                                            setDailyUserCalorie(calorie);
+                                            break;
+
+                                        case "gain":
+                                            calorie = Math.floor(response.data.goals['Weight gain']['calory']);
+                                            $('.user-ideal-calorie-intake .calorie-number').html(calorie);
+                                            setDailyUserCalorie(calorie);
+                                            break;
+
+                                        case "maintain":
+                                            calorie = Math.floor(response.data.goals['maintian weight']);
+                                            $('.user-ideal-calorie-intake .calorie-number').html(calorie);
+                                            setDailyUserCalorie(calorie);
+                                            break;
+                                    }
+
+
+                                })
+
+                            }
+                        })
+
+
+                    } else {
+
+                        $('.user-ideal-calorie-intake .calorie-number').text(parseInt(response.data.user_daily_calorie));
+                    }
+
+                })
+            }
+
+            function setDailyUserCalorie(calorie) {
+                let set_User_Daily_Calorie = {
+                    "url": "/api/users/setUserDailyCalorie.php",
+                    "method": "POST",
+                    "timeout": 0,
+                    "headers":{
+                        "Authorization": `Bearer ${token.token}`
+                    },
+                    "data": JSON.stringify({
+                        "user_daily_calorie": parseInt(calorie)
+                    })
+                }
+
+                $.ajax(set_User_Daily_Calorie).done(function(response){
+                    console.log(response);
+                })
+            }
 
             //submitting user goal form//
             $(".user-goal-form").submit(function (e) {
@@ -66,21 +192,21 @@ $(document).ready(function () {
                 let userHeightInches = $('input[name="height-inches"]').val();
                 let counter = 0;
 
-                if(userAge !== ''){
+                if (userAge !== '') {
                     $('input[name="user-age"]').removeClass("err-field");
-                    $(".err-age").css('display',"none");
-                }else{
+                    $(".err-age").css('display', "none");
+                } else {
                     counter++;
-                    $('.err-age').css("display","block");
+                    $('.err-age').css("display", "block");
                     $('input[name="user-age"]').addClass("err-field");
                 }
 
-                if(userGender !== ''){
-                    $(".err-gender").css('display','none');
+                if (userGender !== '') {
+                    $(".err-gender").css('display', 'none');
                     $('input[name="user-gender"]').removeClass("err-field");
-                }else{
+                } else {
                     counter++;
-                    $(".err-gender").css("display","block");
+                    $(".err-gender").css("display", "block");
                     $('input[name="user-gender"]').addClass("err-field");
                 }
 
@@ -101,32 +227,32 @@ $(document).ready(function () {
                     $('input[name="user-weight"]').addClass("err-field");
                 }
 
-                if(userHeightFeet !== ''){
-                    $('.err-height').css("display","none");
+                if (userHeightFeet !== '') {
+                    $('.err-height').css("display", "none");
                     $('input[name="height-ft"]').removeClass("err-field");
                     $('input[name="height-inches"]').removeClass("err-field");
-                }else{
+                } else {
                     counter++;
-                    $('.err-height').css('display','block');
+                    $('.err-height').css('display', 'block');
                     $('input[name="height-ft"]').addClass("err-field");
                     $('input[name="height-inches"]').addClass("err-field");
                 }
 
                 if (counter == 0) {
                     $('.user-goal-form').removeClass('dsp-flex');
-                    setUserWorkoutGoal(userAge,weightInput,userGender,weightMetric, goalSelect, levelSelect,userHeightFeet,userHeightInches);
+                    setUserWorkoutGoal(userAge, weightInput, userGender, weightMetric, goalSelect, levelSelect, userHeightFeet, userHeightInches);
                     $('body').removeClass('overlay');
                 }
             });
 
-            function setUserWorkoutGoal(userAge,weightInput,userGender, weightMetric, goalSelect, levelSelect,userHeightFeet,userHeightInches) {
-                if(userHeightInches == '' || userHeightInches == null){
+            function setUserWorkoutGoal(userAge, weightInput, userGender, weightMetric, goalSelect, levelSelect, userHeightFeet, userHeightInches) {
+                if (userHeightInches == '' || userHeightInches == null) {
                     userHeightInches = 0;
                 }
                 let parsedHeightFeet = parseInt(userHeightFeet);
                 let parsedHeightInches = parseInt(userHeightInches);
 
-                let ftToCm = parseInt(((parsedHeightFeet*12)+parsedHeightInches)*2.54);
+                let ftToCm = parseInt(((parsedHeightFeet * 12) + parsedHeightInches) * 2.54);
                 let parsedWeight = parseInt(weightInput);
                 let setGoal = {
                     "url": "/api/users/setUserWorkoutGoal.php",
@@ -313,7 +439,7 @@ $(document).ready(function () {
                 $("body").removeClass('overlay');
             });
 
-           
+
             function addWorkout(data) {
                 let createWorkoutRequest = {
                     "url": "/api/users/createWorkout.php",
@@ -337,7 +463,7 @@ $(document).ready(function () {
             }
 
 
-            
+
 
         } else {
             window.history.back();

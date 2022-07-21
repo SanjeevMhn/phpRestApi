@@ -48,6 +48,88 @@ class User extends JwtHandler
         }
     }
 
+    public function setUserDailyCalorie($userId,$userDailyCalorie){
+
+        try{
+
+            $query = "UPDATE users_goal SET user_daily_calorie = :calorie WHERE id = :id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindValue(":calorie",$userDailyCalorie,PDO::PARAM_INT);
+            $stmt->bindValue(":id",$userId,PDO::PARAM_INT);
+
+            if($stmt->execute()){
+                return array(
+                    "success" => 1,
+                    "message" => "Successfully updated users daily calorie intake"
+                );
+            }else{
+                return array(
+                    "success" => 0,
+                    "message" => "Error while updating table"
+                );
+            }
+
+        }catch(PDOException $ex){
+            echo json_encode(array(
+                "success" => 0,
+                "message" => $ex->getMessage()
+            ));
+        }
+    }
+
+    public function getUserPhysicalInfo($userId){
+
+        try{
+
+            $query = "SELECT user_gender,user_age,user_goal,user_weight,weight_metric,user_level,user_height FROM users_goal WHERE id = :id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindValue(":id",$userId,PDO::PARAM_INT);
+            $stmt->execute();
+            if($stmt->rowCount()){
+                return array(
+                    "success" => 1,
+                    "data" => $stmt->fetch(PDO::FETCH_ASSOC)
+                );
+            }else{
+                return array(
+                    "success" => 0,
+                    "message" => "No data available"
+                );
+            }
+
+        }catch(PDOException $ex){
+           echo json_encode(array(
+            "success" => 0,
+            "message" => $ex->getMessage()
+           ));
+        }
+    }
+
+    public function getDailyCalorie($userId){
+
+        try{
+            $query = "SELECT user_daily_calorie from users_goal where id = :id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindValue(":id",$userId);
+            $stmt->execute();
+            if($stmt->rowCount()){
+                return array( 
+                    "success" => 1,
+                    "data" => $stmt->fetch(PDO::FETCH_ASSOC));
+            }else{
+                return array(
+                    "success" => 0,
+                    "message" => "Error while retrieving data"
+                );
+            }
+        }catch(PDOException $ex){
+            echo json_encode(array(
+                "success" => 0,
+                "message" => $ex->getMessage()
+            ));
+        }
+    }
+
     public function deleteWorkout($workoutId){
         try{
 
@@ -79,10 +161,12 @@ class User extends JwtHandler
 
             $query = "SELECT user_level from users_goal WHERE id = :id";
             $stmt = $this->conn->prepare($query);
-            $stmt->bindValue(":id",$userId);
+            $stmt->bindValue(":id",$userId,PDO::PARAM_INT);
             $stmt->execute();
             if($stmt->rowCount()){
-                return $stmt->fetch(PDO::FETCH_ASSOC);
+                return array(
+                    "success" => 1,
+                    "data" => $stmt->fetch(PDO::FETCH_ASSOC));
             }else{
                 return array(
                     "success" => 0,

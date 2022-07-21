@@ -25,6 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] !== "POST") {
 	if ($validateUser['success'] == 1) {
 		$userId = $user->getUserByEmail($validateUser['user']['email']);
 		$userFitLevel = $user->getUserFitnessLevel($userId['id']);
-		$user->getRecommendedWorkouts($userFitLevel['user_level']);
+		$user->getRecommendedWorkouts($userFitLevel['data']['user_level']);
 	}
 }
