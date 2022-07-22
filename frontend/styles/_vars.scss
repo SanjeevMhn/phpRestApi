@@ -1,11 +1,20 @@
-$mainColor: #764d79;
-$activeMainColor: #333159;
-$topNavColor: #e5ccf4;
-$buttonColor: #fc6a97;
-$userSettings: #c897d8;
+// $mainColor: #764d79;
+// $activeMainColor: #333159;
+// $topNavColor: #e5ccf4;
+// $buttonColor: #fc6a97;
+// $userSettings: #c897d8;
+// $errBorder: #ff1259;
+
+$mainColor: #03485c;
+$activeMainColor: #03222a;
+$topNavColor: #e8ca8d;
+$buttonColor: #66888f;
+$userSettings: #2c727f;
 $errBorder: #ff1259;
+
 $gradient : linear-gradient(60deg, $mainColor, $buttonColor, $userSettings);
 $gradient2 : linear-gradient(60deg, $mainColor, $buttonColor);
+// $gradient2 : linear-gradient(60deg, $mainColor, $topNavColor);
 
 $color1: #333159;
 $color2: #764d79;
