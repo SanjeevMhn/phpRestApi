@@ -350,8 +350,9 @@ button {
         cursor: pointer;
         padding-right: 20px;
         padding-bottom: 20px;
-        &:nth-child(4n+4){
-            padding-right: 0!important;
+
+        &:nth-child(4n+4) {
+            padding-right: 0 !important;
         }
     }
 
@@ -572,11 +573,12 @@ button {
     }
 }
 
-@media screen and (max-width: 1350px){
+@media screen and (max-width: 1350px) {
     .list {
         .list-item {
             flex: 0 0 calc(100% / 3);
-            &:nth-child(3n+3){
+
+            &:nth-child(3n+3) {
                 padding-right: 0;
             }
         }
@@ -584,6 +586,14 @@ button {
 }
 
 @media screen and (max-width: 1150px) {
+    .content {
+        padding: 0 30px;
+    }
+
+    .container {
+        width: 70%;
+        padding: 0 20px;
+    }
 
     .modal,
     form {
@@ -593,9 +603,10 @@ button {
     .list {
         .list-item {
             flex: 0 0 calc(100% / 2);
-            padding-right: 20px!important;
-            &:nth-child(2n+2){
-                padding-right: 0!important;
+            padding-right: 20px !important;
+
+            &:nth-child(2n+2) {
+                padding-right: 0 !important;
             }
         }
     }
@@ -637,7 +648,6 @@ button {
 @media screen and (max-width: 998px) {
     .content {
         margin-left: 0;
-        padding: 0 30px;
     }
 
     .container {

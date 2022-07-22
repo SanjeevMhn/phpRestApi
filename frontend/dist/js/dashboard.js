@@ -1,8 +1,6 @@
 /*
-    TODO: use the fitness api to generate the amount of calories needed 
-    for an individual to consume to either lose, maintain or gain weight,
-    use either "fitness api" from rapid api or figure out a way to web scrape
-    the calorie calculator website.
+    TODO: use webscraping to scrape data from eathismuch website to generate food and use that data as recommended meal plans
+
 */
 $(document).ready(function () {
 
@@ -162,12 +160,13 @@ $(document).ready(function () {
                 })
             }
 
+
             function setDailyUserCalorie(calorie) {
                 let set_User_Daily_Calorie = {
                     "url": "/api/users/setUserDailyCalorie.php",
                     "method": "POST",
                     "timeout": 0,
-                    "headers":{
+                    "headers": {
                         "Authorization": `Bearer ${token.token}`
                     },
                     "data": JSON.stringify({
@@ -175,7 +174,7 @@ $(document).ready(function () {
                     })
                 }
 
-                $.ajax(set_User_Daily_Calorie).done(function(response){
+                $.ajax(set_User_Daily_Calorie).done(function (response) {
                     console.log(response);
                 })
             }
@@ -243,6 +242,7 @@ $(document).ready(function () {
                     $('.user-goal-form').removeClass('dsp-flex');
                     setUserWorkoutGoal(userAge, weightInput, userGender, weightMetric, goalSelect, levelSelect, userHeightFeet, userHeightInches);
                     $('body').removeClass('overlay');
+                    window.location.reload(true);
                 }
             });
 
@@ -462,6 +462,7 @@ $(document).ready(function () {
                     }
                 });
             }
+
 
 
 
