@@ -28,7 +28,7 @@ switch ($request) {
         require_once __DIR__ . '/pages/login.php';
         break;
     case '/profile':
-        require_once __DIR__ . '/pages/userprofile.php';
+        require_once __DIR__ . '/pages/userProfile.php';
         break;
     default:
         http_response_code(404);

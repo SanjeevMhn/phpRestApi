@@ -70,6 +70,7 @@
     .main-content {
         padding: 30px 50px;
         flex: 1 0;
+        overflow-y: scroll;
         .back-home{
             height: 35px;
             width: 35px;
@@ -113,23 +114,21 @@
             padding-bottom: 20px;
         }
 
-        .profile-info,
-        .goal-info {
+        .info{
             padding-bottom: 20px;
             width: 50%;
 
             .item{
                 font-size: 20px;
             }
-            .goal-desc,
-            .profile-desc{
+            .desc{
                 .item{
                     display: flex;
                     border-bottom: 2px solid gainsboro;
                     padding-top: 8px;
                     padding-bottom: 8px;
                     >*{
-                        flex: 0 0 calc(100% / 2);
+                        flex: 0 0 calc(100% / 3);
                     }
                 }
             }

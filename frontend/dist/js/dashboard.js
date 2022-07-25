@@ -50,9 +50,6 @@ $(document).ready(function () {
                     $(".recommended-workouts").css("display", "none");
                 } else if (response.success == 1) {
                     $(".recommended-workouts").css("display", "block");
-                    let userP = JSON.parse(localStorage.getItem('profile_detail'));
-                    Object.assign(userP,{"user_id": response.user.id,"user_goal": response.user.user_goal});
-                    localStorage.setItem("profile_detail",JSON.stringify(userP));
                     recommendedWorkouts();
                     getUserIdealCalories();
                 }
@@ -78,6 +75,7 @@ $(document).ready(function () {
                     },
                 }
                 $.ajax(getUserIdealDailyCalorie).done(function (response) {
+                    console.log(response);
                     if (parseInt(response.data.user_daily_calorie) == 0) {
                         let getUserPhysicalInfo = {
                             "url": '/api/users/getUserPhysicalInfo.php',
@@ -98,6 +96,7 @@ $(document).ready(function () {
                                 userWeight = response.data.user_weight;
                                 weightMetric = response.data.weight_metric;
                                 userGoal = response.data.user_goal;
+
                                 console.log(userGoal, userLevel);
 
                                 switch (userLevel) {
@@ -138,18 +137,21 @@ $(document).ready(function () {
                                             calorie = Math.floor(response.data.goals['Weight loss']['calory']);
                                             $('.user-ideal-calorie-intake .calorie-number').html(calorie);
                                             setDailyUserCalorie(calorie);
+                                            setPersonalDetailStorage()                      
                                             break;
 
                                         case "gain":
                                             calorie = Math.floor(response.data.goals['Weight gain']['calory']);
                                             $('.user-ideal-calorie-intake .calorie-number').html(calorie);
                                             setDailyUserCalorie(calorie);
+                                            setPersonalDetailStorage()
                                             break;
 
                                         case "maintain":
                                             calorie = Math.floor(response.data.goals['maintain weight']);
                                             $('.user-ideal-calorie-intake .calorie-number').html(calorie);
                                             setDailyUserCalorie(calorie);
+                                            setPersonalDetailStorage()
                                             break;
                                     }
 
@@ -163,6 +165,8 @@ $(document).ready(function () {
                     } else {
 
                         $('.user-ideal-calorie-intake .calorie-number').text(parseInt(response.data.user_daily_calorie));
+                        setPersonalDetailStorage()
+
                     }
 
                 })
@@ -185,6 +189,37 @@ $(document).ready(function () {
                 $.ajax(set_User_Daily_Calorie).done(function (response) {
                     console.log(response);
                 })
+            }
+
+
+            function setPersonalDetailStorage(){
+                let getAllUserInfo = {
+                    "url": "/api/users/getUserPhysicalInfo.php",
+                    "method": "POST",
+                    "timeout": 0,
+                    "headers":{
+                        "Authorization": `Bearer ${token.token}`
+                    }
+                }
+
+                $.ajax(getAllUserInfo).done(function(response){
+                    let userP = JSON.parse(localStorage.getItem('profile_detail'));
+                    Object.assign(userP,{
+                        "user_id": response.data.id,
+                        "user_age": response.data.user_age,
+                        "user_gender": response.data.user_gender,
+                        "user_goal": response.data.user_goal,
+                        "user_height": response.data.user_height,
+                        "user_level": response.data.user_level,
+                        "user_weight": response.data.user_weight,
+                        "weight_metric": response.data.weight_metric,
+                        "user_daily_calorie": response.data.user_daily_calorie
+                    });
+                    console.log(userP);
+                    localStorage.setItem("profile_detail",JSON.stringify(userP));
+                })
+                
+
             }
 
             //submitting user goal form//

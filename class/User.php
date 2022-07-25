@@ -81,7 +81,7 @@ class User extends JwtHandler
 
         try{
 
-            $query = "SELECT user_gender,user_age,user_goal,user_weight,weight_metric,user_level,user_height FROM users_goal WHERE id = :id";
+            $query = "SELECT id,user_gender,user_age,user_goal,user_weight,weight_metric,user_level,user_height,user_daily_calorie FROM users_goal WHERE id = :id";
             $stmt = $this->conn->prepare($query);
             $stmt->bindValue(":id",$userId,PDO::PARAM_INT);
             $stmt->execute();

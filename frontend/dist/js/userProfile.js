@@ -23,7 +23,11 @@ $(document).ready(function () {
                 $('.main-content .profile-info .profile-desc .user-name .label-data').text(userProfile.user_name);
                 $('.main-content .profile-info .profile-desc .user-email .label-data').text(userProfile.user_email);
                 $('.main-content .goal-info .goal-desc .user-goal .label-data').text(userProfile.user_goal);
-
+                $('.main-content .weight-info .weight-desc .user-weight .weight-number').text(userProfile.user_weight);
+                $('.main-content .weight-info .weight-desc .user-weight-metric .weight-metric').text(userProfile.weight_metric);
+                $('.main-content .fitness-info .fitness-desc .user-fitness .label-data').text(userProfile.user_level);
+                $('.main-content .daily-calorie-info .calorie-desc .user-calorie .label-data').text(userProfile.user_daily_calorie);
+                $('.main-content .height-info .height-desc .user-height .label-data').text(userProfile.user_height + " cm");
 
                 $('.side-nav .user-profile-img .img-container').css('background-image','url("./frontend/assets/images/default.png")');
                 $('.main-content .profile-img .img-container').css('background-image','url("./frontend/assets/images/default.png")');
