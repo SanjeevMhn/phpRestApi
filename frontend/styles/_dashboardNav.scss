@@ -401,12 +401,12 @@
                         transition: all 0.3s;
                         border-top: 2px solid #fff;
 
-                        .header{
+                        .header {
                             display: flex;
                             justify-content: space-between;
                             align-items: center;
                             padding: 5px 15px;
-                            
+
                         }
 
                         .dp-item {
@@ -491,13 +491,7 @@
                 padding-left: 0;
             }
 
-            .user-actions {
-                .action-link {
-                    &.create {
-                        display: none;
-                    }
-                }
-            }
+
         }
 
     }
@@ -511,6 +505,14 @@
             .sidenav-toggler,
             .sidenav-toggler-sp {
                 display: none;
+            }
+
+            .user-actions {
+                .action-link {
+                    &.create {
+                        display: none;
+                    }
+                }
             }
         }
 
