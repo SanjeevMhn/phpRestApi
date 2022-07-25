@@ -51,7 +51,7 @@ $(document).ready(function () {
                 } else if (response.success == 1) {
                     $(".recommended-workouts").css("display", "block");
                     let userP = JSON.parse(localStorage.getItem('profile_detail'));
-                    Object.assign(userP,{"user_goal": response.user.user_goal});
+                    Object.assign(userP,{"user_id": response.user.id,"user_goal": response.user.user_goal});
                     localStorage.setItem("profile_detail",JSON.stringify(userP));
                     recommendedWorkouts();
                     getUserIdealCalories();
