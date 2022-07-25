@@ -359,6 +359,7 @@
     width: 100%;
     display: none;
     background-color: $topNavColor;
+    isolation: isolate;
 
     .user-actions {
         list-style-type: none;
@@ -385,38 +386,44 @@
                 height: 50px;
                 width: 50px;
 
-                .drpdown-content {
-                    position: absolute;
-                    bottom: 0;
-                    right: 0;
-                    top: 120%;
-                    width: 150%;
-                    display: none;
-                    border-radius: 5px;
+                &.create-btm {
+                    position: relative;
 
-                    .dp-item {
-                        display: block;
-                        padding: 8px 10px;
-                        font-size: 22px;
+                    .drpdown-content-btm {
+                        position: absolute;
+                        width: 150%;
+                        bottom: -470%;
+                        width: 100vw;
                         background-color: $mainColor;
-                        color: #fff;
+                        display: flex;
+                        flex-direction: column;
+                        overflow: hidden;
+                        transition: all 0.3s;
+                        border-top: 2px solid #fff;
 
-                        &:first-child {
-                            border-radius: 5px 5px 0 0;
+                        .header{
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            padding: 5px 15px;
+                            
                         }
 
-                        &:last-child {
-                            border-radius: 0 0 5px 5px;
-                        }
+                        .dp-item {
+                            background-color: $mainColor;
+                            color: #fff;
+                            font-size: 22px;
+                            padding: 5px 15px;
 
-                        &:hover {
-                            background-color: $activeMainColor;
+                            &:hover {
+                                background-color: $activeMainColor;
+                            }
                         }
                     }
                 }
 
-                .show-drp {
-                    display: block;
+                .show-drp-btm {
+                    bottom: 125% !important;
                 }
 
             }

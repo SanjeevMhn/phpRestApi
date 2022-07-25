@@ -49,4 +49,15 @@ $(document).ready(function () {
         $(".add-workout-modal").addClass("dsp-flex");
         $("body").addClass('overlay');
     });
+
+
+    $(".create-btm").click(function(){
+        console.log("hello");
+        $(".drpdown-content-btm").toggleClass('show-drp-btm');
+    })
+
+    $(".create-btm .drpdown-content-btm .create-workout").click(function(){
+        $(".add-workout-modal").addClass("dsp-flex");
+        $("body").addClass("overlay");
+    })
 });

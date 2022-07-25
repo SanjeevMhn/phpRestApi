@@ -183,26 +183,32 @@
 <nav class="dashboard-nav dashboard-nav-bottom ft-poppins">
     <ul class="user-actions">
         <li class="action home">
-            <div class="action-link home">
+            <a href="/dashboard" class="action-link home">
                 <div class="icon-container-md">
                     <img src="frontend/assets/images/home_icon.svg" alt="">
                 </div>
-            </div>
+            </a>
         </li>
         <li class="action home">
-            <div class="action-link home">
+            <a href="/workouts" class="action-link home">
                 <div class="icon-container-md">
                     <img src="frontend/assets/images/dumbell_icon.svg" alt="">
                 </div>
-            </div>
+            </a>
         </li>
         <li class="action">
-            <div class="action-link create">
+            <div class="action-link create-btm create">
                 <!-- <span class="label-text">Create</span> -->
                 <div class="icon-container-lg">
                     <img src="frontend/assets/images/plus_icon.svg" alt="">
                 </div>
-                <div class="drpdown-content ft-source">
+                <div class="drpdown-content-btm ft-source">
+                    <div class="header">
+                        <h2 class="title-text">Create</h2>
+                        <div class="icon-container">
+                            <img src="/frontend/assets/images/close_icon.svg" alt="">
+                        </div>
+                    </div>
                     <a href="javascript:void(0)" class="dp-item create-workout">Create Workout</a>
                     <a href="javascript:void(0)" class="dp-item create-diet">Create Diet</a>
                     <a href="javascript:void(0)" class="dp-item create-workout">Create Workout Log</a>
