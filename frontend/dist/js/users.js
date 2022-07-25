@@ -25,7 +25,7 @@ $(document).ready(function () {
                     $.map(users, (user, index) => {
                         number++;
                         let sNtd = $('<span class="data-col"></span>');
-                        let userNameTd = $('<span class="data-col"></span>');
+                        let userNameTd = $(`<a href="/profile" class="data-col"></a>`);
                         let userEmailTd = $('<span class="data-col"></span>');
                         let userGoalTd = $('<span class="data-col"></span>');
                         let userWeightTd = $('<span class="data-col"></span>');
@@ -37,6 +37,10 @@ $(document).ready(function () {
                         userGoalTd.text(user.user_goal);
                         userWeightTd.text(user.user_weight);
                         weightMetricTd.text(user.weight_metric);
+
+                        userNameTd.click(function(){
+                            window.localStorage.setItem("profile_id",user.id);
+                        })
 
                         tr.append(sNtd);
                         tr.append(userNameTd);
@@ -52,6 +56,7 @@ $(document).ready(function () {
         } else {
             window.location.reload(true);
             localStorage.removeItem('jwt');
+            localStorage.removeItem('profile_id');
             window.location.replace('/login');
         }
 

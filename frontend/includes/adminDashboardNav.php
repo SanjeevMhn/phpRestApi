@@ -82,20 +82,20 @@
             <li class="nav-list-item">
                 <a href="/users" class="nav-list-link">
                     <div class="icon-container">
-                        <img src="frontend/assets/images/dumbell_icon.svg" alt="">
+                        <img src="frontend/assets/images/profile_icon.svg" alt="">
                     </div>
                     <div class="label-text">
-                        Workouts
+                        Users
                     </div>
                 </a>
             </li>
             <li class="nav-list-item">
                 <a href="#" class="nav-list-link">
                     <div class="icon-container">
-                        <img src="frontend/assets/images/food_icon.svg" alt="">
+                        <img src="frontend/assets/images/dumbell_icon.svg" alt="">
                     </div>
                     <div class="label-text">
-                        Diets
+                        Trainer
                     </div>
                 </a>
             </li>
@@ -163,9 +163,20 @@
                 </div>
             </li>
             <li class="action">
-                <div class="action-link message">
+                <div class="action-link user-profile">
                     <div class="icon-container-md">
                         <img src="frontend/assets/images/profile_icon.svg" alt="">
+                    </div>
+                    <div class="drpdown-content">
+                        <div class="dp-item">
+                            <a href="/profile" class="link-item">Profile</a>
+                        </div>
+                        <div class="dp-item">
+                            <a href="/settings" class="link-item">Settings</a>
+                        </div>
+                        <div class="dp-item">
+                            <button class="log-out link-item">Log out</button>
+                        </div>
                     </div>
                 </div>
             </li>
@@ -177,26 +188,26 @@
 <nav class="dashboard-nav dashboard-nav-bottom ft-poppins">
     <ul class="user-actions">
         <li class="action home">
-            <div class="action-link home">
+            <a href="/adminDashboard" class="action-link home">
                 <div class="icon-container-md">
                     <img src="frontend/assets/images/home_icon.svg" alt="">
                 </div>
-            </div>
+            </a>
         </li>
         <li class="action home">
-            <div class="action-link home">
+            <a href="/users" class="action-link home">
                 <div class="icon-container-md">
-                    <img src="frontend/assets/images/dumbell_icon.svg" alt="">
+                    <img src="frontend/assets/images/profile_icon.svg" alt="">
                 </div>
-            </div>
+            </a>
         </li>
         <li class="action">
-            <div class="action-link create">
+            <div class="action-link create create-btm">
                 <!-- <span class="label-text">Create</span> -->
                 <div class="icon-container-lg">
                     <img src="frontend/assets/images/plus_icon.svg" alt="">
                 </div>
-                <div class="drpdown-content ft-source">
+                <div class="drpdown-content-btm ft-source">
                     <a href="javascript:void(0)" class="dp-item create-workout">Create Workout</a>
                     <a href="javascript:void(0)" class="dp-item create-diet">Create Diet</a>
                     <a href="javascript:void(0)" class="dp-item create-workout">Create Workout Log</a>
@@ -207,7 +218,7 @@
         <li class="action">
             <div class="action-link diet">
                 <div class="icon-container-md">
-                    <img src="frontend/assets/images/food_icon.svg" alt="">
+                    <img src="frontend/assets/images/dumbell_icon.svg" alt="">
                 </div>
             </div>
         </li>

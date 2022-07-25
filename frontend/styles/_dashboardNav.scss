@@ -297,10 +297,22 @@
                 color: #fff;
 
                 &.create {
-                    background-color: $userSettings;
                     padding: 5px 20px;
                     width: 150px;
                     border-radius: 5px;
+                    .drpdown-content{
+                        width: 150%;
+                    }
+                }
+                &.user-profile{
+                    .drpdown-content{
+                        width: 150px;
+                    }
+                }
+
+                &.create,
+                &.user-profile {
+                    background-color: $userSettings;
                     color: #fff;
                     position: relative;
                     display: flex;
@@ -317,7 +329,6 @@
                         bottom: 0;
                         right: 0;
                         top: 120%;
-                        width: 150%;
                         display: none;
                         border-radius: 5px;
 
@@ -338,6 +349,12 @@
 
                             &:hover {
                                 background-color: $activeMainColor;
+                            }
+                            button{
+                                background-color: transparent!important;
+                                backdrop-filter: unset!important;
+                                border-radius: 0!important;
+                                box-shadow: unset!important;
                             }
                         }
                     }

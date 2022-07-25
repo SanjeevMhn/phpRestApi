@@ -8,5 +8,6 @@
 <script src="/frontend/dist/js/workouts.js"></script>
 <script src="/frontend/dist/js/users.js"></script>
 <script src="/frontend/dist/js/addWorkout.js"></script>
+<script src="/frontend/dist/js/userProfile.js"></script>
 </body>
 </html>

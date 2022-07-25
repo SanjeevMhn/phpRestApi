@@ -1,0 +1,140 @@
+@import "./vars";
+
+.profile-container {
+    display: flex;
+    height: 100vh;
+
+    .side-nav {
+        background: $gradient2;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        flex: 0 0 250px;
+
+        .user-profile-img {
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-bottom: 20px;
+            display: flex;
+            align-items: center;
+
+            .img-container {
+                height: 55px;
+                width: 55px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-image: url("/frontend/assets/images/default.png");
+                background-size: cover;
+                background-position: center center;
+                background-repeat: no-repeat;
+                object-fit: cover;
+                border-radius: 50%;
+                border: 2px solid #fff;
+            }
+
+            .user-info {
+                padding-left: 15px;
+                color: #fff;
+            }
+        }
+
+        .side-nav-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            color: #fff;
+
+            .list-link {
+                font-size: 18px;
+                padding: 8px 20px;
+                display: flex;
+                align-items: center;
+
+                .label-text {
+                    padding-top: 5px;
+                    padding-left: 15px;
+                }
+
+                &:hover {
+                    background-color: $mainColor;
+                }
+
+                &.active {
+                    background-color: $mainColor;
+                    border-bottom: 1px solid #fff;
+                }
+            }
+        }
+
+    }
+
+    .main-content {
+        padding: 30px 50px;
+        flex: 1 0;
+        .back-home{
+            height: 35px;
+            width: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: $mainColor;
+            border-radius: 50%;
+        }
+
+        .profile-img {
+            .img-container {
+                height: 120px;
+                width: 120px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-image: url("/frontend/assets/images/default.png");
+                background-size: cover;
+                background-position: center center;
+                background-repeat: no-repeat;
+                object-fit: cover;
+                border-radius: 50%;
+                border: 2px solid #fff;
+            }
+
+            .actions {
+                padding: 20px 0;
+
+                button {
+                    background-color: $userSettings!important;
+                    backdrop-filter: unset !important;
+                    box-shadow: unset !important;
+                    border-radius: 5px!important;
+                    margin-right: 10px;
+                }
+            }
+        }
+
+        .header-text {
+            font-size: 40px;
+            padding-bottom: 20px;
+        }
+
+        .profile-info,
+        .goal-info {
+            padding-bottom: 20px;
+            width: 50%;
+
+            .item{
+                font-size: 20px;
+            }
+            .goal-desc,
+            .profile-desc{
+                .item{
+                    display: flex;
+                    border-bottom: 2px solid gainsboro;
+                    padding-top: 8px;
+                    padding-bottom: 8px;
+                    >*{
+                        flex: 0 0 calc(100% / 2);
+                    }
+                }
+            }
+        }
+    }
+}

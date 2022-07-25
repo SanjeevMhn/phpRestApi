@@ -68,7 +68,7 @@ class Admin extends JwtHandler
     public function getUsers()
     {
         try {
-            $query = "SELECT name,email,user_goal,user_weight,weight_metric FROM users JOIN users_goal ON users.id = users_goal.id WHERE user_type=:type";
+            $query = "SELECT users.id,name,email,user_goal,user_weight,weight_metric FROM users JOIN users_goal ON users.id = users_goal.id WHERE user_type=:type";
             $stmt = $this->conn->prepare($query);
             $stmt->bindValue(':type', 'user', PDO::PARAM_STR);
             $stmt->execute();

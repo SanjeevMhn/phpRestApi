@@ -169,9 +169,20 @@
                 </div>
             </li>
             <li class="action">
-                <div class="action-link message">
+                <div class="action-link user-profile">
                     <div class="icon-container-md">
                         <img src="frontend/assets/images/profile_icon.svg" alt="">
+                    </div>
+                    <div class="drpdown-content">
+                        <div class="dp-item">
+                            <a href="/profile" class="link-item">Profile</a>
+                        </div>
+                        <div class="dp-item">
+                            <a href="/settings" class="link-item">Settings</a>
+                        </div>
+                        <div class="dp-item">
+                            <button class="log-out link-item">Log out</button>
+                        </div>
                     </div>
                 </div>
             </li>

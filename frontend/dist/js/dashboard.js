@@ -25,6 +25,11 @@ $(document).ready(function () {
                 if (response.success == 1) {
                     $(".user-detail .user-name").html(response.user.name);
                 }
+                let userDetail = {
+                    "user_name": response.user.name,
+                    "user_email": response.user.email
+                };
+                localStorage.setItem('profile_detail',JSON.stringify(userDetail));
             });
 
             let userGoal = {
@@ -45,6 +50,9 @@ $(document).ready(function () {
                     $(".recommended-workouts").css("display", "none");
                 } else if (response.success == 1) {
                     $(".recommended-workouts").css("display", "block");
+                    let userP = JSON.parse(localStorage.getItem('profile_detail'));
+                    Object.assign(userP,{"user_goal": response.user.user_goal});
+                    localStorage.setItem("profile_detail",JSON.stringify(userP));
                     recommendedWorkouts();
                     getUserIdealCalories();
                 }
@@ -673,6 +681,7 @@ $(document).ready(function () {
         } else {
             window.history.back();
             localStorage.removeItem('jwt');
+            localStorage.removeItem("profile_id");
             window.location.reload(true);
             window.location.replace('/login');
         }

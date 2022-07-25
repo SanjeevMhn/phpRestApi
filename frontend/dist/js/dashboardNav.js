@@ -24,24 +24,29 @@ $(document).ready(function () {
         }
     });
 
-    sideNavToggleSp.click(function(){
-        $(".side-nav-sp").css("left","0");
+    sideNavToggleSp.click(function () {
+        $(".side-nav-sp").css("left", "0");
     })
 
-    closeSideNavBtn.click(function(){
-        $(".side-nav-sp").css("left","-300px");
+    closeSideNavBtn.click(function () {
+        $(".side-nav-sp").css("left", "-300px");
     })
 
     //logout
     $(".log-out").click(function () {
         localStorage.removeItem("jwt");
+        localStorage.removeItem("profile_detail");
         window.location.reload(true);
         window.location.replace('/login')
     });
 
     //create btn//
     $(".create").click(function () {
-        $(".drpdown-content").toggleClass("show-drp");
+        $(".create .drpdown-content").toggleClass("show-drp");
+    });
+
+    $(".user-profile").click(function () {
+        $(".user-profile .drpdown-content").toggleClass("show-drp");
     });
 
     //show add workout modal//
@@ -51,12 +56,12 @@ $(document).ready(function () {
     });
 
 
-    $(".create-btm").click(function(){
+    $(".create-btm").click(function () {
         console.log("hello");
         $(".drpdown-content-btm").toggleClass('show-drp-btm');
     })
 
-    $(".create-btm .drpdown-content-btm .create-workout").click(function(){
+    $(".create-btm .drpdown-content-btm .create-workout").click(function () {
         $(".add-workout-modal").addClass("dsp-flex");
         $("body").addClass("overlay");
     })
