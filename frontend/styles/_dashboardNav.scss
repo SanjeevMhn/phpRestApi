@@ -300,12 +300,25 @@
                     padding: 5px 20px;
                     width: 150px;
                     border-radius: 5px;
-                    .drpdown-content{
+
+                    .drpdown-content {
                         width: 150%;
                     }
                 }
-                &.user-profile{
-                    .drpdown-content{
+
+                &.user-profile {
+                    height: 45px;
+                    width: 45px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background-size: contain;
+                    background-position: center center;
+                    background-repeat: no-repeat;
+                    object-fit: cover;
+                    border: 1px solid #000;
+
+                    .drpdown-content {
                         width: 150px;
                     }
                 }
@@ -350,11 +363,12 @@
                             &:hover {
                                 background-color: $activeMainColor;
                             }
-                            button{
-                                background-color: transparent!important;
-                                backdrop-filter: unset!important;
-                                border-radius: 0!important;
-                                box-shadow: unset!important;
+
+                            button {
+                                background-color: transparent !important;
+                                backdrop-filter: unset !important;
+                                border-radius: 0 !important;
+                                box-shadow: unset !important;
                             }
                         }
                     }

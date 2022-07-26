@@ -29,7 +29,7 @@ $(document).ready(function () {
                     "user_name": response.user.name,
                     "user_email": response.user.email
                 };
-                localStorage.setItem('profile_detail',JSON.stringify(userDetail));
+                localStorage.setItem('profile_detail', JSON.stringify(userDetail));
             });
 
             let userGoal = {
@@ -137,7 +137,7 @@ $(document).ready(function () {
                                             calorie = Math.floor(response.data.goals['Weight loss']['calory']);
                                             $('.user-ideal-calorie-intake .calorie-number').html(calorie);
                                             setDailyUserCalorie(calorie);
-                                            setPersonalDetailStorage()                      
+                                            setPersonalDetailStorage()
                                             break;
 
                                         case "gain":
@@ -192,19 +192,19 @@ $(document).ready(function () {
             }
 
 
-            function setPersonalDetailStorage(){
+            function setPersonalDetailStorage() {
                 let getAllUserInfo = {
                     "url": "/api/users/getUserPhysicalInfo.php",
                     "method": "POST",
                     "timeout": 0,
-                    "headers":{
+                    "headers": {
                         "Authorization": `Bearer ${token.token}`
                     }
                 }
 
-                $.ajax(getAllUserInfo).done(function(response){
+                $.ajax(getAllUserInfo).done(function (response) {
                     let userP = JSON.parse(localStorage.getItem('profile_detail'));
-                    Object.assign(userP,{
+                    Object.assign(userP, {
                         "user_id": response.data.id,
                         "user_age": response.data.user_age,
                         "user_gender": response.data.user_gender,
@@ -216,9 +216,9 @@ $(document).ready(function () {
                         "user_daily_calorie": response.data.user_daily_calorie
                     });
                     console.log(userP);
-                    localStorage.setItem("profile_detail",JSON.stringify(userP));
+                    localStorage.setItem("profile_detail", JSON.stringify(userP));
                 })
-                
+
 
             }
 
@@ -505,7 +505,7 @@ $(document).ready(function () {
                     }
                 });
             }
-
+            
 
 
 

@@ -14,27 +14,20 @@ $db = $db_conn->connect();
 $user = new User($db, $headers);
 
 $data = json_decode(file_get_contents("php://input"), true);
+
 $validUser = $user->isValid();
 
-if ($validUser['success'] == 1) {
-
-    if (
-        isset($data['user_id'])
-        && !empty($data['user_id'])
-    ) {
-        echo json_encode(array(
-            "success" => 1,
-            "data" => $user->getUserById($data['user_id'])
-        ));
-    } else {
-        echo json_encode(array(
-            "success" => 0,
-            "message" => "Please enter user id"
-        ));
-    }
-} else {
+if ($_SERVER['REQUEST_METHOD'] !== "POST") {
+    echo json_encode(array(
+        "success" => 0,
+        "message" => "Page not found"
+    ));
+} else if ($validUser['success'] !== 1) {
     echo json_encode(array(
         "success" => 0,
         "message" => "Invalid User"
     ));
+} else {
+    $userId = $user->getUserByEmail($validUser['user']['email']);
+    $user->removeUserProfilePic($userId['id']);
 }

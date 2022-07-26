@@ -248,7 +248,7 @@ label,
     }
 }
 
-button {
+button,.btn{
     font-size: 20px;
     border-radius: 5px;
     padding: 5px 10px;
@@ -300,7 +300,7 @@ button {
 //     background-color: maroon;
 // }
 
-button {
+button,.btn {
     color: #fff;
 
     /* From https://css.glass */
@@ -429,7 +429,7 @@ button {
     align-items: center;
     justify-content: center;
 
-    button {
+    button,.btn {
         color: #fff;
         margin-right: 10px;
         margin-left: 10px;

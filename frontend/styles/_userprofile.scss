@@ -23,7 +23,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                background-size: cover;
+                background-size: contain;
                 background-position: center center;
                 background-repeat: no-repeat;
                 object-fit: cover;
@@ -71,6 +71,18 @@
         padding: 30px 50px;
         flex: 1 0;
         overflow-y: scroll;
+        header{
+            position: absolute;
+            min-height: 75px;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            top: 0;
+            width: calc(100% - 300px);
+        }
+        .main-content-container{
+            padding-top: 45px;
+        }
         .back-home{
             height: 35px;
             width: 35px;
@@ -88,23 +100,35 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                background-size: cover;
+                background-size: contain;
                 background-position: center center;
                 background-repeat: no-repeat;
                 object-fit: cover;
                 border-radius: 50%;
-                border: 2px solid #fff;
+                border: 2px solid #000;
             }
 
-            .actions {
+            .modal-actions {
                 padding: 20px 0;
+                justify-content: flex-start!important;
 
-                button {
+                label{
+                    cursor: pointer;
+                    input{
+                        display: none;
+                    }
+                }
+                button,.btn {
                     background-color: $userSettings!important;
                     backdrop-filter: unset !important;
                     box-shadow: unset !important;
                     border-radius: 5px!important;
                     margin-right: 10px;
+                    margin-left: 0!important;
+                    margin-bottom: 0!important ;
+                }
+                .submit-photo{
+                    display: none;
                 }
             }
         }
@@ -128,7 +152,7 @@
                     padding-top: 8px;
                     padding-bottom: 8px;
                     >*{
-                        flex: 0 0 calc(100% / 3);
+                        flex: 0 0 calc(100% / 2);
                     }
                 }
             }

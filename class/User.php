@@ -48,6 +48,58 @@ class User extends JwtHandler
         }
     }
 
+    public function removeUserProfilePic($userId){
+
+        try{
+            $query = "UPDATE users SET user_profile_pic = NULL WHERE id = :id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindValue(":id",$userId,PDO::PARAM_INT);
+            if($stmt->execute()){
+                return array(
+                    "success" => 1,
+                    "message" => "Successfully deleted profile pic"
+                );
+            }else{
+                return array(
+                    "success" => 0,
+                    "message" => "Error while deleted profile pic"
+                );
+            }
+
+        }catch(PDOException $ex){
+            echo json_encode(array(
+                "success" => 0,
+                "message" => $ex->getMessage()
+            ));
+        }
+    }
+
+    public function setUserProfilePic($id,$fileName){
+
+        try{
+            $query = "UPDATE users SET user_profile_pic = :pic WHERE id = :id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindValue(":pic",$fileName,PDO::PARAM_STR);
+            $stmt->bindValue(":id",$id,PDO::PARAM_INT);
+            if($stmt->execute()){
+                return array(
+                    "success" => 1,
+                    "message" => "Profile pic successfully uploaded"
+                );
+            }else{
+                return array(
+                    "success" => 0,
+                    "message" => "Error while uploading."
+                );
+            }
+        }catch(PDOException $ex){
+            echo json_encode(array(
+                "success" => 0,
+                "message" => $ex->getMessage()
+            ));
+        }
+    }
+
     public function setUserDailyCalorie($userId,$userDailyCalorie){
 
         try{
@@ -442,7 +494,7 @@ class User extends JwtHandler
     {
 
         try {
-            $query = "SELECT name, email from $this->table WHERE id = :id";
+            $query = "SELECT id, name, email, user_type, user_profile_pic from $this->table WHERE id = :id";
             $stmt = $this->conn->prepare($query);
             $stmt->bindValue(':id', $id, PDO::PARAM_INT);
             $stmt->execute();

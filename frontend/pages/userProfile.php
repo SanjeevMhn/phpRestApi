@@ -51,87 +51,96 @@
         </ul>
     </div>
     <main class="main-content">
-        <a href="/dashboard" class="back-home">
-            <div class="icon-container">
-                <img src="/frontend/assets/images/chevronLeft_icon.svg" alt="">
+        <header>
+            <a href="/dashboard" class="back-home">
+                <div class="icon-container">
+                    <img src="/frontend/assets/images/chevronLeft_icon.svg" alt="">
+                </div>
+            </a>
+        </header>
+        <div class="main-content-container">
+            <h2 class="header-text">Account Overview</h2>
+            <div class="profile-img">
+                <div class="img-container">
+                </div>
+                <div class="modal-actions">
+                    <label for="upload-new-profile" class="btn">
+                        Upload Photo
+                        <input type="file" name="upload-new-profile" id="upload-new-profile" placeholder="Upload Photo">
+                    </label>
+                    <button class="submit-photo">Submit Photo</button>
+                    <button class="remove-photo">Remove Photo</button>
+                </div>
             </div>
-        </a>
-        <h2 class="header-text">Account Overview</h2>
-        <div class="profile-img">
-            <div class="img-container">
+            <div class="profile-info info">
+                <h2>Profile</h2>
+                <div class="profile-desc desc">
+                    <div class="item user-name">
+                        <span class="label-text">Username</span>
+                        <span class="label-data"></span>
+                    </div>
+                    <div class="item user-email">
+                        <span class="label-text">Email</span>
+                        <span class="label-data"></span>
+                    </div>
+                </div>
             </div>
-            <div class="actions">
-                <button class="upload-new">Upload New Photo</button>
-                <button class="remove-photo">Remove Photo</button>
+            <div class="goal-info info">
+                <h2>Your Goal</h2>
+                <div class="goal-desc desc">
+                    <div class="item user-goal">
+                        <span class="label-text">User Goal</span>
+                        <span class="label-data capitalize"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="weight-info info">
+                <h2>Your Current Weight</h2>
+                <div class="weight-desc desc">
+                    <div class="item user-weight">
+                        <span class="label-text">User Weight</span>
+                        <span class="label-data weight-number"></span>
+
+                    </div>
+                    <div class="item user-weight-metric">
+                        <span class="label-text">Weight Metric</span>
+                        <span class="label-data weight-metric"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="height-info info">
+                <h2>Your Height</h2>
+                <div class="height-desc desc">
+                    <div class="item user-height">
+                        <span class="label-text">
+                            User Height
+                        </span>
+                        <span class="label-data"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="fitness-info info">
+                <h2>Your Fitness Level</h2>
+                <div class="fitness-desc desc">
+                    <div class="item user-fitness">
+                        <span class="label-text">User Fitness Level</span>
+                        <span class="label-data capitalize"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="daily-calorie-info info">
+                <h2>Daily Calorie</h2>
+                <div class="calorie-desc desc">
+                    <div class="item user-calorie">
+                        <span class="label-text">
+                            User Daily Calorie
+                        </span>
+                        <span class="label-data"></span>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="profile-info info">
-            <h2>Profile</h2>
-            <div class="profile-desc desc">
-                <div class="item user-name">
-                    <span class="label-text">Username</span>
-                    <span class="label-data"></span>
-                </div>
-                <div class="item user-email">
-                    <span class="label-text">Email</span>
-                    <span class="label-data"></span>
-                </div>
-            </div>
-        </div>
-        <div class="goal-info info">
-            <h2>Your Goal</h2>
-            <div class="goal-desc desc">
-                <div class="item user-goal">
-                    <span class="label-text">User Goal</span>
-                    <span class="label-data capitalize"></span>
-                </div>
-            </div>
-        </div>
-        <div class="weight-info info">
-            <h2>Your Current Weight</h2>
-            <div class="weight-desc desc">
-                <div class="item user-weight">
-                    <span class="label-text">User Weight</span>
-                    <span class="label-data weight-number"></span>
-                    
-                </div>
-                <div class="item user-weight-metric">
-                    <span class="label-text">Weight Metric</span>
-                    <span class="label-data weight-metric"></span>
-                </div>
-            </div>
-        </div>
-        <div class="height-info info">
-            <h2>Your Height</h2>
-            <div class="height-desc desc">
-                <div class="item user-height">
-                    <span class="label-text">
-                        User Height
-                    </span>
-                    <span class="label-data"></span>
-                </div>
-            </div>
-        </div>
-        <div class="fitness-info info">
-            <h2>Your Fitness Level</h2>
-            <div class="fitness-desc desc">
-                <div class="item user-fitness">
-                    <span class="label-text">User Fitness Level</span>
-                    <span class="label-data capitalize"></span>
-                </div>
-            </div>
-        </div>
-        <div class="daily-calorie-info info">
-            <h2>Daily Calorie</h2>
-            <div class="calorie-desc desc">
-                <div class="item user-calorie">
-                    <span class="label-text">
-                        User Daily Calorie
-                    </span>
-                    <span class="label-data"></span>
-                </div>
-            </div>
-        </div>
+
     </main>
 </div>
 

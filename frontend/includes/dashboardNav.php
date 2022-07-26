@@ -170,9 +170,9 @@
             </li>
             <li class="action">
                 <div class="action-link user-profile">
-                    <div class="icon-container-md">
-                        <img src="frontend/assets/images/profile_icon.svg" alt="">
-                    </div>
+                    <!-- <div class="img-container"> -->
+                        <!-- <img src="frontend/assets/images/profile_icon.svg" alt=""> -->
+                    <!-- </div> -->
                     <div class="drpdown-content">
                         <div class="dp-item">
                             <a href="/profile" class="link-item">Profile</a>
