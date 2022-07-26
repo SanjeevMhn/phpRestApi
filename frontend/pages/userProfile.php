@@ -65,10 +65,9 @@
                 </div>
                 <div class="modal-actions">
                     <label for="upload-new-profile" class="btn">
-                        Upload Photo
+                        <span class="title-text">Upload Photo</span> 
                         <input type="file" name="upload-new-profile" id="upload-new-profile" placeholder="Upload Photo">
                     </label>
-                    <button class="submit-photo">Submit Photo</button>
                     <button class="remove-photo">Remove Photo</button>
                 </div>
             </div>

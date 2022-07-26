@@ -38,7 +38,7 @@ $(document).ready(function () {
                 // $('.side-nav .user-profile-img .img-container').css('background-image', 'url("./frontend/assets/images/default.png")');
                 // $('.main-content .profile-img .img-container').css('background-image', 'url("./frontend/assets/images/default.png")');
 
-                $('.main-content-container .profile-img .modal-actions input[id="upload-new-profile"]').change(function () {
+                $('.main-content .profile-img .modal-actions input[id="upload-new-profile"]').change(function () {
                     //$('.main-content .profile-img .modal-actions .submit-photo').addClass('dsp-block');
                     // console.log($('.modal-actions input[id="upload-new-profile"]').val());
                     let form = new FormData();
@@ -84,12 +84,12 @@ $(document).ready(function () {
 
                             $('.side-nav .user-profile-img .img-container').css('background-image', 'url("./frontend/assets/images/default.png")');
                             $('.main-content .profile-img .img-container').css('background-image', 'url("./frontend/assets/images/default.png")');
-                            $('.main-content .profile-img .modal-actions label[for="upload-new-profile"]').text("Upload Photo");
+                            $('.main-content .profile-img .modal-actions label[for="upload-new-profile"] .title-text').text("Upload Photo");
 
                         } else {
                             $('.side-nav .user-profile-img .img-container').css('background-image', `url("./storage/public/userAvatars/${response.data.user_profile_pic}")`);
                             $('.main-content .profile-img .img-container').css('background-image', `url("./storage/public/userAvatars/${response.data.user_profile_pic}")`);
-                            $('.main-content .profile-img .modal-actions label[for="upload-new-profile"]').text("Change Photo");
+                            $('.main-content .profile-img .modal-actions label[for="upload-new-profile"] .title-text').text("Change Photo");
                         }
 
                     })
