@@ -13,9 +13,9 @@
         line-height: 30px;
         padding-top: 2px;
     }
-    .recommended-workouts-list {
-        padding-bottom: 110px;
-    }
+    // .recommended-workouts-list {
+    //     padding-bottom: 110px;
+    // }
     .user-detail {
         .current-time {
             padding-bottom: 10px;
@@ -92,6 +92,18 @@
     .recommended-workouts {
         display: none;
     }
+
+    .rec-breakfast-list-modal{
+        .close-btn{
+            display: flex;
+            justify-content: flex-end;
+            .icon-container{
+                cursor: pointer;
+            }
+        }
+    }
+
+   
 }
 
 

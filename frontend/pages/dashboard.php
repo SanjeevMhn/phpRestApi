@@ -21,7 +21,55 @@
             <h2 class="header-text underline">Recommended Workouts</h2>
             <div class="recommended-workouts-list list"></div>
         </div>
+        <div class="recommended-meals pb-120 ft-poppins">
+            <h2 class="header-text underline">Recommended Meal Options</h2>
+            <div class="recommended-meals-list list">
+                <div class="rec-meal-card list-item breakfast">
+                    <div class="inner-container">
+                        <h2 class="rec-meal-name header-text">Breakfast</h2>
+                    </div>
+                </div>
+                <div class="rec-meal-card list-item lunch">
+                    <div class="inner-container">
+                        <h2 class="rec-meal-name header-text">Lunch</h2>
+                    </div>
+                </div>
+                <div class="rec-meal-card list-item snack">
+                    <div class="inner-container">
+                        <h2 class="rec-meal-name header-text">Snack</h2>
+                    </div>
+                </div>
+                <div class="rec-meal-card list-item dinner">
+                    <div class="inner-container">
+                        <h2 class="rec-meal-name header-text">Dinner</h2>
+                    </div>
+                </div>
 
+            </div>
+        </div>
+        <div class="rec-breakfast-list-modal modal ft-poppins">
+            <div class="close-btn">
+                <div class="icon-container close">
+                    <img src="/frontend/assets/images/close_icon.svg" alt="">
+                </div>
+            </div>
+            <h2>List of Breakfast options</h2>
+            <ul class="breakfast-meal-list meal-list">
+            </ul>
+        </div>
+        <div class="rec-meal-detail-modal modal ft-poppins">
+            <div class="close-btn">
+                <div class="icon-container close">
+                    <img src="/frontend/assets/images/close_icon.svg" alt="">
+                </div>
+            </div>
+            <div class="meal-detail">
+                <h2 class="meal-name"></h2>
+                <p class="meal-ingredients"></p>
+                <p class="meal-servings"></p>
+                <p class="meal-instructions"></p>
+            </div>
+        </div>
         <div class="rec-workout-detail-modal workout-detail-modal modal ft-poppins">
             <h2 class="modal-rec-workout-name modal-workout-name"></h2>
             <div class="modal-rec-workout-duration modal-workout-duration">

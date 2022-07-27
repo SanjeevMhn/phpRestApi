@@ -345,31 +345,17 @@
                         display: none;
                         border-radius: 5px;
 
-                        .dp-item {
+                        .link-item {
                             display: block;
                             padding: 8px 10px;
                             font-size: 22px;
                             background-color: $mainColor;
                             color: #fff;
 
-                            &:first-child {
-                                border-radius: 5px 5px 0 0;
-                            }
-
-                            &:last-child {
-                                border-radius: 0 0 5px 5px;
-                            }
-
                             &:hover {
                                 background-color: $activeMainColor;
                             }
 
-                            button {
-                                background-color: transparent !important;
-                                backdrop-filter: unset !important;
-                                border-radius: 0 !important;
-                                box-shadow: unset !important;
-                            }
                         }
                     }
 

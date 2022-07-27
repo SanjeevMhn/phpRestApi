@@ -181,7 +181,7 @@
                             <a href="/settings" class="link-item">Settings</a>
                         </div>
                         <div class="dp-item">
-                            <button class="log-out link-item">Log out</button>
+                            <a href="javascript:void(0)" class="log-out link-item">Log out</a>
                         </div>
                     </div>
                 </div>

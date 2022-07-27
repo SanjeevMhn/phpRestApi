@@ -75,6 +75,10 @@ body {
     padding-bottom: 20px;
 }
 
+.pb-120 {
+    padding-bottom: 120px;
+}
+
 .table {
     padding: 0;
     margin: 0;
@@ -248,7 +252,8 @@ label,
     }
 }
 
-button,.btn{
+button,
+.btn {
     font-size: 20px;
     border-radius: 5px;
     padding: 5px 10px;
@@ -300,7 +305,8 @@ button,.btn{
 //     background-color: maroon;
 // }
 
-button,.btn {
+button,
+.btn {
     color: #fff;
 
     /* From https://css.glass */
@@ -349,7 +355,7 @@ button,.btn {
         overflow: hidden;
         cursor: pointer;
         padding-right: 20px;
-        padding-bottom: 20px;
+        padding-bottom: 12px;
 
         &:nth-child(4n+4) {
             padding-right: 0 !important;
@@ -429,7 +435,8 @@ button,.btn {
     align-items: center;
     justify-content: center;
 
-    button,.btn {
+    button,
+    .btn {
         color: #fff;
         margin-right: 10px;
         margin-left: 10px;
@@ -573,6 +580,17 @@ button,.btn {
     }
 }
 
+.meal-list{
+    margin: 0 !important;
+    font-size: 18px;
+    padding: 15px 0 0 25px;
+    .meal-item{
+        .meal-link{
+            text-decoration: underline;
+        }
+    }
+}
+
 @media screen and (max-width: 1350px) {
     .list {
         .list-item {
@@ -580,6 +598,10 @@ button,.btn {
 
             &:nth-child(3n+3) {
                 padding-right: 0;
+            }
+
+            &:nth-child(4n+4) {
+                padding-right: 20px !important;
             }
         }
     }

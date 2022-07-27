@@ -6,11 +6,6 @@
     .delete the folder if there is no photo
     .default user images if no folder
 
-    created a folder called storage folder with public folder and userAvatar folder 
-    this is will hold the user profile pictures inside the folder named after user's id
-
- /*
-    TODO: fix the file upload button
  */
 
 $(document).ready(function () {

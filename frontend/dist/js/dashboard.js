@@ -52,9 +52,144 @@ $(document).ready(function () {
                     $(".recommended-workouts").css("display", "block");
                     recommendedWorkouts();
                     getUserIdealCalories();
+                    //recommendedMeals();
                 }
             });
 
+            $('.rec-breakfast-list-modal .close-btn').click(function () {
+                $('.rec-breakfast-list-modal').removeClass('dsp-flex');
+                $('body').removeClass('overlay');
+                $('.rec-breakfast-list-modal .meal-list').html('');
+            })
+
+            $('.rec-meal-card.breakfast').click(function () {
+                $('.rec-breakfast-list-modal').addClass('dsp-flex');
+                $('.rec-breakfast-list-modal h2').text("List of Breakfast options")
+                $('body').addClass('overlay');
+                let breakfastMealList = $('.meal-list');
+                let recommendedMealBreakfast = {
+                    "url": "https://api.api-ninjas.com/v1/recipe?query=breakfast",
+                    "method": "GET",
+                    "timeout": 0,
+                    "headers": {
+                        "x-api-key": 'SrSAaegWn7kpQszNO6D3sQ==nhwKmMMZzXZ7eaKJ'
+                    }
+                }
+                $.ajax(recommendedMealBreakfast).done(function (response) {
+                    response.map((resp, index) => {
+                        let li = $('<li class="meal-item"></li>');
+                        let mealLink = $('<a href="javascript:void(0)" class="meal-link"></a>')
+                        mealLink.attr('name', resp.title);
+                        mealLink.data('name', resp.title);
+                        mealLink.data('ingredients', resp.ingredients);
+                        mealLink.data('servings', resp.servings);
+                        mealLink.data('instructions', resp.instructions);
+                        mealLink.text(resp.title);
+                        li.append(mealLink);
+                        breakfastMealList.append(li);
+                    })
+                });
+            })
+
+            $('.rec-meal-card.lunch').click(function () {
+                $('.rec-breakfast-list-modal').addClass('dsp-flex');
+                $('.rec-breakfast-list-modal h2').text("List of Lunch options")
+                $('body').addClass('overlay');
+                let mealList = $('.meal-list');
+                let recommendedMealLunch = {
+                    "url": "https://api.api-ninjas.com/v1/recipe?query=lunch",
+                    "method": "GET",
+                    "timeout": 0,
+                    "headers": {
+                        "x-api-key": 'SrSAaegWn7kpQszNO6D3sQ==nhwKmMMZzXZ7eaKJ'
+                    }
+                }
+                $.ajax(recommendedMealLunch).done(function (response) {
+                    response.map((resp, index) => {
+                        let li = $('<li class="meal-item"></li>');
+                        let mealLink = $('<a href="javascript:void(0)" class="meal-link"></a>')
+                        mealLink.attr('name', resp.title);
+                        mealLink.data('name', resp.title);
+                        mealLink.data('ingredients', resp.ingredients);
+                        mealLink.data('servings', resp.servings);
+                        mealLink.data('instructions', resp.instructions);
+                        mealLink.text(resp.title);
+                        li.append(mealLink);
+                        mealList.append(li);
+                    })
+                });
+            })
+
+            $('.rec-meal-card.snack').click(function () {
+                $('.rec-breakfast-list-modal').addClass('dsp-flex');
+                $('.rec-breakfast-list-modal h2').text("List of Snack options")
+                $('body').addClass('overlay');
+                let mealList = $('.meal-list');
+                let recommendedMealSnack = {
+                    "url": "https://api.api-ninjas.com/v1/recipe?query=snack",
+                    "method": "GET",
+                    "timeout": 0,
+                    "headers": {
+                        "x-api-key": 'SrSAaegWn7kpQszNO6D3sQ==nhwKmMMZzXZ7eaKJ'
+                    }
+                }
+                $.ajax(recommendedMealSnack).done(function (response) {
+                    response.map((resp, index) => {
+                        let li = $('<li class="meal-item"></li>');
+                        let mealLink = $('<a href="javascript:void(0)" class="meal-link"></a>')
+                        mealLink.attr('name', resp.title);
+                        mealLink.data('name', resp.title);
+                        mealLink.data('ingredients', resp.ingredients);
+                        mealLink.data('servings', resp.servings);
+                        mealLink.data('instructions', resp.instructions);
+                        mealLink.text(resp.title);
+                        li.append(mealLink);
+                        mealList.append(li);
+                    })
+                });
+            })
+
+            $('.rec-meal-card.dinner').click(function () {
+                $('.rec-breakfast-list-modal').addClass('dsp-flex');
+                $('.rec-breakfast-list-modal h2').text("List of Dinner options")
+                $('body').addClass('overlay');
+                let mealList = $('.meal-list');
+                let recommendedMealSnack = {
+                    "url": "https://api.api-ninjas.com/v1/recipe?query=dinner",
+                    "method": "GET",
+                    "timeout": 0,
+                    "headers": {
+                        "x-api-key": 'SrSAaegWn7kpQszNO6D3sQ==nhwKmMMZzXZ7eaKJ'
+                    }
+                }
+                $.ajax(recommendedMealSnack).done(function (response) {
+                    response.map((resp, index) => {
+                        let li = $('<li class="meal-item"></li>');
+                        let mealLink = $('<a href="javascript:void(0)" class="meal-link"></a>')
+                        mealLink.attr('name', resp.title);
+                        mealLink.data('name', resp.title);
+                        mealLink.data('ingredients', resp.ingredients);
+                        mealLink.data('servings', resp.servings);
+                        mealLink.data('instructions', resp.instructions);
+                        mealLink.text(resp.title);
+                        li.append(mealLink);
+                        mealList.append(li);
+                    })
+                });
+            })
+
+            $(document).on('click','.meal-link',function(){
+                $('.rec-meal-detail-modal').addClass('dsp-flex');
+                let mealName = $(this).data('name');
+                let mealIngredients = $(this).data('ingredients');
+                let mealServings = $(this).data('servings');
+                let mealInstructions = $(this).data('instructions');
+
+                $('.rec-meal-detail-modal .meal-detail .meal-name').text(mealName);
+                $('.rec-meal-detail-modal .meal-detail .meal-ingredients').text(mealIngredients);
+                $('.rec-meal-detail-modal .meal-detail .meal-servings').text(mealServings);
+                $('.rec-meal-detail-modal .meal-detail .meal-instructions').text(mealInstructions);
+            })
 
             getUserIdealCalories();
             function getUserIdealCalories() {
@@ -505,7 +640,7 @@ $(document).ready(function () {
                     }
                 });
             }
-            
+
 
 
 
