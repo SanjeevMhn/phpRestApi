@@ -35,6 +35,10 @@ $(document).ready(function () {
                     removeProfilePic();
                     window.location.reload(true);
                 });
+
+                $('.main-content header .more-settings').click(function(){
+                    $('.main-content header .more-settings .drpdown-content').toggleClass('dsp-block');
+                })
                 // $('.side-nav .user-profile-img .img-container').css('background-image', 'url("./frontend/assets/images/default.png")');
                 // $('.main-content .profile-img .img-container').css('background-image', 'url("./frontend/assets/images/default.png")');
 

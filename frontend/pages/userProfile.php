@@ -57,6 +57,25 @@
                     <img src="/frontend/assets/images/chevronLeft_icon.svg" alt="">
                 </div>
             </a>
+            <button type="button" class="more-settings">
+                <div class="icon-container">
+                    <img src="/frontend/assets/images/verticalDots_icon.svg" alt="">
+                </div>
+                <div class="drpdown-content">
+                    <div class="dp-item">
+                        <a href="" class="link-item">Account</a>
+                    </div>
+                    <div class="dp-item">
+                        <a href="" class="link-item">Edit Profile</a>
+                    </div>
+                    <div class="dp-item">
+                        <a href="" class="link-item">Change Password</a>
+                    </div>
+                    <div class="dp-item">
+                        <a href="" class="link-item">Settings</a>
+                    </div>
+                </div>
+            </button>
         </header>
         <div class="main-content-container">
             <h2 class="header-text">Account Overview</h2>
