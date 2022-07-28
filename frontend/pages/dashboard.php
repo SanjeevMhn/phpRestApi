@@ -64,10 +64,27 @@
                 </div>
             </div>
             <div class="meal-detail">
-                <h2 class="meal-name"></h2>
-                <p class="meal-ingredients"></p>
-                <p class="meal-servings"></p>
-                <p class="meal-instructions"></p>
+                <h2 class="meal-name pb-10"></h2>
+                <div class="pb-10 dsp-flex">
+                    <h3>Total Calories: </h3>
+                    <p class="meal-calories"></p>
+                </div>
+                <div class="pb-10">
+                    <h3>Ingredients</h3>
+                    <ul class="meal-ingredients"></ul>
+                </div>
+                <div class="pb-10">
+                    <h3>Servings</h3>
+                    <p class="meal-servings"></p>
+                </div>
+                <div class="pb-20">
+                    <h3>Instructions</h3>
+                    <p class="meal-instructions"></p>
+                </div>
+                <div class="modal-actions">
+                    <button class="add-meal" type="button">Add Meal</button>
+                    <button class="cancel" type="reset">Cancel</button>
+                </div>
             </div>
         </div>
         <div class="rec-workout-detail-modal workout-detail-modal modal ft-poppins">

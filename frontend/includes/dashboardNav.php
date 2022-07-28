@@ -147,10 +147,18 @@
                         <img src="frontend/assets/images/chevronDown_icon.svg" alt="">
                     </div>
                     <div class="drpdown-content ft-source">
-                        <a href="javascript:void(0)" class="dp-item create-workout">Create Workout</a>
-                        <a href="javascript:void(0)" class="dp-item create-diet">Create Diet</a>
-                        <a href="javascript:void(0)" class="dp-item create-workout">Create Workout Log</a>
-                        <a href="javascript:void(0)" class="dp-item create-diet">Create Diet Log</a>
+                        <div class="dp-item">
+                            <a href="javascript:void(0)" class="link-item create-workout">Create Workout</a>
+                        </div>
+                        <div class="dp-item">
+                            <a href="javascript:void(0)" class="link-item create-diet">Create Diet</a>
+                        </div>
+                        <div class="dp-item">
+                            <a href="javascript:void(0)" class="link-item create-workout">Create Workout Log</a>
+                        </div>
+                        <div class="dp-item">
+                            <a href="javascript:void(0)" class="link-item create-diet">Create Diet Log</a>
+                        </div>
                     </div>
                 </div>
             </li>
@@ -171,7 +179,7 @@
             <li class="action">
                 <div class="action-link user-profile">
                     <!-- <div class="img-container"> -->
-                        <!-- <img src="frontend/assets/images/profile_icon.svg" alt=""> -->
+                    <!-- <img src="frontend/assets/images/profile_icon.svg" alt=""> -->
                     <!-- </div> -->
                     <div class="drpdown-content">
                         <div class="dp-item">

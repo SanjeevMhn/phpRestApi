@@ -1,7 +1,4 @@
-/*
-    TODO: use webscraping to scrape data from eathismuch website to generate food and use that data as recommended meal plans
 
-*/
 $(document).ready(function () {
 
     let token = JSON.parse(localStorage.getItem("jwt"));
@@ -60,6 +57,17 @@ $(document).ready(function () {
                 $('.rec-breakfast-list-modal').removeClass('dsp-flex');
                 $('body').removeClass('overlay');
                 $('.rec-breakfast-list-modal .meal-list').html('');
+            })
+            $('.rec-meal-detail-modal .modal-actions .cancel').click(function () {
+                $('.rec-meal-detail-modal').removeClass('dsp-flex');
+                $('.rec-meal-detail-modal .meal-detail .meal-ingredients').html('');
+                $('.rec-meal-detail-modal .meal-detail .meal-calories').text('');
+            })
+
+            $('.rec-meal-detail-modal .close-btn').click(function () {
+                $('.rec-meal-detail-modal').removeClass('dsp-flex');
+                $('.rec-meal-detail-modal .meal-detail .meal-ingredients').html('');
+                $('.rec-meal-detail-modal .meal-detail .meal-calories').text('');
             })
 
             $('.rec-meal-card.breakfast').click(function () {
@@ -178,17 +186,49 @@ $(document).ready(function () {
                 });
             })
 
-            $(document).on('click','.meal-link',function(){
+            $(document).on('click', '.meal-link', function () {
                 $('.rec-meal-detail-modal').addClass('dsp-flex');
+
                 let mealName = $(this).data('name');
                 let mealIngredients = $(this).data('ingredients');
+                // let cleanMealIngredients = mealIngredients.replace(/[&\\#+()$~%.'":*?<>{}]/g,' ');
+                // cleanMealIngredients.replace(/[&\\|]/g,',');
+                // console.log(cleanMealIngredients);
+                let arrMealIngredients = mealIngredients.split('|');
                 let mealServings = $(this).data('servings');
                 let mealInstructions = $(this).data('instructions');
 
                 $('.rec-meal-detail-modal .meal-detail .meal-name').text(mealName);
-                $('.rec-meal-detail-modal .meal-detail .meal-ingredients').text(mealIngredients);
+                $.map(arrMealIngredients, function (mealIng, index) {
+                    let listItem = $('<li class="list-item"></li>');
+                    listItem.text(mealIng);
+                    $('.meal-ingredients').append(listItem);
+                })
+                //$('.rec-meal-detail-modal .meal-detail .meal-ingredients').text(mealIngredients);
                 $('.rec-meal-detail-modal .meal-detail .meal-servings').text(mealServings);
                 $('.rec-meal-detail-modal .meal-detail .meal-instructions').text(mealInstructions);
+
+                let getMealCalories = {
+                    "url": `https://api.api-ninjas.com/v1/nutrition?query=${mealName}`,
+                    "method": "GET",
+                    "timeout": 0,
+                    "headers":{
+                        "x-api-key": "SrSAaegWn7kpQszNO6D3sQ==nhwKmMMZzXZ7eaKJ"
+                    },
+                }
+
+                $.ajax(getMealCalories).done(function(response){
+                    if(response.length){
+                        let totalCalories = 0;
+                        response.map((resp,index)=>{
+                            totalCalories += parseInt(resp.calories);
+                        });
+                        console.log(totalCalories);
+                        $('.rec-meal-detail-modal .meal-detail .meal-calories').text(totalCalories);
+                    }else{
+                        $('.rec-meal-detail-modal .meal-detail .meal-calories').text('500');
+                    }
+                })
             })
 
             getUserIdealCalories();

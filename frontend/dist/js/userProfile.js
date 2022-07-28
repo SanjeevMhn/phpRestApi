@@ -1,6 +1,4 @@
 /*
-    TODO: make an api to upload user profile pic and store it in the userAvatar folder
-    inside of the folder named after user id
 
     .check for the existance of this folder if so change img container images to the image in that folder
     .delete the folder if there is no photo
