@@ -30,6 +30,9 @@ switch ($request) {
     case '/profile':
         require_once __DIR__ . '/pages/userProfile.php';
         break;
+    case '/meals':
+        require_once __DIR__ . '/pages/meals.php';
+        break;
     default:
         http_response_code(404);
         echo "page does not exit";

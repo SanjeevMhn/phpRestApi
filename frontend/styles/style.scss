@@ -300,6 +300,10 @@ button,
     display: flex !important;
 }
 
+.dsp-none{
+    display: none;
+}
+
 // button[type="button"],
 // button[type="submit"] {
 //     background-color: dodgerblue;
@@ -584,13 +588,37 @@ button,
     }
 }
 
-.meal-list{
+.meal-list {
     margin: 0 !important;
-    font-size: 18px;
+    font-size: 22px;
     padding: 15px 0 0 25px;
-    .meal-item{
-        .meal-link{
+
+    .meal-item {
+        .meal-link {
             text-decoration: underline;
+        }
+    }
+}
+
+.rec-breakfast-list-modal,
+.rec-meal-detail-modal {
+    .close-btn {
+        display: flex;
+        justify-content: flex-end;
+
+        .icon-container {
+            cursor: pointer;
+        }
+    }
+}
+
+.rec-meal-detail-modal {
+    .meal-detail {
+
+        .meal-calories,
+        .meal-type {
+            padding-left: 10px;
+            line-height: 30px;
         }
     }
 }
@@ -777,5 +805,9 @@ button,
         .modal-workout-name {
             font-size: 22px;
         }
+    }
+
+    .meal-list{
+        font-size: 18px;
     }
 }

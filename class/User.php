@@ -48,6 +48,86 @@ class User extends JwtHandler
         }
     }
 
+    public function deleteUserMeal($userId,$mealId){
+        try{
+            $query = "DELETE FROM user_meals WHERE user_id = :userId AND meal_id = :mealId";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindValue(":userId",$userId,PDO::PARAM_INT);
+            $stmt->bindValue(":mealId",$mealId,PDO::PARAM_INT);
+            if($stmt->execute()){
+                return array(
+                    "success" => 1,
+                    "message" => "Meal deleted"
+                );
+            }else{
+                return array(
+                    "success" => 0,
+                    "message" => "Error deleting meal"
+                );
+            }
+        }catch(PDOException $ex){
+            echo json_encode(array(
+                "success" => 0,
+                "message" => $ex->getMessage()
+            ));
+        }
+    }
+
+    public function getUserMeals($userId){
+        try{
+            $query = "SELECT * FROM user_meals WHERE user_id = :id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindValue(":id",$userId,PDO::PARAM_INT);
+            $stmt->execute();
+            if($stmt->rowCount()){
+                return array(
+                    "success" => 1,
+                    "meals" => $stmt->fetchAll(PDO::FETCH_ASSOC)
+                );
+            }else{
+                return array(
+                    "success" => 0,
+                    "message" => "No meals added"
+                );
+            }
+
+        }catch(PDOException $ex){
+            echo json_encode(array(
+                "success" => 0,
+                "message" => $ex->getMessage()
+            ));
+        }
+    }
+
+    public function setUserMeal($userId,$data = array()){
+        try{
+            $query = "INSERT INTO user_meals (user_id,meal_name,meal_calories,meal_type,meal_ingredients,meal_instructions) VALUES (:id,:name,:calories,:type,:ingredients,:instructions)";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindValue(":id",$userId,PDO::PARAM_INT);
+            $stmt->bindValue(":name",$data['meal_name'],PDO::PARAM_STR);
+            $stmt->bindValue(":calories",$data['meal_calories'],PDO::PARAM_INT);
+            $stmt->bindValue(":type",$data['meal_type'],PDO::PARAM_STR);
+            $stmt->bindValue(":ingredients",$data['meal_ingredients'],PDO::PARAM_STR);
+            $stmt->bindValue(":instructions",$data['meal_instructions'],PDO::PARAM_STR);
+            if($stmt->execute()){
+                return array(
+                    "success" => 1,
+                    "message" => "Meal successfully added"
+                );
+            }else{
+                return array(
+                    "success" => 0,
+                    "message" => "Error while adding meal"
+                );
+            }
+        }catch(PDOException $ex){
+            echo json_encode(array(
+                "success" => 0,
+                "message" => $ex->getMessage()
+            ));
+        }
+    }
+
     public function removeUserProfilePic($userId){
 
         try{

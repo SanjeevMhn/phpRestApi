@@ -27,12 +27,12 @@
                 </a>
             </li>
             <li class="nav-list-item">
-                <a href="#" class="nav-list-link">
+                <a href="/meals" class="nav-list-link">
                     <div class="icon-container">
                         <img src="frontend/assets/images/food_icon.svg" alt="">
                     </div>
                     <div class="label-text">
-                        Diets
+                        Meals
                     </div>
                 </a>
             </li>
@@ -89,12 +89,12 @@
                 </a>
             </li>
             <li class="nav-list-item">
-                <a href="#" class="nav-list-link">
+                <a href="/meals" class="nav-list-link">
                     <div class="icon-container">
                         <img src="frontend/assets/images/food_icon.svg" alt="">
                     </div>
                     <div class="label-text">
-                        Diets
+                        Meals
                     </div>
                 </a>
             </li>
@@ -236,11 +236,11 @@
             </div>
         </li>
         <li class="action">
-            <div class="action-link diet">
+            <a href="/meals" class="action-link diet">
                 <div class="icon-container-md">
                     <img src="frontend/assets/images/food_icon.svg" alt="">
                 </div>
-            </div>
+            </a>
         </li>
         <li class="action">
             <div class="action-link log">

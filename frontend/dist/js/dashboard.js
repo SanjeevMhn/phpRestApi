@@ -18,7 +18,6 @@ $(document).ready(function () {
             };
             //to get user name and email
             $.ajax(getUserInfo).done(function (response) {
-                console.log(response);
                 if (response.success == 1) {
                     $(".user-detail .user-name").html(response.user.name);
                 }
@@ -40,7 +39,6 @@ $(document).ready(function () {
 
             //to get users workout goal
             $.ajax(userGoal).done(function (response) {
-                console.log(response);
                 if (response.success == 0) {
                     $(".user-goal-form").addClass('dsp-flex');
                     $('body').addClass('overlay');
@@ -92,6 +90,7 @@ $(document).ready(function () {
                         mealLink.data('ingredients', resp.ingredients);
                         mealLink.data('servings', resp.servings);
                         mealLink.data('instructions', resp.instructions);
+                        mealLink.data('type', 'breakfast');
                         mealLink.text(resp.title);
                         li.append(mealLink);
                         breakfastMealList.append(li);
@@ -121,6 +120,7 @@ $(document).ready(function () {
                         mealLink.data('ingredients', resp.ingredients);
                         mealLink.data('servings', resp.servings);
                         mealLink.data('instructions', resp.instructions);
+                        mealLink.data('type', 'lunch');
                         mealLink.text(resp.title);
                         li.append(mealLink);
                         mealList.append(li);
@@ -150,6 +150,7 @@ $(document).ready(function () {
                         mealLink.data('ingredients', resp.ingredients);
                         mealLink.data('servings', resp.servings);
                         mealLink.data('instructions', resp.instructions);
+                        mealLink.data('type', 'snack');
                         mealLink.text(resp.title);
                         li.append(mealLink);
                         mealList.append(li);
@@ -162,7 +163,7 @@ $(document).ready(function () {
                 $('.rec-breakfast-list-modal h2').text("List of Dinner options")
                 $('body').addClass('overlay');
                 let mealList = $('.meal-list');
-                let recommendedMealSnack = {
+                let recommendedMealDinner = {
                     "url": "https://api.api-ninjas.com/v1/recipe?query=dinner",
                     "method": "GET",
                     "timeout": 0,
@@ -170,7 +171,7 @@ $(document).ready(function () {
                         "x-api-key": 'SrSAaegWn7kpQszNO6D3sQ==nhwKmMMZzXZ7eaKJ'
                     }
                 }
-                $.ajax(recommendedMealSnack).done(function (response) {
+                $.ajax(recommendedMealDinner).done(function (response) {
                     response.map((resp, index) => {
                         let li = $('<li class="meal-item"></li>');
                         let mealLink = $('<a href="javascript:void(0)" class="meal-link"></a>')
@@ -179,6 +180,7 @@ $(document).ready(function () {
                         mealLink.data('ingredients', resp.ingredients);
                         mealLink.data('servings', resp.servings);
                         mealLink.data('instructions', resp.instructions);
+                        mealLink.data('type', 'dinner');
                         mealLink.text(resp.title);
                         li.append(mealLink);
                         mealList.append(li);
@@ -197,7 +199,7 @@ $(document).ready(function () {
                 let arrMealIngredients = mealIngredients.split('|');
                 let mealServings = $(this).data('servings');
                 let mealInstructions = $(this).data('instructions');
-
+                let mealType = $(this).data('type');
                 $('.rec-meal-detail-modal .meal-detail .meal-name').text(mealName);
                 $.map(arrMealIngredients, function (mealIng, index) {
                     let listItem = $('<li class="list-item"></li>');
@@ -207,26 +209,63 @@ $(document).ready(function () {
                 //$('.rec-meal-detail-modal .meal-detail .meal-ingredients').text(mealIngredients);
                 $('.rec-meal-detail-modal .meal-detail .meal-servings').text(mealServings);
                 $('.rec-meal-detail-modal .meal-detail .meal-instructions').text(mealInstructions);
-
+                $('.rec-meal-detail-modal .meal-detail .meal-type').text(mealType);
                 let getMealCalories = {
                     "url": `https://api.api-ninjas.com/v1/nutrition?query=${mealName}`,
                     "method": "GET",
                     "timeout": 0,
-                    "headers":{
+                    "headers": {
                         "x-api-key": "SrSAaegWn7kpQszNO6D3sQ==nhwKmMMZzXZ7eaKJ"
                     },
                 }
 
-                $.ajax(getMealCalories).done(function(response){
-                    if(response.length){
+                $.ajax(getMealCalories).done(function (response) {
+                    if (response.length) {
                         let totalCalories = 0;
-                        response.map((resp,index)=>{
+                        response.map((resp, index) => {
                             totalCalories += parseInt(resp.calories);
                         });
                         console.log(totalCalories);
                         $('.rec-meal-detail-modal .meal-detail .meal-calories').text(totalCalories);
-                    }else{
+                    } else {
                         $('.rec-meal-detail-modal .meal-detail .meal-calories').text('500');
+                    }
+                })
+            })
+
+            //add recommended meal to user meals
+
+            $('.rec-meal-detail-modal .modal-actions .add-meal').click(function () {
+                let arrIngredients = $('.rec-meal-detail-modal .meal-ingredients .list-item');
+                let ingredientsName = [];
+                $.map(arrIngredients, function (aI, index) {
+                    ingredientsName.push($(aI).text());
+                })
+                let ingredientsListToString = ingredientsName.join('|');
+                let mealData = {
+                    "meal_name": $('.rec-meal-detail-modal .meal-name').text(),
+                    "meal_calories": $('.rec-meal-detail-modal .meal-calories').text(),
+                    "meal_type": $('.rec-meal-detail-modal .meal-type').text(),
+                    "meal_ingredients": ingredientsListToString,
+                    "meal_instructions": $('.rec-meal-detail-modal .meal-detail .meal-instructions').text()
+                };
+
+                let setMeal = {
+                    "url": "/api/users/setUserMeal.php",
+                    "method": "POST",
+                    "timeout": 0,
+                    "headers": {
+                        "Authorization": `Bearer ${token.token}`,
+                        "Content-Type": "application/json"
+                    },
+                    "data": JSON.stringify(mealData),
+                }
+
+                $.ajax(setMeal).done(function (response) {
+                    if (response.success == 1) {
+                        $('.rec-meal-detail-modal').removeClass('dsp-flex');
+                        $('.rec-meal-detail-modal .meal-detail .meal-ingredients').html('');
+                        $('.rec-meal-detail-modal .meal-detail .meal-calories').text('');
                     }
                 })
             })
@@ -250,7 +289,6 @@ $(document).ready(function () {
                     },
                 }
                 $.ajax(getUserIdealDailyCalorie).done(function (response) {
-                    console.log(response);
                     if (parseInt(response.data.user_daily_calorie) == 0) {
                         let getUserPhysicalInfo = {
                             "url": '/api/users/getUserPhysicalInfo.php',
@@ -261,7 +299,6 @@ $(document).ready(function () {
                             }
                         }
                         $.ajax(getUserPhysicalInfo).done(function (response) {
-                            console.log(response);
 
                             if (response.success == 1) {
                                 userLevel = response.data.user_level;
@@ -390,7 +427,6 @@ $(document).ready(function () {
                         "weight_metric": response.data.weight_metric,
                         "user_daily_calorie": response.data.user_daily_calorie
                     });
-                    console.log(userP);
                     localStorage.setItem("profile_detail", JSON.stringify(userP));
                 })
 
@@ -514,7 +550,6 @@ $(document).ready(function () {
                 }
 
                 $.ajax(getRecommendWorkouts).done(function (response) {
-                    console.log(response);
                     if (response.success == 1) {
                         let recommendedWorkouts = $('.recommended-workouts-list');
                         $.map(response.workouts, (workout, index) => {

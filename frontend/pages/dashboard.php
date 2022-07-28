@@ -13,11 +13,18 @@
                     </h2>
                 </div>
             </a>
+            <a href="/meals" class="link-item list-item">
+                <div class="inner-container">
+                    <h2 class="header-text">
+                        Your Meals
+                    </h2>
+                </div>
+            </a>
         </div>
         <div class="user-ideal-calorie-intake pb-20">
             <h2 class="header-text ft-poppins">For your goal you need to be consuming atmost <span class="calorie-number"></span> calories everyday!</h2>
         </div>
-        <div class="recommended-workouts ft-poppins">
+        <div class="recommended-workouts ft-poppins pb-20">
             <h2 class="header-text underline">Recommended Workouts</h2>
             <div class="recommended-workouts-list list"></div>
         </div>
@@ -68,6 +75,10 @@
                 <div class="pb-10 dsp-flex">
                     <h3>Total Calories: </h3>
                     <p class="meal-calories"></p>
+                </div>
+                <div class="pb-10 dsp-flex">
+                    <h3>Meal Type:</h3>
+                    <p class="meal-type capitalize"></p>
                 </div>
                 <div class="pb-10">
                     <h3>Ingredients</h3>
