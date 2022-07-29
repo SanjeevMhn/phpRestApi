@@ -74,27 +74,45 @@ $(document).ready(function () {
                 $('body').addClass('overlay');
                 let breakfastMealList = $('.meal-list');
                 let recommendedMealBreakfast = {
-                    "url": "https://api.api-ninjas.com/v1/recipe?query=breakfast",
+                    // "url": "https://api.api-ninjas.com/v1/recipe?query=breakfast",
+                    "url": "https://api.edamam.com/api/recipes/v2?type=public&q=breakfast&app_id=9541f18d&app_key=3c9706df6a0f41bf50358fb4541fc7cb",
                     "method": "GET",
                     "timeout": 0,
-                    "headers": {
-                        "x-api-key": 'SrSAaegWn7kpQszNO6D3sQ==nhwKmMMZzXZ7eaKJ'
-                    }
+                    // "headers": {
+                    //     "x-api-key": 'SrSAaegWn7kpQszNO6D3sQ==nhwKmMMZzXZ7eaKJ'
+                    // }
                 }
                 $.ajax(recommendedMealBreakfast).done(function (response) {
-                    response.map((resp, index) => {
-                        let li = $('<li class="meal-item"></li>');
-                        let mealLink = $('<a href="javascript:void(0)" class="meal-link"></a>')
-                        mealLink.attr('name', resp.title);
-                        mealLink.data('name', resp.title);
-                        mealLink.data('ingredients', resp.ingredients);
-                        mealLink.data('servings', resp.servings);
-                        mealLink.data('instructions', resp.instructions);
+                    // response.map((resp, index) => {
+                    let li = $('<li class="meal-item"></li>');
+                    let mealLink = $('<a href="javascript:void(0)" class="meal-link"></a>')
+
+                    let hits = response.hits;
+                    hits.map((recp, index) => {
+                        console.log(recp.recipe.images.THUMBNAIL.url);
+                        let li = $('<li class="meal-item pb-20"></li>');
+                        let mealLink = $('<a href="javascript:void(0)" class="meal-link dsp-flex align-items-end"></a>')
+                        let imgThumbnail = $('<div class="img-container"></div>');
+                        let mealName = $('<span class="meal-name pl-10"></span>');
+                        imgThumbnail.css("background-image", `url("${recp.recipe.images.THUMBNAIL.url}")`);
+                        mealLink.attr('name', recp.recipe.label);
+                        mealLink.data('name', recp.recipe.label);
+                        mealLink.data('ingredients', recp.recipe.ingredientLines);
+                        mealLink.data('servings', recp.recipe.servings);
+                        mealLink.data('instructions', recp.recipe.url);
                         mealLink.data('type', 'breakfast');
-                        mealLink.text(resp.title);
+                        let intCalories = Math.floor(recp.recipe.calories)
+                        mealLink.data('calories', intCalories);
+                        mealLink.data('image', recp.recipe.images.REGULAR.url);
+                        mealName.text(recp.recipe.label);
+                        mealLink.append(imgThumbnail);
+                        mealLink.append(mealName);
                         li.append(mealLink);
                         breakfastMealList.append(li);
                     })
+                    // li.append(mealLink);
+                    // breakfastMealList.append(li);
+                    // })
                 });
             })
 
@@ -102,28 +120,40 @@ $(document).ready(function () {
                 $('.rec-breakfast-list-modal').addClass('dsp-flex');
                 $('.rec-breakfast-list-modal h2').text("List of Lunch options")
                 $('body').addClass('overlay');
+                let breakfastMealList = $('.meal-list');
                 let mealList = $('.meal-list');
                 let recommendedMealLunch = {
-                    "url": "https://api.api-ninjas.com/v1/recipe?query=lunch",
+                    // "url": "https://api.api-ninjas.com/v1/recipe?query=lunch",
+                    "url": "https://api.edamam.com/api/recipes/v2?type=public&q=lunch&app_id=9541f18d&app_key=3c9706df6a0f41bf50358fb4541fc7cb",
                     "method": "GET",
                     "timeout": 0,
-                    "headers": {
-                        "x-api-key": 'SrSAaegWn7kpQszNO6D3sQ==nhwKmMMZzXZ7eaKJ'
-                    }
+                    // "headers": {
+                    //     "x-api-key": 'SrSAaegWn7kpQszNO6D3sQ==nhwKmMMZzXZ7eaKJ'
+                    // }
                 }
                 $.ajax(recommendedMealLunch).done(function (response) {
-                    response.map((resp, index) => {
-                        let li = $('<li class="meal-item"></li>');
-                        let mealLink = $('<a href="javascript:void(0)" class="meal-link"></a>')
-                        mealLink.attr('name', resp.title);
-                        mealLink.data('name', resp.title);
-                        mealLink.data('ingredients', resp.ingredients);
-                        mealLink.data('servings', resp.servings);
-                        mealLink.data('instructions', resp.instructions);
+                    let hits = response.hits;
+                    hits.map((recp, index) => {
+                        console.log(recp.recipe.images.THUMBNAIL.url);
+                        let li = $('<li class="meal-item pb-20"></li>');
+                        let mealLink = $('<a href="javascript:void(0)" class="meal-link dsp-flex align-items-end"></a>')
+                        let imgThumbnail = $('<div class="img-container"></div>');
+                        let mealName = $('<span class="meal-name pl-10"></span>');
+                        imgThumbnail.css("background-image", `url("${recp.recipe.images.THUMBNAIL.url}")`);
+                        mealLink.attr('name', recp.recipe.label);
+                        mealLink.data('name', recp.recipe.label);
+                        mealLink.data('ingredients', recp.recipe.ingredientLines);
+                        mealLink.data('servings', recp.recipe.servings);
+                        mealLink.data('instructions', recp.recipe.url);
                         mealLink.data('type', 'lunch');
-                        mealLink.text(resp.title);
+                        let intCalories = Math.floor(recp.recipe.calories)
+                        mealLink.data('calories', intCalories);
+                        mealLink.data('image', recp.recipe.images.REGULAR.url);
+                        mealName.text(recp.recipe.label);
+                        mealLink.append(imgThumbnail);
+                        mealLink.append(mealName);
                         li.append(mealLink);
-                        mealList.append(li);
+                        breakfastMealList.append(li);
                     })
                 });
             })
@@ -132,59 +162,85 @@ $(document).ready(function () {
                 $('.rec-breakfast-list-modal').addClass('dsp-flex');
                 $('.rec-breakfast-list-modal h2').text("List of Snack options")
                 $('body').addClass('overlay');
+                let breakfastMealList = $('.meal-list');
                 let mealList = $('.meal-list');
                 let recommendedMealSnack = {
-                    "url": "https://api.api-ninjas.com/v1/recipe?query=snack",
+                    // "url": "https://api.api-ninjas.com/v1/recipe?query=snack",
+                    "url": "https://api.edamam.com/api/recipes/v2?type=public&q=snack&app_id=9541f18d&app_key=3c9706df6a0f41bf50358fb4541fc7cb",
                     "method": "GET",
                     "timeout": 0,
-                    "headers": {
-                        "x-api-key": 'SrSAaegWn7kpQszNO6D3sQ==nhwKmMMZzXZ7eaKJ'
-                    }
+                    // "headers": {
+                    //     "x-api-key": 'SrSAaegWn7kpQszNO6D3sQ==nhwKmMMZzXZ7eaKJ'
+                    // }
                 }
                 $.ajax(recommendedMealSnack).done(function (response) {
-                    response.map((resp, index) => {
-                        let li = $('<li class="meal-item"></li>');
-                        let mealLink = $('<a href="javascript:void(0)" class="meal-link"></a>')
-                        mealLink.attr('name', resp.title);
-                        mealLink.data('name', resp.title);
-                        mealLink.data('ingredients', resp.ingredients);
-                        mealLink.data('servings', resp.servings);
-                        mealLink.data('instructions', resp.instructions);
+                    let hits = response.hits;
+                    hits.map((recp, index) => {
+                        console.log(recp.recipe.images.THUMBNAIL.url);
+                        let li = $('<li class="meal-item pb-20"></li>');
+                        let mealLink = $('<a href="javascript:void(0)" class="meal-link dsp-flex align-items-end"></a>')
+                        let imgThumbnail = $('<div class="img-container"></div>');
+                        let mealName = $('<span class="meal-name pl-10"></span>');
+                        imgThumbnail.css("background-image", `url("${recp.recipe.images.THUMBNAIL.url}")`);
+                        mealLink.attr('name', recp.recipe.label);
+                        mealLink.data('name', recp.recipe.label);
+                        mealLink.data('ingredients', recp.recipe.ingredientLines);
+                        mealLink.data('servings', recp.recipe.servings);
+                        mealLink.data('instructions', recp.recipe.url);
                         mealLink.data('type', 'snack');
-                        mealLink.text(resp.title);
+                        let intCalories = Math.floor(recp.recipe.calories)
+                        mealLink.data('calories', intCalories);
+                        mealLink.data('image', recp.recipe.images.REGULAR.url);
+                        mealName.text(recp.recipe.label);
+                        mealLink.append(imgThumbnail);
+                        mealLink.append(mealName);
                         li.append(mealLink);
-                        mealList.append(li);
+                        breakfastMealList.append(li);
                     })
-                });
-            })
+                })
+            });
 
             $('.rec-meal-card.dinner').click(function () {
                 $('.rec-breakfast-list-modal').addClass('dsp-flex');
                 $('.rec-breakfast-list-modal h2').text("List of Dinner options")
                 $('body').addClass('overlay');
+                let breakfastMealList = $('.meal-list');
                 let mealList = $('.meal-list');
                 let recommendedMealDinner = {
-                    "url": "https://api.api-ninjas.com/v1/recipe?query=dinner",
+                    // "url": "https://api.api-ninjas.com/v1/recipe?query=dinner",
+                    "url": "https://api.edamam.com/api/recipes/v2?type=public&q=dinner&app_id=9541f18d&app_key=3c9706df6a0f41bf50358fb4541fc7cb",
                     "method": "GET",
                     "timeout": 0,
-                    "headers": {
-                        "x-api-key": 'SrSAaegWn7kpQszNO6D3sQ==nhwKmMMZzXZ7eaKJ'
-                    }
+                    // "headers": {
+                    //     "x-api-key": 'SrSAaegWn7kpQszNO6D3sQ==nhwKmMMZzXZ7eaKJ'
+                    // }
                 }
                 $.ajax(recommendedMealDinner).done(function (response) {
-                    response.map((resp, index) => {
-                        let li = $('<li class="meal-item"></li>');
-                        let mealLink = $('<a href="javascript:void(0)" class="meal-link"></a>')
-                        mealLink.attr('name', resp.title);
-                        mealLink.data('name', resp.title);
-                        mealLink.data('ingredients', resp.ingredients);
-                        mealLink.data('servings', resp.servings);
-                        mealLink.data('instructions', resp.instructions);
+                    let hits = response.hits;
+                    hits.map((recp, index) => {
+                        console.log(recp.recipe.images.THUMBNAIL.url);
+                        let li = $('<li class="meal-item pb-20"></li>');
+                        let mealLink = $('<a href="javascript:void(0)" class="meal-link dsp-flex align-items-end"></a>')
+                        let imgThumbnail = $('<div class="img-container"></div>');
+                        let mealName = $('<span class="meal-name pl-10"></span>');
+                        imgThumbnail.css("background-image", `url("${recp.recipe.images.THUMBNAIL.url}")`);
+                        mealLink.attr('name', recp.recipe.label);
+                        mealLink.data('name', recp.recipe.label);
+                        mealLink.data('ingredients', recp.recipe.ingredientLines);
+                        mealLink.data('servings', recp.recipe.servings);
+                        mealLink.data('instructions', recp.recipe.url);
                         mealLink.data('type', 'dinner');
-                        mealLink.text(resp.title);
+                        let intCalories = Math.floor(recp.recipe.calories)
+                        mealLink.data('calories', intCalories);
+                        mealLink.data('image', recp.recipe.images.REGULAR.url);
+                        mealName.text(recp.recipe.label);
+                        mealLink.append(imgThumbnail);
+                        mealLink.append(mealName);
                         li.append(mealLink);
-                        mealList.append(li);
+                        breakfastMealList.append(li);
                     })
+
+
                 });
             })
 
@@ -193,44 +249,58 @@ $(document).ready(function () {
 
                 let mealName = $(this).data('name');
                 let mealIngredients = $(this).data('ingredients');
+                console.log(mealIngredients);
                 // let cleanMealIngredients = mealIngredients.replace(/[&\\#+()$~%.'":*?<>{}]/g,' ');
                 // cleanMealIngredients.replace(/[&\\|]/g,',');
                 // console.log(cleanMealIngredients);
-                let arrMealIngredients = mealIngredients.split('|');
-                let mealServings = $(this).data('servings');
+                //let arrMealIngredients = mealIngredients.split('|');
+                //let stringArrMealIngredients = arrMealIngredients.toString();
+                //console.log(stringArrMealIngredients);
+                //let mealServings = $(this).data('servings');
                 let mealInstructions = $(this).data('instructions');
+                console.log(mealInstructions);
                 let mealType = $(this).data('type');
+                console.log(mealType);
+                let mealCalories = $(this).data('calories');
+                console.log(mealCalories);
                 $('.rec-meal-detail-modal .meal-detail .meal-name').text(mealName);
-                $.map(arrMealIngredients, function (mealIng, index) {
+                // $.map(arrMealIngredients, function (mealIng, index) {
+                //     let listItem = $('<li class="list-item"></li>');
+                //     listItem.text(mealIng);
+                //     $('.meal-ingredients').append(listItem);
+                // })
+                $.map(mealIngredients, function (mealIns, index) {
                     let listItem = $('<li class="list-item"></li>');
-                    listItem.text(mealIng);
+                    listItem.text(mealIns);
                     $('.meal-ingredients').append(listItem);
-                })
-                //$('.rec-meal-detail-modal .meal-detail .meal-ingredients').text(mealIngredients);
-                $('.rec-meal-detail-modal .meal-detail .meal-servings').text(mealServings);
+                });
+                // $('.rec-meal-detail-modal .meal-detail .meal-servings').text(mealServings);
+                $('.rec-meal-detail-modal .meal-detail .meal-instructions').attr('href', mealInstructions);
                 $('.rec-meal-detail-modal .meal-detail .meal-instructions').text(mealInstructions);
                 $('.rec-meal-detail-modal .meal-detail .meal-type').text(mealType);
-                let getMealCalories = {
-                    "url": `https://api.api-ninjas.com/v1/nutrition?query=${mealName}`,
-                    "method": "GET",
-                    "timeout": 0,
-                    "headers": {
-                        "x-api-key": "SrSAaegWn7kpQszNO6D3sQ==nhwKmMMZzXZ7eaKJ"
-                    },
-                }
+                $('.rec-meal-detail-modal .meal-detail .meal-calories').text(mealCalories);
+                $('.rec-meal-detail-modal .meal-detail .meal-img').css("background-image", `url("${$(this).data('image')}")`);
+                // let getMealCalories = {
+                //     "url": `https://api.api-ninjas.com/v1/nutrition?query=${stringArrMealIngredients}`,
+                //     "method": "GET",
+                //     "timeout": 0,
+                //     "headers": {
+                //         "x-api-key": "SrSAaegWn7kpQszNO6D3sQ==nhwKmMMZzXZ7eaKJ"
+                //     },
+                // }
 
-                $.ajax(getMealCalories).done(function (response) {
-                    if (response.length) {
-                        let totalCalories = 0;
-                        response.map((resp, index) => {
-                            totalCalories += parseInt(resp.calories);
-                        });
-                        console.log(totalCalories);
-                        $('.rec-meal-detail-modal .meal-detail .meal-calories').text(totalCalories);
-                    } else {
-                        $('.rec-meal-detail-modal .meal-detail .meal-calories').text('500');
-                    }
-                })
+                // $.ajax(getMealCalories).done(function (response) {
+                //     if (response.length) {
+                //         let totalCalories = 0;
+                //         response.map((resp, index) => {
+                //             totalCalories += parseInt(resp.calories);
+                //         });
+                //         console.log(totalCalories);
+                //         $('.rec-meal-detail-modal .meal-detail .meal-calories').text(totalCalories);
+                //     } else {
+                //         $('.rec-meal-detail-modal .meal-detail .meal-calories').text('500');
+                //     }
+                // })
             })
 
             //add recommended meal to user meals
@@ -247,7 +317,8 @@ $(document).ready(function () {
                     "meal_calories": $('.rec-meal-detail-modal .meal-calories').text(),
                     "meal_type": $('.rec-meal-detail-modal .meal-type').text(),
                     "meal_ingredients": ingredientsListToString,
-                    "meal_instructions": $('.rec-meal-detail-modal .meal-detail .meal-instructions').text()
+                    "meal_instructions": $('.rec-meal-detail-modal .meal-detail .meal-instructions').text(),
+                    "meal_img": $('.rec-meal-detail-modal .meal-detail .meal-img').css('background-image'),
                 };
 
                 let setMeal = {
@@ -346,7 +417,7 @@ $(document).ready(function () {
 
                                     switch (userGoal) {
                                         case "lose":
-                                            calorie = Math.floor(response.data.goals['Weight loss']['calory']);
+                                            calorie = Math.floor(response.data.goals['Mild weight loss']['calory']);
                                             $('.user-ideal-calorie-intake .calorie-number').html(calorie);
                                             setDailyUserCalorie(calorie);
                                             setPersonalDetailStorage()

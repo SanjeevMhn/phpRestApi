@@ -47,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] !== "POST") {
         $mealType = $data['meal_type'];
         $mealIngredients = isset($data['meal_ingredients']) ? trim($data['meal_ingredients']) : null;
         $mealInstructions = isset($data['meal_instructions']) ? trim($data['meal_instructions']) : null;
+        $mealImg = isset($data['meal_img']) ? trim($data['meal_img']) : null;
 
         $mealTypes = ['breakfast', 'lunch', 'dinner', 'snack'];
         if (in_array($mealType, $mealTypes, true)) {
@@ -55,7 +56,8 @@ if ($_SERVER['REQUEST_METHOD'] !== "POST") {
                 "meal_calories" => $mealCalories,
                 "meal_type" => $mealType,
                 "meal_ingredients" => $mealIngredients,
-                "meal_instructions" => $mealInstructions
+                "meal_instructions" => $mealInstructions,
+                "meal_img" => $mealImg
             );
 
             echo json_encode($user->setUserMeal($userId['id'],$dataArray));

@@ -94,7 +94,29 @@
     }
 
     
-
+    .rec-breakfast-list-modal{
+        .meal-list{
+            .meal-item{
+                .img-container{
+                    flex: 0 0 100px;
+                    height: 100px;
+                }
+                .meal-name{
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                }
+            }
+        }
+    }
+    .rec-meal-detail-modal{
+        .meal-detail{
+            .meal-img{
+                height: 300px;
+                width: 300px;
+            }
+        }
+    }
    
 }
 

@@ -101,7 +101,7 @@ class User extends JwtHandler
 
     public function setUserMeal($userId,$data = array()){
         try{
-            $query = "INSERT INTO user_meals (user_id,meal_name,meal_calories,meal_type,meal_ingredients,meal_instructions) VALUES (:id,:name,:calories,:type,:ingredients,:instructions)";
+            $query = "INSERT INTO user_meals (user_id,meal_name,meal_calories,meal_type,meal_ingredients,meal_instructions,meal_img) VALUES (:id,:name,:calories,:type,:ingredients,:instructions,:img)";
             $stmt = $this->conn->prepare($query);
             $stmt->bindValue(":id",$userId,PDO::PARAM_INT);
             $stmt->bindValue(":name",$data['meal_name'],PDO::PARAM_STR);
@@ -109,6 +109,7 @@ class User extends JwtHandler
             $stmt->bindValue(":type",$data['meal_type'],PDO::PARAM_STR);
             $stmt->bindValue(":ingredients",$data['meal_ingredients'],PDO::PARAM_STR);
             $stmt->bindValue(":instructions",$data['meal_instructions'],PDO::PARAM_STR);
+            $stmt->bindValue(":img",$data['meal_img'],PDO::PARAM_STR);
             if($stmt->execute()){
                 return array(
                     "success" => 1,

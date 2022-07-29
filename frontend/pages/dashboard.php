@@ -7,15 +7,21 @@
         </div>
         <div class="links-list list ft-poppins">
             <a href="/workouts" class="link-item list-item">
-                <div class="inner-container">
-                    <h2 class="header-text">
+                <div class="inner-container dsp-flex align-items-center">
+                    <div class="icon-container-lg">
+                        <img src="/frontend/assets/images/dumbell_icon.svg" alt="">
+                    </div>
+                    <h2 class="header-text pl-10">
                         Your Workouts
                     </h2>
                 </div>
             </a>
             <a href="/meals" class="link-item list-item">
-                <div class="inner-container">
-                    <h2 class="header-text">
+                <div class="inner-container dsp-flex align-items-center">
+                    <div class="icon-container-lg">
+                        <img src="/frontend/assets/images/food_icon.svg" alt="">
+                    </div>
+                    <h2 class="header-text pl-10">
                         Your Meals
                     </h2>
                 </div>
@@ -71,6 +77,9 @@
                 </div>
             </div>
             <div class="meal-detail">
+                <div class="meal-img img-container">
+
+                </div>
                 <h2 class="meal-name pb-10"></h2>
                 <div class="pb-10 dsp-flex">
                     <h3>Total Calories: </h3>
@@ -84,13 +93,13 @@
                     <h3>Ingredients</h3>
                     <ul class="meal-ingredients"></ul>
                 </div>
-                <div class="pb-10">
+                <!-- <div class="pb-10">
                     <h3>Servings</h3>
                     <p class="meal-servings"></p>
-                </div>
+                </div> -->
                 <div class="pb-20">
                     <h3>Instructions</h3>
-                    <p class="meal-instructions"></p>
+                    <a class="meal-instructions underline-nm"></a>
                 </div>
                 <div class="modal-actions">
                     <button class="add-meal" type="button">Add Meal</button>

@@ -35,6 +35,9 @@
                 </div>
             </div>
             <div class="meal-detail">
+                <div class="meal-img img-container-300">
+
+                </div>
                 <h2 class="meal-name pb-10"></h2>
                 <div class="dsp-none meal-id"></div>
                 <div class="pb-10 dsp-flex">
@@ -55,7 +58,7 @@
                 </div> -->
                 <div class="pb-20">
                     <h3>Instructions</h3>
-                    <p class="meal-instructions"></p>
+                    <a class="meal-instructions underline-nm"></a>
                 </div>
                 <div class="modal-actions">
                     <button class="add-meal add-meal-log" type="button">Add to log</button>
