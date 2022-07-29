@@ -7,8 +7,10 @@
         </div>
 
         <div class="workout-detail-modal modal ft-poppins">
-            <div class="close-btn icon-container">
-                <img src="frontend/assets/images/close_icon.svg" alt="" srcset="">
+            <div class="close-btn">
+                <div class="icon-container">
+                    <img src="frontend/assets/images/close_icon.svg" alt="" srcset="">
+                </div>
             </div>
             <h2 class="modal-workout-name pb-10"></h2>
             <h3 class="modal-workout-type capitalize pb-10"></h3>

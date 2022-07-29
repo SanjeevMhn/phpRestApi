@@ -38,7 +38,7 @@
                 <div class="meal-img img-container-300">
 
                 </div>
-                <h2 class="meal-name pb-10"></h2>
+                <h2 class="meal-name pb-10 pt-10"></h2>
                 <div class="dsp-none meal-id"></div>
                 <div class="pb-10 dsp-flex">
                     <h3>Total Calories: </h3>

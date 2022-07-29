@@ -120,6 +120,13 @@
    
 }
 
+.recipe-search-form{
+    .form-data{
+        flex-direction: column;
+        position: relative;
+    }
+}
+
 
 @media screen and (max-width: 620px) {
     .dashboard-sec{

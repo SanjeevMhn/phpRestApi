@@ -59,7 +59,79 @@
                 </div>
 
             </div>
+            <h3 class="pb-10">You can also add meals yourself or search for recipes!</h3>
+            <form method="post" class="recipe-search-form">
+                <div class="form-data">
+                    <label for="search-meal">
+                        Search Meal
+                    </label>
+                    <input type="text" name="recipe-search" id="search-meal" class="form-inp" placeholder="Enter any food name">
+                    <div class="err-msg err-search-meal">Please enter food name</div>
+                </div>
+                <div class="form-data">
+                    <button type="submit">Search</button>
+                </div>
+            </form>
         </div>
+
+        <div class="search-meal-list-modal modal ft-poppins">
+            <div class="close-btn">
+                <div class="icon-container close">
+                    <img src="/frontend/assets/images/close_icon.svg" alt="">
+                </div>
+            </div>
+            <h2>Search Results</h2>
+            <ul class="search-meal-list meal-list">
+            </ul>
+        </div>
+
+        <div class="search-meal-detail-modal modal ft-poppins">
+            <div class="close-btn">
+                <div class="icon-container close">
+                    <img src="/frontend/assets/images/close_icon.svg" alt="">
+                </div>
+            </div>
+            <div class="meal-detail">
+                <div class="meal-img img-container-300">
+
+                </div>
+                <h2 class="meal-name pb-10 pt-10"></h2>
+                <div class="pb-10 dsp-flex">
+                    <h3>Total Calories: </h3>
+                    <p class="meal-calories"></p>
+                </div>
+                <!-- <div class="pb-10 dsp-flex">
+                    <h3>Meal Type:</h3>
+                    <p class="meal-type capitalize"></p>
+                </div> -->
+                <div class="pb-10">
+                    <h3>Ingredients</h3>
+                    <ul class="meal-ingredients"></ul>
+                </div>
+                <!-- <div class="pb-10">
+                    <h3>Servings</h3>
+                    <p class="meal-servings"></p>
+                </div> -->
+                <div class="pb-10">
+                    <h3>Choose Meal Type</h3>
+                    <select name="meal-type" id="" class="form-select">
+                        <option value="breakfast">Breakfast</option>
+                        <option value="lunch">Lunch</option>
+                        <option value="dinner">Dinner</option>
+                        <option value="snack">Snack</option>
+                    </select>
+                </div>
+                <div class="pb-20">
+                    <h3>Instructions</h3>
+                    <a class="meal-instructions underline-nm"></a>
+                </div>
+                <div class="modal-actions">
+                    <button class="add-meal" type="button">Add Meal</button>
+                    <button class="cancel" type="reset">Cancel</button>
+                </div>
+            </div>
+        </div>
+
         <div class="rec-breakfast-list-modal modal ft-poppins">
             <div class="close-btn">
                 <div class="icon-container close">
@@ -70,6 +142,7 @@
             <ul class="breakfast-meal-list meal-list">
             </ul>
         </div>
+
         <div class="rec-meal-detail-modal modal ft-poppins">
             <div class="close-btn">
                 <div class="icon-container close">
@@ -80,7 +153,7 @@
                 <div class="meal-img img-container">
 
                 </div>
-                <h2 class="meal-name pb-10"></h2>
+                <h2 class="meal-name pb-10 pt-10"></h2>
                 <div class="pb-10 dsp-flex">
                     <h3>Total Calories: </h3>
                     <p class="meal-calories"></p>
