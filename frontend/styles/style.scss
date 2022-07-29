@@ -645,6 +645,11 @@ button,
     .meal-item {
         .meal-link {
             text-decoration: underline;
+            .meal-name{
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
         }
     }
 }
