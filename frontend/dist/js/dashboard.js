@@ -45,7 +45,7 @@ $(document).ready(function () {
                     $(".recommended-workouts").css("display", "none");
                 } else if (response.success == 1) {
                     $(".recommended-workouts").css("display", "block");
-                    recommendedWorkouts();
+                    recommendedExercises();
                     getUserIdealCalories();
                     //recommendedMeals();
                 }
@@ -691,56 +691,94 @@ $(document).ready(function () {
                     if (response.success == 1) {
                         $(".user-goal-form").css("display", "none");
                         $(".recommended-workouts").css("display", "block");
-                        recommendedWorkouts();
+                        recommendedExercises();
                     }
                 });
             }
 
             //fetch recommeded workouts based on user's selected fitness level//
-            function recommendedWorkouts() {
-                let getRecommendWorkouts = {
-                    "url": "/api/users/getRecommendedWorkouts.php",
-                    "method": "POST",
+            function recommendedExercises() {
+                // let getRecommendWorkouts = {
+                //     "url": "/api/users/getRecommendedWorkouts.php",
+                //     "method": "POST",
+                //     "timeout": 0,
+                //     "headers": {
+                //         "Authorization": `Bearer ${token.token}`
+                //     }
+                // }
+                let getUserPhysical = {
+                    "url": "/api/users/getUserPhysicalInfo.php",
                     "timeout": 0,
+                    "method": "GET",
                     "headers": {
                         "Authorization": `Bearer ${token.token}`
-                    }
+                    },
                 }
 
-                $.ajax(getRecommendWorkouts).done(function (response) {
-                    if (response.success == 1) {
-                        let recommendedWorkouts = $('.recommended-workouts-list');
-                        $.map(response.workouts, (workout, index) => {
-                            let recWorkoutCardContainer = $('<div class="rec-workout-card list-item"></div>');
-                            recWorkoutCardContainer.data('recWorkoutId', workout.rec_workout_id);
-                            recWorkoutCardContainer.data('recWorkoutType', workout.rec_workout_type);
-                            recWorkoutCardContainer.data('recWorkoutDurationHrs', workout.rec_workout_duration_hrs);
-                            recWorkoutCardContainer.data('recWorkoutDurationMins', workout.rec_workout_duration_mins);
-                            recWorkoutCardContainer.data('recWorkoutDurationSecs', workout.rec_workout_duration_secs);
-                            recWorkoutCardContainer.data('recWorkoutName', workout.rec_workout_name);
-                            let recWorkoutCard = $('<div class="inner-container"></div>');
-                            let recWorkoutName = $('<h2 class="rec-workout-name header-text"></h2>');
-                            let recWorkoutDuration = $('<div class="rec-workout-duration"></div>');
-                            let recWorkoutDuHrs = $('<span class="hrs"></span>');
-                            let recWorkoutDuMins = $('<span class="mins"></span>');
-                            let recWorkoutDuSecs = $('<span class="secs"></span>');
+                $.ajax(getUserPhysical).done(function(response){
+                    if(response.success == 1){
+                        let userLevel;
+                        switch(response.data.user_level){
+                            case "beginner":
+                                userLevel = "beginner";
+                            break;
 
-                            recWorkoutName.text(workout.rec_workout_name);
-                            recWorkoutDuHrs.text(workout.rec_workout_duration_hrs + " hrs  : ");
-                            recWorkoutDuMins.text(workout.rec_workout_duration_mins + " mins : ");
-                            recWorkoutDuSecs.text(workout.rec_workout_duration_secs + " secs");
+                            case "intermediate":
+                                userLevel = "intermediate";
+                            break;
 
-                            recWorkoutDuration.append(recWorkoutDuHrs);
-                            recWorkoutDuration.append(recWorkoutDuMins);
-                            recWorkoutDuration.append(recWorkoutDuSecs);
+                            case "advanced":
+                                userLevel = "expert";
+                            break;
+                        }
 
-                            recWorkoutCard.append(recWorkoutName);
-                            recWorkoutCard.append(recWorkoutDuration);
-                            recWorkoutCardContainer.append(recWorkoutCard);
-                            recommendedWorkouts.append(recWorkoutCardContainer);
+
+                        let getRecommendWorkouts = {
+                            "url": `https://api.api-ninjas.com/v1/exercises?difficulty=${userLevel}`,
+                            "method": "GET",
+                            "timeout": 0,
+                            "headers": {
+                                "x-api-key": "SrSAaegWn7kpQszNO6D3sQ==nhwKmMMZzXZ7eaKJ"
+                            }         
+                        }
+
+                        $.ajax(getRecommendWorkouts).done(function (response) {
+                            let recommendedWorkouts = $('.recommended-workouts-list');
+                            $.map(response, (workout, index) => {
+                                let recWorkoutCardContainer = $('<div class="rec-workout-card list-item"></div>');
+                                // recWorkoutCardContainer.data('recWorkoutId', workout.rec_workout_id);
+                                recWorkoutCardContainer.data('recWorkoutType', workout.type);
+                                // recWorkoutCardContainer.data('recWorkoutDurationHrs', workout.rec_workout_duration_hrs);
+                                // recWorkoutCardContainer.data('recWorkoutDurationMins', workout.rec_workout_duration_mins);
+                                // recWorkoutCardContainer.data('recWorkoutDurationSecs', workout.rec_workout_duration_secs);
+                                recWorkoutCardContainer.data('recWorkoutName', workout.name);
+                                let recWorkoutCard = $('<div class="inner-container"></div>');
+                                let recWorkoutName = $('<h2 class="rec-workout-name header-text"></h2>');
+                                // let recWorkoutDuration = $('<div class="rec-workout-duration"></div>');
+                                // let recWorkoutDuHrs = $('<span class="hrs"></span>');
+                                // let recWorkoutDuMins = $('<span class="mins"></span>');
+                                // let recWorkoutDuSecs = $('<span class="secs"></span>');
+
+                                recWorkoutName.text(workout.name);
+                                // recWorkoutDuHrs.text(workout.rec_workout_duration_hrs + " hrs  : ");
+                                // recWorkoutDuMins.text(workout.rec_workout_duration_mins + " mins : ");
+                                // recWorkoutDuSecs.text(workout.rec_workout_duration_secs + " secs");
+
+                                // recWorkoutDuration.append(recWorkoutDuHrs);
+                                // recWorkoutDuration.append(recWorkoutDuMins);
+                                // recWorkoutDuration.append(recWorkoutDuSecs);
+
+                                recWorkoutCard.append(recWorkoutName);
+                                // recWorkoutCard.append(recWorkoutDuration);
+                                recWorkoutCardContainer.append(recWorkoutCard);
+                                recommendedWorkouts.append(recWorkoutCardContainer);
+                            })
                         })
-                    }
+                    }  
                 })
+
+
+                
             }
 
             $(document).on('click', '.rec-workout-card', function () {

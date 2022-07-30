@@ -30,8 +30,9 @@
         <div class="user-ideal-calorie-intake pb-20">
             <h2 class="header-text ft-poppins">For your goal you need to be consuming atmost <span class="calorie-number"></span> calories everyday!</h2>
         </div>
+        <h3 class="pb-10 ft-poppins">You can select the exercises and add them to your workout or you can create your own exercises!</h3>
         <div class="recommended-workouts ft-poppins pb-20">
-            <h2 class="header-text underline">Recommended Workouts</h2>
+            <h2 class="header-text underline">Recommended Exercises</h2>
             <div class="recommended-workouts-list list"></div>
         </div>
         <div class="recommended-meals pb-120 ft-poppins">
