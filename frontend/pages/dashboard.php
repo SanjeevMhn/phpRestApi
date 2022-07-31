@@ -30,9 +30,9 @@
         <div class="user-ideal-calorie-intake pb-20">
             <h2 class="header-text ft-poppins">For your goal you need to be consuming atmost <span class="calorie-number"></span> calories everyday!</h2>
         </div>
-        <h3 class="pb-10 ft-poppins">You can select the exercises and add them to your workout or you can create your own exercises!</h3>
+        <h3 class="pb-10 ft-poppins">You can select the exercises and add them to your workout or you can create your own exercisesut!</h3>
         <div class="recommended-workouts ft-poppins pb-20">
-            <h2 class="header-text underline">Recommended Exercises</h2>
+            <h2 class="header-text underline">Recommended Workouts</h2>
             <div class="recommended-workouts-list list"></div>
         </div>
         <div class="recommended-meals pb-120 ft-poppins">
@@ -182,8 +182,13 @@
             </div>
         </div>
         <div class="rec-workout-detail-modal workout-detail-modal modal ft-poppins">
-            <h2 class="modal-rec-workout-name modal-workout-name"></h2>
-            <div class="modal-rec-workout-duration modal-workout-duration">
+            <div class="close-btn">
+                <div class="icon-container close pointer">
+                    <img src="/frontend/assets/images/close_icon.svg" alt="">
+                </div>
+            </div>
+            <h2 class="modal-rec-workout-name modal-workout-name pb-10"></h2>
+            <!-- <div class="modal-rec-workout-duration modal-workout-duration">
                 Workout Duration <br />
                 <span class="hrs"></span>
                 <span>&nbsp;hrs&nbsp;:&nbsp;</span>
@@ -191,17 +196,29 @@
                 <span>&nbsp;mins&nbsp;:&nbsp;</span>
                 <span class="secs"></span>
                 <span>&nbsp;secs</span>
-            </div>
-            <div class="modal-rec-workout-type modal-workout-duration">
+            </div> -->
+            <!-- <div class="modal-rec-workout-type modal-workout-duration">
                 Workout Type: <span class="type"></span>
             </div>
-            <div class="exercise-list-table">
-                <div class="exercise-item-row heading">
-                    <!-- <div class="exercise-name-data data-col text-bold">Exercise Name</div>
-                    <div class="exercise-sets-data data-col text-bold">Sets</div>
-                    <div class="exercise-reps-data data-col text-bold">Reps</div> -->
+ -->            <!-- <div class="exercise-list-table"> -->
+                <h2 class="pb-10">Exercises List</h2>
+                <ul class="exercises-list">
+                    
+                </ul>
+
+                <div class="exercise-details dsp-none">
+                    <h3 class="exercise-name pb-10"></h3>
+                    <h3 class="exercise-type pb-10"></h3>
+                    <h3 class="exercise-equipment pb-10"></h3>
+                    <h3 class="exercise-muscle pb-10"></h3>
+                    <h3 class="exercise-instructions pb-10"></h3>
                 </div>
-            </div>
+                <!-- <div class="exercise-item-row heading">
+                    <div class="exercise-name-data data-col text-bold">Exercise Name</div>
+                    <div class="exercise-sets-data data-col text-bold">Sets</div>
+                    <div class="exercise-reps-data data-col text-bold">Reps</div>
+                </div> -->
+            <!-- </div> -->
             <div class="modal-actions">
                 <button type="button" class="add-workout">Add Workout</button>
                 <button type="reset" class="close-rec-workout">Cancel</button>

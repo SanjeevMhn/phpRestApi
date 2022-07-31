@@ -45,8 +45,8 @@ $(document).ready(function () {
                     $(".recommended-workouts").css("display", "none");
                 } else if (response.success == 1) {
                     $(".recommended-workouts").css("display", "block");
-                    recommendedExercises();
                     getUserIdealCalories();
+                    recommendedWorkouts();
                     //recommendedMeals();
                 }
             });
@@ -691,151 +691,205 @@ $(document).ready(function () {
                     if (response.success == 1) {
                         $(".user-goal-form").css("display", "none");
                         $(".recommended-workouts").css("display", "block");
-                        recommendedExercises();
+                        recommendedWorkouts();
                     }
                 });
             }
 
             //fetch recommeded workouts based on user's selected fitness level//
-            function recommendedExercises() {
-                // let getRecommendWorkouts = {
-                //     "url": "/api/users/getRecommendedWorkouts.php",
-                //     "method": "POST",
-                //     "timeout": 0,
-                //     "headers": {
-                //         "Authorization": `Bearer ${token.token}`
-                //     }
-                // }
-                let getUserPhysical = {
+            function recommendedWorkouts() {
+
+                let getUserPhysicalInfo = {
                     "url": "/api/users/getUserPhysicalInfo.php",
-                    "timeout": 0,
                     "method": "GET",
-                    "headers": {
-                        "Authorization": `Bearer ${token.token}`
-                    },
+                    "timeout": 0,
+                    "headers":{
+                        "Authorization": `Bearer ${token.token}`,
+                    }
                 }
 
-                $.ajax(getUserPhysical).done(function(response){
-                    if(response.success == 1){
-                        let userLevel;
-                        switch(response.data.user_level){
-                            case "beginner":
-                                userLevel = "beginner";
-                            break;
+                $.ajax(getUserPhysicalInfo).done(function(response){
+                    console.log(response);
+                    let userLevel;
+                    switch(response.data.user_level){
+                        case "beginner":
+                            userLevel = "beginner";
+                        break;
 
-                            case "intermediate":
-                                userLevel = "intermediate";
-                            break;
+                        case "intermediate":
+                            userLevel = "intermediate";
+                        break;
 
-                            case "advanced":
-                                userLevel = "expert";
-                            break;
+                        case "advanced":
+                            userLevel = "expert";
+                        break;
+                    }
+                    let getExercises = {
+                        "url": `https://api.api-ninjas.com/v1/exercises?difficulty=${userLevel}`,
+                        "method": "GET",
+                        "timeout": 0,
+                        "headers":{
+                            "x-api-key": "SrSAaegWn7kpQszNO6D3sQ==nhwKmMMZzXZ7eaKJ"
+                        }
+                    }
+
+                    $.ajax(getExercises).done(function(response){
+                        console.log(response.length);
+                        let arr_size = 3;
+                        
+                        let splitWorkouts = (arr,size) => {
+                            let arr2 = arr.slice(0);
+                            let array = [];
+
+                            while(arr2.length-1 > 0){
+                                array.push(arr2.splice(0, size));
+                            }
+
+                            return array;
                         }
 
+                        let dividedExercises = splitWorkouts(response,arr_size);
+                        // console.log(dividedExercises);
 
-                        let getRecommendWorkouts = {
-                            "url": `https://api.api-ninjas.com/v1/exercises?difficulty=${userLevel}`,
-                            "method": "GET",
-                            "timeout": 0,
-                            "headers": {
-                                "x-api-key": "SrSAaegWn7kpQszNO6D3sQ==nhwKmMMZzXZ7eaKJ"
-                            }         
-                        }
+                        dividedExercises.map((dE,index) => {
+                            let listItem = $('<div class="workout-list-item rec-workout-card list-item"></div>');
+                            let container = $('<div class="inner-container"></div>');
+                            let workoutName = $('<h2 class="header-text"></div>');
+                            let name = `workout_${index + 1}`;
+                            let exercisesArr = [];
+                            workoutName.text(name);
+                            dE.map((exercise,index) => {
+                                let exerciseObj = {
+                                    "exercise_name": exercise.name,
+                                    "exercise_type": exercise.type,
+                                    "exercise_difficulty": exercise.difficulty,
+                                    "exercise_muscle": exercise.muscle,
+                                    "exercise_equipment": exercise.equipment,
+                                    "exercise_instructions": exercise.instructions
+                                };
 
-                        $.ajax(getRecommendWorkouts).done(function (response) {
-                            let recommendedWorkouts = $('.recommended-workouts-list');
-                            $.map(response, (workout, index) => {
-                                let recWorkoutCardContainer = $('<div class="rec-workout-card list-item"></div>');
-                                // recWorkoutCardContainer.data('recWorkoutId', workout.rec_workout_id);
-                                recWorkoutCardContainer.data('recWorkoutType', workout.type);
-                                // recWorkoutCardContainer.data('recWorkoutDurationHrs', workout.rec_workout_duration_hrs);
-                                // recWorkoutCardContainer.data('recWorkoutDurationMins', workout.rec_workout_duration_mins);
-                                // recWorkoutCardContainer.data('recWorkoutDurationSecs', workout.rec_workout_duration_secs);
-                                recWorkoutCardContainer.data('recWorkoutName', workout.name);
-                                let recWorkoutCard = $('<div class="inner-container"></div>');
-                                let recWorkoutName = $('<h2 class="rec-workout-name header-text"></h2>');
-                                // let recWorkoutDuration = $('<div class="rec-workout-duration"></div>');
-                                // let recWorkoutDuHrs = $('<span class="hrs"></span>');
-                                // let recWorkoutDuMins = $('<span class="mins"></span>');
-                                // let recWorkoutDuSecs = $('<span class="secs"></span>');
-
-                                recWorkoutName.text(workout.name);
-                                // recWorkoutDuHrs.text(workout.rec_workout_duration_hrs + " hrs  : ");
-                                // recWorkoutDuMins.text(workout.rec_workout_duration_mins + " mins : ");
-                                // recWorkoutDuSecs.text(workout.rec_workout_duration_secs + " secs");
-
-                                // recWorkoutDuration.append(recWorkoutDuHrs);
-                                // recWorkoutDuration.append(recWorkoutDuMins);
-                                // recWorkoutDuration.append(recWorkoutDuSecs);
-
-                                recWorkoutCard.append(recWorkoutName);
-                                // recWorkoutCard.append(recWorkoutDuration);
-                                recWorkoutCardContainer.append(recWorkoutCard);
-                                recommendedWorkouts.append(recWorkoutCardContainer);
+                                // console.log(exerciseObj);
+                                // listItem.attr("exercises",JSON.stringify(exerciseObj));
+                                exercisesArr.push(exerciseObj);
                             })
-                        })
-                    }  
+                            listItem.data('exercises',JSON.stringify(exercisesArr));
+                            listItem.data('name',name);
+                            container.append(workoutName);
+                            listItem.append(container);
+                            $('.recommended-workouts-list').append(listItem);
+                        }) 
+
+                    })
                 })
-
-
+                
                 
             }
 
             $(document).on('click', '.rec-workout-card', function () {
-                console.log($(this).data('recWorkoutId'));
+                // console.log($(this).data('recWorkoutId'));
                 $('.rec-workout-detail-modal').addClass('dsp-flex');
                 $('body').addClass('overlay');
-                $('.rec-workout-detail-modal .modal-rec-workout-name').text($(this).data('recWorkoutName'));
-                $('.rec-workout-detail-modal .modal-rec-workout-duration .hrs').text($(this).data('recWorkoutDurationHrs'));
-                $('.rec-workout-detail-modal .modal-rec-workout-duration .mins').text($(this).data('recWorkoutDurationMins'));
-                $('.rec-workout-detail-modal .modal-rec-workout-duration .secs').text($(this).data('recWorkoutDurationSecs'));
-                $('.rec-workout-detail-modal .modal-rec-workout-type .type').text($(this).data('recWorkoutType'));
-                let exerciseItemHeading = $('<div class="exercise-item-row heading"></div>');
-                let headingName = $('<div class="exercise-name-data data-col text-bold">Exercise Name</div>');
-                let headingSets = $('<div class="exercise-name-data data-col text-bold">Exercise Sets</div>');
-                let headingReps = $('<div class="exercise-name-data data-col text-bold">Exercise Reps</div>');
-                $('.exercise-list-table').append(exerciseItemHeading);
-                let getExercises = {
-                    "url": "api/users/getRecommendedExercises.php",
-                    "method": "POST",
-                    "timeout": 0,
-                    "headers": {
-                        "Authorization": `Bearer ${token.token}`
-                    },
-                    "data": JSON.stringify({
-                        "rec_workout_id": $(this).data('recWorkoutId')
-                    })
-                };
+                // $('.rec-workout-detail-modal .modal-rec-workout-name').text($(this).data('recWorkoutName'));
+                // $('.rec-workout-detail-modal .modal-rec-workout-duration .hrs').text($(this).data('recWorkoutDurationHrs'));
+                // $('.rec-workout-detail-modal .modal-rec-workout-duration .mins').text($(this).data('recWorkoutDurationMins'));
+                // $('.rec-workout-detail-modal .modal-rec-workout-duration .secs').text($(this).data('recWorkoutDurationSecs'));
+                // $('.rec-workout-detail-modal .modal-rec-workout-type .type').text($(this).data('recWorkoutType'));
 
-                $.ajax(getExercises).done(function (response) {
-                    let exerciseList = $('.rec-workout-detail-modal .exercise-list');
-                    if (response.success == 1) {
-                        $.map(response.exercises, (exercise, index) => {
-                            let exerciseItem = $('<div class="exercise-item-row"></div>');
+                let workoutName = $(this).data('name');
+                console.log(workoutName);
+                $('.modal-rec-workout-name').text(workoutName);
+                let exerciseList = JSON.parse($(this).data('exercises'));
 
-                            let exerciseName = $('<div class="exercise-name-data data-col"></div>');
-                            let exerciseSets = $('<div class="exercise-sets-data data-col"></div>');
-                            let exerciseReps = $('<div class="exercise-reps-data data-col"></div>');
-
-                            exerciseItemHeading.append(headingName);
-                            exerciseItemHeading.append(headingSets);
-                            exerciseItemHeading.append(headingReps);
-                            exerciseName.text(exercise.rec_exercise_name);
-                            exerciseSets.text(exercise.rec_exercise_sets);
-                            exerciseReps.text(exercise.rec_exercise_reps);
-                            exerciseItem.append(exerciseName);
-                            exerciseItem.append(exerciseSets);
-                            exerciseItem.append(exerciseReps);
-                            exerciseList.append(exerciseItem);
-                            $('.exercise-list-table').append(exerciseItem);
-                        })
+                exerciseList.map((exercise,index)=>{
+                    console.log(exercise);
+                    let li = $('<li class="exercise-item"></li>');
+                    let exerciseName = $('<h3 class="exercise-name pointer underline-nm"></h3>');
+                    exerciseName.text(exercise.exercise_name);
+                    li.append(exerciseName);
+                    $('.exercises-list').append(li);
+                    let exerciseDatail = {
+                        "name": exercise.exercise_name,
+                        "type": exercise.exercise_type,
+                        "difficulty": exercise.exercise_difficulty,
+                        "muscle": exercise.exercise_muscle,
+                        "equipment": exercise.exercise_equipment,
+                        "instructions": exercise.exercise_instructions 
                     }
+                    li.data('detail',JSON.stringify(exerciseDatail));
                 })
+                // let exerciseItemHeading = $('<div class="exercise-item-row heading"></div>');
+                // let headingName = $('<div class="exercise-name-data data-col text-bold">Exercise Name</div>');
+                // let headingSets = $('<div class="exercise-name-data data-col text-bold">Exercise Sets</div>');
+                // let headingReps = $('<div class="exercise-name-data data-col text-bold">Exercise Reps</div>');
+                // $('.exercise-list-table').append(exerciseItemHeading);
+                // let getExercises = {
+                //     "url": "api/users/getRecommendedExercises.php",
+                //     "method": "POST",
+                //     "timeout": 0,
+                //     "headers": {
+                //         "Authorization": `Bearer ${token.token}`
+                //     },
+                //     "data": JSON.stringify({
+                //         "rec_workout_id": $(this).data('recWorkoutId')
+                //     })
+                // };
+
+                // $.ajax(getExercises).done(function (response) {
+                //     let exerciseList = $('.rec-workout-detail-modal .exercise-list');
+                //     if (response.success == 1) {
+                //         $.map(response.exercises, (exercise, index) => {
+                //             let exerciseItem = $('<div class="exercise-item-row"></div>');
+
+                //             let exerciseName = $('<div class="exercise-name-data data-col"></div>');
+                //             let exerciseSets = $('<div class="exercise-sets-data data-col"></div>');
+                //             let exerciseReps = $('<div class="exercise-reps-data data-col"></div>');
+
+                //             exerciseItemHeading.append(headingName);
+                //             exerciseItemHeading.append(headingSets);
+                //             exerciseItemHeading.append(headingReps);
+                //             exerciseName.text(exercise.rec_exercise_name);
+                //             exerciseSets.text(exercise.rec_exercise_sets);
+                //             exerciseReps.text(exercise.rec_exercise_reps);
+                //             exerciseItem.append(exerciseName);
+                //             exerciseItem.append(exerciseSets);
+                //             exerciseItem.append(exerciseReps);
+                //             exerciseList.append(exerciseItem);
+                //             $('.exercise-list-table').append(exerciseItem);
+                //         })
+                //     }
+                // })
+            });
+
+            $(document).on('click','.exercise-item',function(){
+                $('.rec-workout-detail-modal .exercise-details').removeClass('dsp-none');
+                let detail = JSON.parse($(this).data('detail'));
+                $('.rec-workout-detail-modal .exercise-details .exercise-name').text(`Name: ${detail.name}`);
+                $('.rec-workout-detail-modal .exercise-details .exercise-type').text(`Type: ${detail.type}`);
+                $('.rec-workout-detail-modal .exercise-details .exercise-equipment').text(`Equipment: ${detail.equipment}`);
+                $('.rec-workout-detail-modal .exercise-details .exercise-muscle').text(`Muscle: ${detail.muscle}`);
+                $('.rec-workout-detail-modal .exercise-details .exercise-instructions').text(`Instructions: ${detail.instructions}`);
             });
 
             $('.close-rec-workout').click(function () {
                 $('.rec-workout-detail-modal').removeClass('dsp-flex');
                 $('.rec-workout-detail-modal .exercise-list-table').html('');
+                $('.rec-workout-detail-modal .exercises-list').html('');
+                $('.rec-workout-detail-modal .exercise-details .exercise-name').html('');
+                $('.rec-workout-detail-modal .exercise-details .exercise-type').html('');
+                $('.rec-workout-detail-modal .exercise-details .exercise-equipment').html('');
+                $('.rec-workout-detail-modal .exercise-details .exercise-muscle').html('');
+                $('.rec-workout-detail-modal .exercise-details .exercise-instructions').html('');
+                $('body').removeClass('overlay');
+            })
+            $('.rec-workout-detail-modal .close').click(function () {
+                $('.rec-workout-detail-modal').removeClass('dsp-flex');
+                $('.rec-workout-detail-modal .exercise-list-table').html('');
+                $('.rec-workout-detail-modal .exercises-list').html('');
+                $('.rec-workout-detail-modal .exercise-details .exercise-name').html('');
+                $('.rec-workout-detail-modal .exercise-details .exercise-type').html('');
+                $('.rec-workout-detail-modal .exercise-details .exercise-equipment').html('');
+                $('.rec-workout-detail-modal .exercise-details .exercise-muscle').html('');
+                $('.rec-workout-detail-modal .exercise-details .exercise-instructions').html('');
                 $('body').removeClass('overlay');
             })
 

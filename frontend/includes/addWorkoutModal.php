@@ -9,8 +9,8 @@
         <select name="workout-type" id="workout-type" class="form-select">
             <option value="strength">Strength</option>
             <option value="cardio">Cardiovascular</option>
-            <option value="sports">Sports</option>
-            <option value="hybrid">Hybrid</option>
+            <option value="stretching">Warmups</option>
+            <option value="plyometrics">Hybrid</option>
         </select>
         <span class="err-msg err-wr-type">Please select workout type</span>
     </div>
@@ -30,10 +30,13 @@
         <span class="err-msg err-wr-duration">Please enter workout duration</span>
     </div>
     <div class="form-data workout-desc-container">
-        <label for="workout-desc">Workout Description</label>
+        <label for="workout-desc">Exercise Description</label>
         <!-- <textarea name="workout-desc" id="workout-desc" cols="30" rows="10" class="form-textarea" placeholder="Your Workout Description"></textarea> -->
+        <div class="get-exercises-list list">
+                 
+        </div>
         <div class="exercise-container">
-            <div class="exercise-block">
+            <!-- <div class="exercise-block">
                 <div class="block">
                     <input type="text" name="exercise-name" id="" class="form-inp" placeholder="Exercise Name">
                 </div>
@@ -43,9 +46,12 @@
                 <div class="block">
                     <input type="number" name="exercise-reps" id="" class="form-inp" placeholder="No of reps">
                 </div>
-            </div>
+            </div> -->
+            
         </div>
-        <button class="add-exercise" type="button">Add Exercise</button>
+
+        <button class="get-exercise" type="button">Get Exercises</button>
+        <button class="add-exercise" type="button">Add Custom Exercise</button>
         <span class="err-msg err-wr-desc">Please enter your workout description</span>
     </div>
     <div class="form-data">

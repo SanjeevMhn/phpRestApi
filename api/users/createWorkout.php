@@ -52,7 +52,7 @@ if (
 	));
 	$mainErrCounter = $mainErrCounter + 1;
 } else if ($data['workout_type']) {
-	$workoutTypes = ["strength", "cardio", "sports", "hybrid"];
+	$workoutTypes = ["strength", "cardio", "stretching", "plyometrics"];
 	$wtcounter = 0;
 	foreach ($workoutTypes as $wt) {
 		if (strcmp(trim($data['workout_type']), $wt) == 0) {
@@ -72,7 +72,7 @@ if (
 } else {
 	echo json_encode(array(
 		"success" => 0,
-		"message" => "Please name your workout and describe its type (strength, cardio,sports,hybrid)"
+		"message" => "Please name your workout and describe its type (strength, cardio,stretching,plyometrics)"
 	));
 	$mainErrCounter = $mainErrCounter + 1;
 }

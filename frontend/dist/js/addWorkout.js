@@ -170,4 +170,44 @@ $(document).ready(function () {
     $(document).on('click', '.del-exer-block', function () {
         $(this).parent().remove();
     })
+
+    //get exercises//
+
+    $('.get-exercise').click(function(){
+        $('.get-exercises-list').addClass('dsp-flex');
+        let exerciseType = $('select[name="workout-type"] option:selected').val();
+        let userDetail = JSON.parse(localStorage.getItem("profile_detail"));
+        let userLevel = userDetail.user_level;
+        let getExercises = {
+            "url": `https://api.api-ninjas.com/v1/exercises?difficulty=${userLevel}&type=${exerciseType}`,
+            "method": "GET",
+            "timeout": 0,
+            "headers":{
+                "x-api-key": "SrSAaegWn7kpQszNO6D3sQ==nhwKmMMZzXZ7eaKJ"
+            }
+        } 
+
+        $.ajax(getExercises).done(function(response){
+            console.log(response);
+            $.map(response,function(resp,index){
+
+                let listItem = $('<div class="exercise-item list-item"></div>');
+                let container = $('<div class="inner-container"></div>');
+                let exerciseName = $('<h2 class="header-text"></h2>');
+
+                listItem.data('exercise-name',resp.name);
+                listItem.data('exercise-type',resp.type);
+                listItem.data('exercise-muscle',resp.muscle);
+                listItem.data('exercise-equipment',resp.equipment);
+                listItem.data('exercise-difficulty',resp.difficulty);
+                listItem.data('exercise-instructions',resp.instructions);
+
+                exerciseName.text(resp.name);
+                container.append(exerciseName);
+                listItem.append(container);
+                $('.get-exercises-list').append(listItem);
+            })
+        })
+    })
+
 })

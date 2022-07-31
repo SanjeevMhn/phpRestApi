@@ -14,9 +14,9 @@
 
 
 /* width */
-::-webkit-scrollbar {
-    width: 0;
-}
+// ::-webkit-scrollbar {
+//     width: 0;
+// }
 
 /* Track */
 ::-webkit-scrollbar-track {
@@ -65,6 +65,10 @@ body {
 
 .underline-nm {
     text-decoration: underline;
+}
+
+.pointer{
+    cursor: pointer;
 }
 
 .capitalize {
@@ -673,6 +677,17 @@ button,
         .meal-type {
             padding-left: 10px;
             line-height: 30px;
+        }
+    }
+}
+
+.get-exercises-list{
+    overflow-y: scroll;
+    height: 50%;
+    display: none;
+    .exercise-item{
+        .inner-container{
+            border: 2px solid #fff;
         }
     }
 }
