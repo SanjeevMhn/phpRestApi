@@ -967,6 +967,50 @@ $(document).ready(function () {
             }
 
 
+            $('.rec-workout-detail-modal .modal-actions .add-rec-workout').click(function () {
+
+                // let workoutExercises = JSON.parse($('.rec-workout-detail-modal .exercises-list .exercise-item').data('detail'));
+                let workoutExercises = $('.rec-workout-detail-modal .exercises-list .exercise-item');
+                let exercisesArr = [];
+                $.map(workoutExercises,function(wE,index){
+                    let exerciseObj = JSON.parse($(wE).data("detail"));
+                    let filterExerciseObj = {
+                        "exercise_name": exerciseObj.name,
+                        "exercise_sets": 3,
+                        "exercise_reps": 10,
+                        "exercise_type": exerciseObj.type,
+                        "exercise_muscle": exerciseObj.muscle,
+                        "exercise_equipment": exerciseObj.equipment,
+                        "exercise_instructions": exerciseObj.instructions
+                    };
+                    console.log(filterExerciseObj);
+                    exercisesArr.push(filterExerciseObj);
+                });
+
+                let addWorkoutData = {
+                    "url": "/api/users/createWorkout.php",
+                    "method": "POST",
+                    "timeout": 0,
+                    "headers":{
+                        "Authorization": `Bearer ${token.token}`,
+                        "Content-Type": "application/json"
+                    },
+                    "data": JSON.stringify({
+                        "workout_name": $.trim($(".modal-rec-workout-name").text()),
+                        "workout_duration": {
+                            "mins": 45
+                        },
+                        "workout_desc": exercisesArr
+                    })
+                }
+
+
+                $.ajax(addWorkoutData).done(function(response){
+                    console.log(response);
+                    console.log(hello);
+                });
+
+            });
 
 
 

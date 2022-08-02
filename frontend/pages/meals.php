@@ -2,7 +2,7 @@
 
 <main class="meals-container">
     <section class="meals-sec content ft-poppins pb-120">
-        <div class="user-meals pb-120">
+        <div class="user-meals pb-20">
             <div class="breakfast-container pb-10">
                 <h2 class="header-text">Breakfast</h2>
                 <div class="breakfast-list list">
@@ -67,6 +67,31 @@
                     <button class="cancel" type="reset">Cancel</button>
                 </div>
             </div>
+        </div>
+        <div class="user-meal-plan pb-120">
+
+            <h2 class="header-text">
+                Meal Plans created from the meals added by you.
+            </h2>
+
+            <div class="meal-plan-list list">
+                
+            </div>
+        </div>
+
+        <div class="user-meal-plan-modal modal ft-poppins">
+            <div class="close-btn">
+                <div class="icon-container close">
+                    <img src="/frontend/assets/images/close_icon.svg" alt="">
+                </div>
+            </div>
+            <h3>
+                <div class="label-text">Total Calories</div>
+                <span class="total-calories"></span>
+            </h3>
+            <h2>Meal List</h2>
+            <ul class="meal-plan-list meal-list">
+            </ul>
         </div>
         <?php include_once "frontend/includes/addWorkoutModal.php" ?>
     </section>

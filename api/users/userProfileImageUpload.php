@@ -42,7 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] !== "POST") {
     } else {
 
         $newFileName = $userId['id'] . "_" . $fileName;
-        $upload_path = 'E:/sanjeev/php/simpleRest/storage/public/userAvatars/';
+        // $upload_path = 'E:/sanjeev/php/simpleRest/storage/public/userAvatars/';
+        $upload_path = '/home/sanjeev/Desktop/sanjeev/php/phpRestApi/storage/public/userAvatars/';
         $fileExt = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
         $valid_extensions = array('jpeg', 'jpg', 'png', 'gif');
 

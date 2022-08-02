@@ -426,11 +426,10 @@ class User extends JwtHandler
 
     public function createWorkout($workoutData,$userId){
         try{
-            $query = "INSERT INTO user_workouts (user_id,workout_name,workout_type,workout_duration_hrs,workout_duration_mins,workout_duration_secs) VALUES (:id,:name,:type,:hrs,:mins,:secs)";
+            $query = "INSERT INTO user_workouts (user_id,workout_name,workout_duration_hrs,workout_duration_mins,workout_duration_secs) VALUES (:id,:name,:hrs,:mins,:secs)";
             $stmt = $this->conn->prepare($query);
             $stmt->bindValue(":id",$userId,PDO::PARAM_INT);
             $stmt->bindValue(":name",$workoutData['name'],PDO::PARAM_STR);
-            $stmt->bindValue(":type",$workoutData['type'],PDO::PARAM_STR);
             $stmt->bindValue(":hrs",$workoutData['duration']['hrs'],PDO::PARAM_INT);
             $stmt->bindValue(":mins",$workoutData['duration']['mins'],PDO::PARAM_INT);
             $stmt->bindValue(":secs",$workoutData['duration']['secs'],PDO::PARAM_INT);
@@ -466,7 +465,7 @@ class User extends JwtHandler
 
     public function addExercises($workoutData,$lastId,$userId){
         try{
-            $query = "INSERT INTO exercises_tbl (workout_id,user_id,exercise_name,exercise_sets,exercise_reps) VALUES (:id,:userId,:name,:sets,:reps)";
+            $query = "INSERT INTO exercises_tbl (workout_id,user_id,exercise_name,exercise_sets,exercise_reps,exercise_type,exercise_muscle,exercise_equipment,exercise_instructions) VALUES (:id,:userId,:name,:sets,:reps,:type,:muscle,:equipment,:instructions)";
             $stmt = $this->conn->prepare($query);
             $count = 0;
             foreach($workoutData['description'] as $wd){
@@ -475,6 +474,10 @@ class User extends JwtHandler
                 $stmt->bindValue(":name",$wd['exercise_name'],PDO::PARAM_STR);
                 $stmt->bindValue(":sets",$wd['exercise_sets'],PDO::PARAM_INT);
                 $stmt->bindValue(":reps",$wd['exercise_reps'],PDO::PARAM_INT);
+                $stmt->bindValue(":type",$wd['exercise_type'],PDO::PARAM_STR);
+                $stmt->bindValue(":muscle",$wd['exercise_muscle'],PDO::PARAM_STR);
+                $stmt->bindValue(":equipment",$wd['exercise_equipment'],PDO::PARAM_STR);
+                $stmt->bindValue(":instructions",$wd['exercise_instructions'],PDO::PARAM_STR);
                 $stmt->execute();
                 $count = $count + 1;
             }

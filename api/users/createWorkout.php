@@ -16,7 +16,7 @@ $user = new User($db, $headers);
 $data = json_decode(file_get_contents("php://input"), true);
 $validUser = $user->isValid();
 $workoutName = '';
-$workoutType = '';
+// $workoutType = '';
 $workoutDuration = array();
 $workoutDesc = array();
 
@@ -41,40 +41,42 @@ if ($validUser['success'] !== 1) {
 }
 if (
 	!isset($data['workout_name'])
-	|| !isset($data['workout_type'])
+	// || !isset($data['workout_type'])
 	|| empty(trim($data['workout_name']))
-	|| empty(trim($data['workout_type']))
+	// || empty(trim($data['workout_type']))
 ) {
 
 	echo json_encode(array(
 		"success" => 0,
-		"message" => "Please name your workout and describe its type (strength, cardio,sports,hybrid)"
+		"message" => "Please name your workout"
 	));
 	$mainErrCounter = $mainErrCounter + 1;
-} else if ($data['workout_type']) {
-	$workoutTypes = ["strength", "cardio", "stretching", "plyometrics"];
-	$wtcounter = 0;
-	foreach ($workoutTypes as $wt) {
-		if (strcmp(trim($data['workout_type']), $wt) == 0) {
-			$wtcounter  = $wtcounter + 1;
-		}
-	}
-	if ($wtcounter == 1) {
+} else{ 
+// if ($data['workout_type']) {
+// 	$workoutTypes = ["strength", "cardio", "stretching", "plyometrics"];
+// 	$wtcounter = 0;
+// 	foreach ($workoutTypes as $wt) {
+// 		if (strcmp(trim($data['workout_type']), $wt) == 0) {
+// 			$wtcounter  = $wtcounter + 1;
+// 		}
+// 	}
+// 	if ($wtcounter == 1) {
+
 		$workoutName = trim($data['workout_name']);
-		$workoutType = trim($data['workout_type']);
-	} else {
-		echo json_encode(array(
-			"success" => 0,
-			"message" => "Invalid workout type (strength,cardio,sports and hybrid)"
-		));
-		$mainErrCounter = $mainErrCounter + 1;
-	}
-} else {
-	echo json_encode(array(
-		"success" => 0,
-		"message" => "Please name your workout and describe its type (strength, cardio,stretching,plyometrics)"
-	));
-	$mainErrCounter = $mainErrCounter + 1;
+// 		$workoutType = trim($data['workout_type']);
+// 	} else {
+// 		echo json_encode(array(
+// 			"success" => 0,
+// 			"message" => "Invalid workout type (strength,cardio,sports and hybrid)"
+// 		));
+// 		$mainErrCounter = $mainErrCounter + 1;
+// 	}
+// } else {
+// 	echo json_encode(array(
+// 		"success" => 0,
+// 		"message" => "Please name your workout"
+// 	));
+// 	$mainErrCounter = $mainErrCounter + 1;
 }
 
 //check workout duration//
@@ -298,7 +300,6 @@ if (
 	if ($mainErrCounter == 0) {
 		$workoutData = array(
 			"name" => $workoutName,
-			"type" => $workoutType,
 			"duration" => $workoutDuration,
 			"description" => $workoutDesc
 		);

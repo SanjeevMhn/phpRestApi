@@ -90,6 +90,99 @@ $(document).ready(function () {
             })
         }
 
+        createMealPlan();
+        function createMealPlan(){
+
+            let userDetail = JSON.parse(localStorage.getItem("profile_detail"));
+            console.log(userDetail);
+
+            let getUserMeal = {
+                "url": "/api/users/getUserMeals.php",
+                "method": "GET",
+                "timeout": 0,
+                "headers": {
+                    "Authorization": `Bearer ${token.token}`
+                }
+            }
+
+            $.ajax(getUserMeal).done(function(response){
+                console.log(response);
+                if(response.success == 1){
+                    let li = $('<div class="meal-plan-item list-item pointer"></div>');
+                    let container = $('<div class="inner-container"></div>');
+                    let mealName = $('<h3 class="meal-name"></h3>');
+                    mealName.text("Meal Plan");
+                    let mealsArray = [];
+
+                    let mealCalories = 0;
+                    $.map(response.meals,function(rM,index){
+                        while(mealCalories < parseInt(userDetail.user_daily_calorie)){
+
+                            // mealsArray.map((mA,index,arr)=>{
+                            //     arr.push({
+                            //         "meal_name": rM.meal_name,
+                            //         "meal_calories": rM.meal_calories,
+                            //         "meal_img": rM.meal_img,
+                            //         "meal_type": rM.meal_type,
+                            //         "meal_ingredients": rM.meal_ingredients,
+                            //         "meal_instructions": rM.meal_instructions
+                            //     })       
+
+                            //     mealCalories += parseInt(rM.meal_calories);
+                            // })
+                            mealsArray.push({
+                                "meal_name": rM.meal_name,
+                                "meal_calories": rM.meal_calories,
+                                "meal_img": rM.meal_img,
+                                "meal_type": rM.meal_type,
+                                "meal_ingredients": rM.meal_ingredients,
+                                "meal_instructions": rM.meal_instructions
+                            });
+
+
+                            mealCalories += parseInt(rM.meal_calories);
+                        }
+
+
+                    })
+                    
+                    container.append(mealName);
+                    li.append(container);
+                    li.data('meals',JSON.stringify(mealsArray));
+                    li.data('totalCalories',mealCalories);
+                    $('.meal-plan-list').append(li);
+                }
+            })
+        }
+
+        $(document).on('click','.meal-plan-list .meal-plan-item',function(){
+            $('body').addClass('overlay');
+            $('.user-meal-plan-modal').addClass('dsp-flex');
+            let mealArry = JSON.parse($(this).data("meals"));
+            $('.user-meal-plan-modal .total-calories').text($(this).data('totalCalories'));
+            console.log(mealArry);
+            $.map(mealArry,function(mA,index){
+                let li = $('<li class="meal-item pb-20"></li>');
+                let mealLink = $('<a href="javascript:void(0)" class="get-meal meal-link dsp-flex align-items-end"></a>')
+                let imgThumbnail = $('<div class="img-container-100"></div>');
+                imgThumbnail.css("background-image",mA.meal_img);
+                let mealName = $('<span class="meal-name pl-10"></span>');
+
+                mealLink.data('name', mA.meal_name);
+                mealLink.data('ingredients', mA.meal_ingredients);
+                mealLink.data('instructions', mA.meal_instructions);
+                mealLink.data('type', mA.meal_type);
+                // let intCalories = Math.floor(recp.recipe.calories)
+                mealLink.data('calories',mA.meal_calories);
+                mealLink.data('image', mA.meal_img);
+                mealName.text(mA.meal_name);
+                mealLink.append(imgThumbnail);
+                mealLink.append(mealName);
+                li.append(mealLink);
+                $('.user-meal-plan-modal .meal-plan-list').append(li);
+            })
+        })
+
         $(document).on('click', '.meals-sec .user-meals .meal-item', function () {
             $('.meals-sec .rec-meal-detail-modal').addClass('dsp-flex');
             $('body').addClass('overlay');
@@ -120,6 +213,18 @@ $(document).ready(function () {
             $('.rec-meal-detail-modal').removeClass('dsp-flex');
             $('.rec-meal-detail-modal .meal-detail .meal-ingredients').html('');
             $('.rec-meal-detail-modal .meal-detail .meal-calories').text('');
+            $('body').removeClass('overlay');
+        })
+
+        $('.user-meal-plan-modal .modal-actions .cancel').click(function () {
+            $('.user-meal-plan-modal').removeClass('dsp-flex');
+            $('.user-meal-plan-modal .meal-plan-list').html('');
+            $('body').removeClass('overlay');
+        })
+
+        $('.user-meal-plan-modal .close-btn').click(function () {
+            $('.user-meal-plan-modal').removeClass('dsp-flex');
+            $('.user-meal-plan-modal .meal-plan-list').html('');
             $('body').removeClass('overlay');
         })
 

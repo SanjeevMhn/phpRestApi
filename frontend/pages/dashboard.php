@@ -30,7 +30,7 @@
         <div class="user-ideal-calorie-intake pb-20">
             <h2 class="header-text ft-poppins">For your goal you need to be consuming atmost <span class="calorie-number"></span> calories everyday!</h2>
         </div>
-        <h3 class="pb-10 ft-poppins">You can select the exercises and add them to your workout or you can create your own exercisesut!</h3>
+        <h3 class="pb-10 ft-poppins">You can add the recommended workouts in your personal workouts or you can create your own!</h3>
         <div class="recommended-workouts ft-poppins pb-20">
             <h2 class="header-text underline">Recommended Workouts</h2>
             <div class="recommended-workouts-list list"></div>
@@ -220,7 +220,7 @@
                 </div> -->
             <!-- </div> -->
             <div class="modal-actions">
-                <button type="button" class="add-workout">Add Workout</button>
+                <button type="button" class="add-rec-workout">Add Workout</button>
                 <button type="reset" class="close-rec-workout">Cancel</button>
             </div>
         </div>

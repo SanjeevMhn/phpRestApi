@@ -6,8 +6,7 @@ switch ($request) {
 
     case '':
     case '/':
-    case '/home':
-        require_once __DIR__ . '/pages/homepage.php';
+        require_once __DIR__ . '/pages/login.php';
         break;
     case '/dashboard':
         require_once __DIR__ . '/pages/dashboard.php';
