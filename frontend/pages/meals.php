@@ -34,7 +34,7 @@
                     <img src="/frontend/assets/images/close_icon.svg" alt="">
                 </div>
             </div>
-            <div class="meal-detail">
+            <div class="meal-detail overflow-y-auto pb-120">
                 <div class="meal-img img-container-300">
 
                 </div>
@@ -75,7 +75,7 @@
             </h2>
 
             <div class="meal-plan-list list">
-                
+
             </div>
         </div>
 
@@ -90,8 +90,13 @@
                 <span class="total-calories"></span>
             </h3>
             <h2>Meal List</h2>
-            <ul class="meal-plan-list meal-list">
+            <ul class="meal-plan-list meal-list overflow-y-auto">
             </ul>
+            <div class="modal-actions">
+                <button class="save-meal-plan" type="button">Save Meal Plan</button>
+                <button class="edit-meal-plan" type="button">Edit Meal Plan</button>
+                <button class="cancel" type="reset">Cancel</button>
+            </div>
         </div>
         <?php include_once "frontend/includes/addWorkoutModal.php" ?>
     </section>

@@ -67,7 +67,7 @@ body {
     text-decoration: underline;
 }
 
-.pointer{
+.pointer {
     cursor: pointer;
 }
 
@@ -107,6 +107,9 @@ body {
     align-items: flex-end;
 }
 
+.overflow-y-auto {
+    overflow-y: auto;
+}
 
 .table {
     padding: 0;
@@ -379,13 +382,15 @@ button,
     overflow-y: auto;
     width: 55vw;
     padding: 20px 50px;
-    .close-btn{
+
+    .close-btn {
         position: sticky;
         top: 0;
         padding-bottom: 15px;
         display: flex;
         justify-content: flex-end;
-        .icon-container{
+
+        .icon-container {
             cursor: pointer;
         }
     }
@@ -489,6 +494,9 @@ button,
 }
 
 .modal-actions {
+    position: fixed;
+    bottom: 0;
+    height: 120px;
     margin-top: auto;
     padding-top: 20px;
     display: flex;
@@ -644,12 +652,13 @@ button,
 .meal-list {
     margin: 0 !important;
     font-size: 22px;
-    padding: 15px 0 0 25px;
+    padding: 15px 0 80px 25px;
 
     .meal-item {
         .meal-link {
             text-decoration: underline;
-            .meal-name{
+
+            .meal-name {
                 white-space: nowrap;
                 text-overflow: ellipsis;
                 overflow: hidden;
@@ -681,12 +690,13 @@ button,
     }
 }
 
-.get-exercises-list{
+.get-exercises-list {
     overflow-y: scroll;
     height: 50%;
     display: none;
-    .exercise-item{
-        .inner-container{
+
+    .exercise-item {
+        .inner-container {
             border: 2px solid #fff;
         }
     }
@@ -800,6 +810,11 @@ button,
         width: 100%;
     }
 
+    .modal-actions {
+        position: unset;
+        height: unset;
+    }
+
     .header-text {
         font-size: 22px;
     }
@@ -884,7 +899,8 @@ button,
         .meal-detail {
             display: flex;
             flex-direction: column;
-            .meal-img{
+
+            .meal-img {
                 align-self: center;
             }
         }

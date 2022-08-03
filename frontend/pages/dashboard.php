@@ -92,7 +92,7 @@
                     <img src="/frontend/assets/images/close_icon.svg" alt="">
                 </div>
             </div>
-            <div class="meal-detail">
+            <div class="meal-detail overflow-y-auto pb-120">
                 <div class="meal-img img-container-300">
 
                 </div>
@@ -150,8 +150,8 @@
                     <img src="/frontend/assets/images/close_icon.svg" alt="">
                 </div>
             </div>
-            <div class="meal-detail">
-                <div class="meal-img img-container">
+            <div class="meal-detail overflow-y-auto pb-120">
+                <div class="meal-img img-container-300">
 
                 </div>
                 <h2 class="meal-name pb-10 pt-10"></h2>

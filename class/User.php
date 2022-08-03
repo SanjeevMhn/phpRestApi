@@ -48,6 +48,46 @@ class User extends JwtHandler
         }
     }
 
+    public function setUserMealPlan($userId,$mealData=array()){
+        try{
+            $query = "INSERT INTO user_meal_plans (user_id,meal_plan_name,meal_plan_calories) VALUES (:id,:name,:calories)";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindValue(":id",$userId,PDO::PARAM_INT);
+            $stmt->bindValue(":name",$mealData['meal_plan_name'],PDO::PARAM_STR);
+            $stmt->bindValue(":calories",$mealData['meal_plan_calories'],PDO::PARAM_STR);
+            if($stmt->execute()){
+                $lastId = $this->conn->lastInsertId();
+                $addMeals = $this->setUserMealPlanMeals($mealData,$lastId,$userId);
+                if($addMeals){
+                    echo json_encode(array(
+                        "success" => 1,
+                        "message" => "Meal plan added success fully"
+                    ));
+                }else{
+                    echo json_encode(array(
+                        "success" => 0,
+                        "message" => "Error while adding meal plan meals"
+                    ));
+                }
+            }else{
+                echo json_encode(array(
+                    "success" => 0,
+                    "message" => "Error while adding meal plan"
+                ));
+            }
+
+        }catch(PDOException $ex){
+            echo json_encode(array(
+                "success" => 0,
+                "message" => $ex->getMessage()
+            ));
+        }
+    }
+
+    public function setUserMealPlanMeals($mealData,$lastId,$userId){
+
+    }
+
     public function deleteUserMeal($userId,$mealId){
         try{
             $query = "DELETE FROM user_meals WHERE user_id = :userId AND meal_id = :mealId";
