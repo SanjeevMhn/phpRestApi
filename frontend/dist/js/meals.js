@@ -113,35 +113,18 @@ $(document).ready(function () {
                     let mealName = $('<h3 class="meal-name"></h3>');
                     mealName.text("Meal Plan");
                     let mealsArray = [];
-
                     let mealCalories = 0;
                     let userCalorie = parseInt(userDetail.user_daily_calorie);
                     let calorie = 0;
-                    console.log(userCalorie);
-
-                    let mealCaloriesArr = response.meals.filter((calorie) => {
-                        return parseInt(calorie.meal_calories) <= userCalorie;
-                    });
-
-                    console.log(mealCaloriesArr);
-                    mealCaloriesArr.map((meal, index) => {
-                        mealCalories += parseInt(meal.meal_calories);
-                    });
-                    // $.map(response.meals, function (rM, index) {
-                    //     console.log(rM);
-                    //     if(rM.meal_calories == userCalorie && ){
-                    //         mealCalories += parseInt(rM.meal_calories);
-                    //         console.log(mealCalories);
-                    //     }
-                    //     // while (mealCalories <= userCalorie) {
-                    //     //     mealCalories = mealCalories + parseInt(rM.meal_calories);
-                    //     //     console.log(mealCalories);
-                    //     // }
-                    // })
-
+                    response.meals.map((respMeal,index)=>{
+                        if(parseInt(respMeal.meal_calories) + mealCalories < userCalorie){
+                            mealsArray.push(respMeal);
+                            mealCalories = mealCalories + parseInt(respMeal.meal_calories);
+                        }
+                    })
                     container.append(mealName);
                     li.append(container);
-                    li.data('meals', JSON.stringify(mealCaloriesArr));
+                    li.data('meals', JSON.stringify(mealsArray));
                     console.log(li);
                     li.data('totalCalories', mealCalories);
                     $('.meals-sec .meal-plan-list').append(li);

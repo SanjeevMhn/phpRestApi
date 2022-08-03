@@ -60,8 +60,11 @@ if ($_SERVER['REQUEST_METHOD'] !== "POST") {
                 "meal_img" => $mealImg
             );
 
-            echo json_encode($user->setUserMeal($userId['id'],$dataArray));
-        }else{
+            $res = $user->checkDuplicateMeal($userId['id'], $dataArray);
+            if (count($res) == 0) {
+                echo json_encode($user->setUserMeal($userId['id'], $dataArray));
+            }
+        } else {
             echo json_encode(array(
                 "success" => 0,
                 "message" => "Meal types can only be breakfast,lunch,dinner and snack"

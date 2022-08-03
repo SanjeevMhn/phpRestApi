@@ -129,6 +129,24 @@ class User extends JwtHandler
         }
     }
 
+    public function checkDuplicateMeal($userId,$data=array()){
+        try{
+            $query = "SELECT * FROM user_meals WHERE user_id = :id AND meal_name=:name";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindValue(":id",$userId,PDO::PARAM_INT);
+            $stmt->bindValue(":name",trim($data['meal_name']));
+            $stmt->execute();
+            $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $res;
+
+        }catch(PDOException $ex){
+            echo json_encode(array(
+                "success" => 0,
+                "message" => $ex->getMessage()
+            ));
+        }
+    }
+
     public function removeUserProfilePic($userId){
 
         try{
