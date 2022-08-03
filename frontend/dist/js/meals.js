@@ -91,7 +91,7 @@ $(document).ready(function () {
         }
 
         createMealPlan();
-        function createMealPlan(){
+        function createMealPlan() {
 
             let userDetail = JSON.parse(localStorage.getItem("profile_detail"));
             console.log(userDetail);
@@ -105,9 +105,9 @@ $(document).ready(function () {
                 }
             }
 
-            $.ajax(getUserMeal).done(function(response){
+            $.ajax(getUserMeal).done(function (response) {
                 console.log(response);
-                if(response.success == 1){
+                if (response.success == 1) {
                     let li = $('<div class="meal-plan-item list-item pointer"></div>');
                     let container = $('<div class="inner-container"></div>');
                     let mealName = $('<h3 class="meal-name"></h3>');
@@ -115,57 +115,51 @@ $(document).ready(function () {
                     let mealsArray = [];
 
                     let mealCalories = 0;
-                    $.map(response.meals,function(rM,index){
-                        while(mealCalories < parseInt(userDetail.user_daily_calorie)){
+                    let userCalorie = parseInt(userDetail.user_daily_calorie);
+                    let calorie = 0;
+                    console.log(userCalorie);
 
-                            // mealsArray.map((mA,index,arr)=>{
-                            //     arr.push({
-                            //         "meal_name": rM.meal_name,
-                            //         "meal_calories": rM.meal_calories,
-                            //         "meal_img": rM.meal_img,
-                            //         "meal_type": rM.meal_type,
-                            //         "meal_ingredients": rM.meal_ingredients,
-                            //         "meal_instructions": rM.meal_instructions
-                            //     })       
+                    let mealCaloriesArr = response.meals.filter((calorie) => {
+                        return parseInt(calorie.meal_calories) <= userCalorie;
+                    });
 
-                            //     mealCalories += parseInt(rM.meal_calories);
-                            // })
-                            mealsArray.push({
-                                "meal_name": rM.meal_name,
-                                "meal_calories": rM.meal_calories,
-                                "meal_img": rM.meal_img,
-                                "meal_type": rM.meal_type,
-                                "meal_ingredients": rM.meal_ingredients,
-                                "meal_instructions": rM.meal_instructions
-                            });
+                    console.log(mealCaloriesArr);
+                    mealCaloriesArr.map((meal, index) => {
+                        mealCalories += parseInt(meal.meal_calories);
+                    });
+                    // $.map(response.meals, function (rM, index) {
+                    //     console.log(rM);
+                    //     if(rM.meal_calories == userCalorie && ){
+                    //         mealCalories += parseInt(rM.meal_calories);
+                    //         console.log(mealCalories);
+                    //     }
+                    //     // while (mealCalories <= userCalorie) {
+                    //     //     mealCalories = mealCalories + parseInt(rM.meal_calories);
+                    //     //     console.log(mealCalories);
+                    //     // }
+                    // })
 
-
-                            mealCalories += parseInt(rM.meal_calories);
-                        }
-
-
-                    })
-                    
                     container.append(mealName);
                     li.append(container);
-                    li.data('meals',JSON.stringify(mealsArray));
-                    li.data('totalCalories',mealCalories);
-                    $('.meal-plan-list').append(li);
+                    li.data('meals', JSON.stringify(mealCaloriesArr));
+                    console.log(li);
+                    li.data('totalCalories', mealCalories);
+                    $('.meals-sec .meal-plan-list').append(li);
                 }
             })
         }
 
-        $(document).on('click','.meal-plan-list .meal-plan-item',function(){
+        $(document).on('click', '.meal-plan-list .meal-plan-item', function () {
             $('body').addClass('overlay');
             $('.user-meal-plan-modal').addClass('dsp-flex');
             let mealArry = JSON.parse($(this).data("meals"));
             $('.user-meal-plan-modal .total-calories').text($(this).data('totalCalories'));
             console.log(mealArry);
-            $.map(mealArry,function(mA,index){
+            $.map(mealArry, function (mA, index) {
                 let li = $('<li class="meal-item pb-20"></li>');
                 let mealLink = $('<a href="javascript:void(0)" class="get-meal meal-link dsp-flex align-items-end"></a>')
                 let imgThumbnail = $('<div class="img-container-100"></div>');
-                imgThumbnail.css("background-image",mA.meal_img);
+                imgThumbnail.css("background-image", mA.meal_img);
                 let mealName = $('<span class="meal-name pl-10"></span>');
 
                 mealLink.data('name', mA.meal_name);
@@ -173,7 +167,7 @@ $(document).ready(function () {
                 mealLink.data('instructions', mA.meal_instructions);
                 mealLink.data('type', mA.meal_type);
                 // let intCalories = Math.floor(recp.recipe.calories)
-                mealLink.data('calories',mA.meal_calories);
+                mealLink.data('calories', mA.meal_calories);
                 mealLink.data('image', mA.meal_img);
                 mealName.text(mA.meal_name);
                 mealLink.append(imgThumbnail);
@@ -200,6 +194,25 @@ $(document).ready(function () {
                 listItem.text(mealIns);
                 $('.meals-sec .rec-meal-detail-modal .meal-ingredients').append(listItem);
             })
+        })
+
+        $(document).on('click', '.user-meal-plan-modal .meal-plan-list .meal-item', function () {
+            // $('.meals-sec .rec-meal-detail-modal').addClass('dsp-flex');
+            // $('body').addClass('overlay');
+            // $('.meals-sec .rec-meal-detail-modal .meal-id').text($(this).data('mealId'));
+            // $('.meals-sec .rec-meal-detail-modal .meal-img').css('background-image', $(this).data('mealImg'));
+            // $('.meals-sec .rec-meal-detail-modal .meal-name').text($(this).data('mealName'));
+            // $('.meals-sec .rec-meal-detail-modal .meal-calories').text($(this).data('mealCalories'));
+            // $('.meals-sec .rec-meal-detail-modal .meal-type').text($(this).data('mealType'));
+            // $('.meals-sec .rec-meal-detail-modal .meal-instructions').text($(this).data('mealInstructions'));
+            // $('.meals-sec .rec-meal-detail-modal .meal-instructions').attr('href', $(this).data('mealInstructions'));
+            // let mealInstructions = $(this).data('mealIngredients');
+            // let arrMealIns = mealInstructions.split('|');
+            // $.map(arrMealIns, function (mealIns, index) {
+            //     let listItem = $('<li class="list-item"></li>');
+            //     listItem.text(mealIns);
+            //     $('.meals-sec .rec-meal-detail-modal .meal-ingredients').append(listItem);
+            // })
         })
 
         $('.rec-meal-detail-modal .modal-actions .cancel').click(function () {
