@@ -127,6 +127,7 @@ $(document).ready(function () {
                     li.data('meals', JSON.stringify(mealsArray));
                     console.log(li);
                     li.data('totalCalories', mealCalories);
+                    li.data('mealPlanName',mealName.text());
                     $('.meals-sec .meal-plan-list').append(li);
                 }
             })
@@ -137,6 +138,7 @@ $(document).ready(function () {
             $('.user-meal-plan-modal').addClass('dsp-flex');
             let mealArry = JSON.parse($(this).data("meals"));
             $('.user-meal-plan-modal .total-calories').text($(this).data('totalCalories'));
+            $('.user-meal-plan-modal .meal-plan-name').text($(this).data('mealPlanName'));
             console.log(mealArry);
             $.map(mealArry, function (mA, index) {
                 let li = $('<li class="meal-item pb-20"></li>');
@@ -247,6 +249,50 @@ $(document).ready(function () {
                     window.location.reload(true);
                     $('body').removeClass('overlay');
                 }
+            })
+        })
+
+
+        $('.user-meal-plan-modal .modal-actions .save-meal-plan').click(function(){
+            let mealListItem = $('.user-meal-plan-modal .meal-plan-list .meal-item .meal-link');
+            let mealPlanMealDetails = [];
+            console.log(mealListItem);
+
+            $.map(mealListItem,function(meal,index){
+                let mealInfo = {
+                    "meal_name": $(meal).data("name"),
+                    "meal_calories": $(meal).data("calories"),
+                    "meal_type": $(meal).data("type"),
+                    "meal_ingredients": $(meal).data("ingredients"),
+                    "meal_instructions": $(meal).data("instructions"),
+                    "meal_img": $(meal).data("image")
+                }
+                mealPlanMealDetails.push(mealInfo);
+            })
+
+            console.log({
+                    "meal_plan_name": $.trim($('.user-meal-plan-modal .meal-plan-name').text()),
+                    "meal_plan_calories": parseInt($('.user-meal-plan-modal .total-calories').text()),
+                    "meal_plan_meals": mealPlanMealDetails,
+                });
+
+            let addMealPlan = {
+                "url": "/api/users/setUserMealPlan.php",
+                "method": "POST",
+                "timeout": 0,
+                "headers": {
+                    "Authorization": `Bearer ${token.token}`,
+                    "Content-Type": 'application/json'
+                },
+                "data":JSON.stringify({
+                    "meal_plan_name": $.trim($('.user-meal-plan-modal .meal-plan-name').text()),
+                    "meal_plan_calories": parseInt($('.user-meal-plan-modal .total-calories').text()),
+                    "meal_plan_meals": mealPlanMealDetails,
+                })
+            }
+
+            $.ajax(addMealPlan).done(function(response){
+                console.log(response);
             })
         })
 

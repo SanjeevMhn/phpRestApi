@@ -48,35 +48,35 @@ class User extends JwtHandler
         }
     }
 
-    public function setUserMealPlan($userId,$mealData=array()){
-        try{
+    public function setUserMealPlan($userId, $mealData = array())
+    {
+        try {
             $query = "INSERT INTO user_meal_plans (user_id,meal_plan_name,meal_plan_calories) VALUES (:id,:name,:calories)";
             $stmt = $this->conn->prepare($query);
-            $stmt->bindValue(":id",$userId,PDO::PARAM_INT);
-            $stmt->bindValue(":name",$mealData['meal_plan_name'],PDO::PARAM_STR);
-            $stmt->bindValue(":calories",$mealData['meal_plan_calories'],PDO::PARAM_STR);
-            if($stmt->execute()){
+            $stmt->bindValue(":id", $userId, PDO::PARAM_INT);
+            $stmt->bindValue(":name", $mealData['meal_plan_name'], PDO::PARAM_STR);
+            $stmt->bindValue(":calories", $mealData['meal_plan_calories'], PDO::PARAM_STR);
+            if ($stmt->execute()) {
                 $lastId = $this->conn->lastInsertId();
-                $addMeals = $this->setUserMealPlanMeals($mealData,$lastId,$userId);
-                if($addMeals){
+                $addMeals = $this->setUserMealPlanMeals($mealData, $lastId, $userId);
+                if ($addMeals) {
                     echo json_encode(array(
                         "success" => 1,
                         "message" => "Meal plan added success fully"
                     ));
-                }else{
+                } else {
                     echo json_encode(array(
                         "success" => 0,
                         "message" => "Error while adding meal plan meals"
                     ));
                 }
-            }else{
+            } else {
                 echo json_encode(array(
                     "success" => 0,
                     "message" => "Error while adding meal plan"
                 ));
             }
-
-        }catch(PDOException $ex){
+        } catch (PDOException $ex) {
             echo json_encode(array(
                 "success" => 0,
                 "message" => $ex->getMessage()
@@ -84,28 +84,56 @@ class User extends JwtHandler
         }
     }
 
-    public function setUserMealPlanMeals($mealData,$lastId,$userId){
-
+    public function setUserMealPlanMeals($mealData, $lastId, $userId)
+    {
+        try {
+            $query = "INSERT INTO meal_plan_meals (meal_plan_id,user_id,meal_name,meal_calories,meal_type,meal_ingredients,meal_instructions,meal_img) VALUES (:mealId,:userId,:name,:calories,:type,:ingredients,:instructions,:img)";
+            $stmt = $this->conn->prepare($query);
+            $count = 0;
+            foreach ($mealData['meal_plan_meals'] as $meals) {
+                $stmt->bindValue(":mealId",$lastId,PDO::PARAM_INT);
+                $stmt->bindValue(":userId",$userId,PDO::PARAM_INT);
+                $stmt->bindValue(":name",$meals['meal_name'],PDO::PARAM_STR);
+                $stmt->bindValue(":calories",$meals['meal_calories'],PDO::PARAM_INT);
+                $stmt->bindValue(":type",$meals['meal_type'],PDO::PARAM_STR);
+                $stmt->bindValue(":ingredients",$meals['meal_ingredients'],PDO::PARAM_STR);
+                $stmt->bindValue(":instructions",$meals['meal_instructions'],PDO::PARAM_STR);
+                $stmt->bindValue(":img",$meals['meal_img'],PDO::PARAM_STR);
+                $stmt->execute();
+                $count = $count + 1;
+            }
+            if($count == count($mealData['meal_plan_meals'])){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (PDOException $ex) {
+            echo json_encode(array(
+                "success" => 0,
+                "message" => $ex->getMessage()
+            ));
+        }
     }
 
-    public function deleteUserMeal($userId,$mealId){
-        try{
+    public function deleteUserMeal($userId, $mealId)
+    {
+        try {
             $query = "DELETE FROM user_meals WHERE user_id = :userId AND meal_id = :mealId";
             $stmt = $this->conn->prepare($query);
-            $stmt->bindValue(":userId",$userId,PDO::PARAM_INT);
-            $stmt->bindValue(":mealId",$mealId,PDO::PARAM_INT);
-            if($stmt->execute()){
+            $stmt->bindValue(":userId", $userId, PDO::PARAM_INT);
+            $stmt->bindValue(":mealId", $mealId, PDO::PARAM_INT);
+            if ($stmt->execute()) {
                 return array(
                     "success" => 1,
                     "message" => "Meal deleted"
                 );
-            }else{
+            } else {
                 return array(
                     "success" => 0,
                     "message" => "Error deleting meal"
                 );
             }
-        }catch(PDOException $ex){
+        } catch (PDOException $ex) {
             echo json_encode(array(
                 "success" => 0,
                 "message" => $ex->getMessage()
@@ -113,25 +141,25 @@ class User extends JwtHandler
         }
     }
 
-    public function getUserMeals($userId){
-        try{
+    public function getUserMeals($userId)
+    {
+        try {
             $query = "SELECT * FROM user_meals WHERE user_id = :id";
             $stmt = $this->conn->prepare($query);
-            $stmt->bindValue(":id",$userId,PDO::PARAM_INT);
+            $stmt->bindValue(":id", $userId, PDO::PARAM_INT);
             $stmt->execute();
-            if($stmt->rowCount()){
+            if ($stmt->rowCount()) {
                 return array(
                     "success" => 1,
                     "meals" => $stmt->fetchAll(PDO::FETCH_ASSOC)
                 );
-            }else{
+            } else {
                 return array(
                     "success" => 0,
                     "message" => "No meals added"
                 );
             }
-
-        }catch(PDOException $ex){
+        } catch (PDOException $ex) {
             echo json_encode(array(
                 "success" => 0,
                 "message" => $ex->getMessage()
@@ -139,29 +167,30 @@ class User extends JwtHandler
         }
     }
 
-    public function setUserMeal($userId,$data = array()){
-        try{
+    public function setUserMeal($userId, $data = array())
+    {
+        try {
             $query = "INSERT INTO user_meals (user_id,meal_name,meal_calories,meal_type,meal_ingredients,meal_instructions,meal_img) VALUES (:id,:name,:calories,:type,:ingredients,:instructions,:img)";
             $stmt = $this->conn->prepare($query);
-            $stmt->bindValue(":id",$userId,PDO::PARAM_INT);
-            $stmt->bindValue(":name",$data['meal_name'],PDO::PARAM_STR);
-            $stmt->bindValue(":calories",$data['meal_calories'],PDO::PARAM_INT);
-            $stmt->bindValue(":type",$data['meal_type'],PDO::PARAM_STR);
-            $stmt->bindValue(":ingredients",$data['meal_ingredients'],PDO::PARAM_STR);
-            $stmt->bindValue(":instructions",$data['meal_instructions'],PDO::PARAM_STR);
-            $stmt->bindValue(":img",$data['meal_img'],PDO::PARAM_STR);
-            if($stmt->execute()){
+            $stmt->bindValue(":id", $userId, PDO::PARAM_INT);
+            $stmt->bindValue(":name", $data['meal_name'], PDO::PARAM_STR);
+            $stmt->bindValue(":calories", $data['meal_calories'], PDO::PARAM_INT);
+            $stmt->bindValue(":type", $data['meal_type'], PDO::PARAM_STR);
+            $stmt->bindValue(":ingredients", $data['meal_ingredients'], PDO::PARAM_STR);
+            $stmt->bindValue(":instructions", $data['meal_instructions'], PDO::PARAM_STR);
+            $stmt->bindValue(":img", $data['meal_img'], PDO::PARAM_STR);
+            if ($stmt->execute()) {
                 return array(
                     "success" => 1,
                     "message" => "Meal successfully added"
                 );
-            }else{
+            } else {
                 return array(
                     "success" => 0,
                     "message" => "Error while adding meal"
                 );
             }
-        }catch(PDOException $ex){
+        } catch (PDOException $ex) {
             echo json_encode(array(
                 "success" => 0,
                 "message" => $ex->getMessage()
@@ -169,17 +198,17 @@ class User extends JwtHandler
         }
     }
 
-    public function checkDuplicateMeal($userId,$data=array()){
-        try{
+    public function checkDuplicateMeal($userId, $data = array())
+    {
+        try {
             $query = "SELECT * FROM user_meals WHERE user_id = :id AND meal_name=:name";
             $stmt = $this->conn->prepare($query);
-            $stmt->bindValue(":id",$userId,PDO::PARAM_INT);
-            $stmt->bindValue(":name",trim($data['meal_name']));
+            $stmt->bindValue(":id", $userId, PDO::PARAM_INT);
+            $stmt->bindValue(":name", trim($data['meal_name']));
             $stmt->execute();
             $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $res;
-
-        }catch(PDOException $ex){
+        } catch (PDOException $ex) {
             echo json_encode(array(
                 "success" => 0,
                 "message" => $ex->getMessage()
@@ -187,25 +216,25 @@ class User extends JwtHandler
         }
     }
 
-    public function removeUserProfilePic($userId){
+    public function removeUserProfilePic($userId)
+    {
 
-        try{
+        try {
             $query = "UPDATE users SET user_profile_pic = NULL WHERE id = :id";
             $stmt = $this->conn->prepare($query);
-            $stmt->bindValue(":id",$userId,PDO::PARAM_INT);
-            if($stmt->execute()){
+            $stmt->bindValue(":id", $userId, PDO::PARAM_INT);
+            if ($stmt->execute()) {
                 return array(
                     "success" => 1,
                     "message" => "Successfully deleted profile pic"
                 );
-            }else{
+            } else {
                 return array(
                     "success" => 0,
                     "message" => "Error while deleted profile pic"
                 );
             }
-
-        }catch(PDOException $ex){
+        } catch (PDOException $ex) {
             echo json_encode(array(
                 "success" => 0,
                 "message" => $ex->getMessage()
@@ -213,25 +242,26 @@ class User extends JwtHandler
         }
     }
 
-    public function setUserProfilePic($id,$fileName){
+    public function setUserProfilePic($id, $fileName)
+    {
 
-        try{
+        try {
             $query = "UPDATE users SET user_profile_pic = :pic WHERE id = :id";
             $stmt = $this->conn->prepare($query);
-            $stmt->bindValue(":pic",$fileName,PDO::PARAM_STR);
-            $stmt->bindValue(":id",$id,PDO::PARAM_INT);
-            if($stmt->execute()){
+            $stmt->bindValue(":pic", $fileName, PDO::PARAM_STR);
+            $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+            if ($stmt->execute()) {
                 return array(
                     "success" => 1,
                     "message" => "Profile pic successfully uploaded"
                 );
-            }else{
+            } else {
                 return array(
                     "success" => 0,
                     "message" => "Error while uploading."
                 );
             }
-        }catch(PDOException $ex){
+        } catch (PDOException $ex) {
             echo json_encode(array(
                 "success" => 0,
                 "message" => $ex->getMessage()
@@ -239,28 +269,28 @@ class User extends JwtHandler
         }
     }
 
-    public function setUserDailyCalorie($userId,$userDailyCalorie){
+    public function setUserDailyCalorie($userId, $userDailyCalorie)
+    {
 
-        try{
+        try {
 
             $query = "UPDATE users_goal SET user_daily_calorie = :calorie WHERE id = :id";
             $stmt = $this->conn->prepare($query);
-            $stmt->bindValue(":calorie",$userDailyCalorie,PDO::PARAM_INT);
-            $stmt->bindValue(":id",$userId,PDO::PARAM_INT);
+            $stmt->bindValue(":calorie", $userDailyCalorie, PDO::PARAM_INT);
+            $stmt->bindValue(":id", $userId, PDO::PARAM_INT);
 
-            if($stmt->execute()){
+            if ($stmt->execute()) {
                 return array(
                     "success" => 1,
                     "message" => "Successfully updated users daily calorie intake"
                 );
-            }else{
+            } else {
                 return array(
                     "success" => 0,
                     "message" => "Error while updating table"
                 );
             }
-
-        }catch(PDOException $ex){
+        } catch (PDOException $ex) {
             echo json_encode(array(
                 "success" => 0,
                 "message" => $ex->getMessage()
@@ -268,52 +298,27 @@ class User extends JwtHandler
         }
     }
 
-    public function getUserPhysicalInfo($userId){
+    public function getUserPhysicalInfo($userId)
+    {
 
-        try{
+        try {
 
             $query = "SELECT id,user_gender,user_age,user_goal,user_weight,weight_metric,user_level,user_height,user_daily_calorie FROM users_goal WHERE id = :id";
             $stmt = $this->conn->prepare($query);
-            $stmt->bindValue(":id",$userId,PDO::PARAM_INT);
+            $stmt->bindValue(":id", $userId, PDO::PARAM_INT);
             $stmt->execute();
-            if($stmt->rowCount()){
+            if ($stmt->rowCount()) {
                 return array(
                     "success" => 1,
                     "data" => $stmt->fetch(PDO::FETCH_ASSOC)
                 );
-            }else{
+            } else {
                 return array(
                     "success" => 0,
                     "message" => "No data available"
                 );
             }
-
-        }catch(PDOException $ex){
-           echo json_encode(array(
-            "success" => 0,
-            "message" => $ex->getMessage()
-           ));
-        }
-    }
-
-    public function getDailyCalorie($userId){
-
-        try{
-            $query = "SELECT user_daily_calorie from users_goal where id = :id";
-            $stmt = $this->conn->prepare($query);
-            $stmt->bindValue(":id",$userId);
-            $stmt->execute();
-            if($stmt->rowCount()){
-                return array( 
-                    "success" => 1,
-                    "data" => $stmt->fetch(PDO::FETCH_ASSOC));
-            }else{
-                return array(
-                    "success" => 0,
-                    "message" => "Error while retrieving data"
-                );
-            }
-        }catch(PDOException $ex){
+        } catch (PDOException $ex) {
             echo json_encode(array(
                 "success" => 0,
                 "message" => $ex->getMessage()
@@ -321,25 +326,52 @@ class User extends JwtHandler
         }
     }
 
-    public function deleteWorkout($workoutId){
-        try{
+    public function getDailyCalorie($userId)
+    {
+
+        try {
+            $query = "SELECT user_daily_calorie from users_goal where id = :id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindValue(":id", $userId);
+            $stmt->execute();
+            if ($stmt->rowCount()) {
+                return array(
+                    "success" => 1,
+                    "data" => $stmt->fetch(PDO::FETCH_ASSOC)
+                );
+            } else {
+                return array(
+                    "success" => 0,
+                    "message" => "Error while retrieving data"
+                );
+            }
+        } catch (PDOException $ex) {
+            echo json_encode(array(
+                "success" => 0,
+                "message" => $ex->getMessage()
+            ));
+        }
+    }
+
+    public function deleteWorkout($workoutId)
+    {
+        try {
 
             $query = "DELETE FROM user_workouts WHERE workout_id = :id";
             $stmt = $this->conn->prepare($query);
-            $stmt->bindValue(":id",$workoutId);
-            if($stmt->execute()){
+            $stmt->bindValue(":id", $workoutId);
+            if ($stmt->execute()) {
                 return json_encode(array(
                     "success" => 1,
                     "message" => "Workout deleted successfully"
                 ));
-            }else{
+            } else {
                 return json_encode(array(
                     "success" => 0,
                     "message" => "Error while deleting workout"
                 ));
             }
-
-        }catch(PDOException $ex){
+        } catch (PDOException $ex) {
             echo json_encode(array(
                 "success" => 0,
                 "message" => $ex
@@ -347,25 +379,26 @@ class User extends JwtHandler
         }
     }
 
-    public function getUserFitnessLevel($userId){
-        try{
+    public function getUserFitnessLevel($userId)
+    {
+        try {
 
             $query = "SELECT user_level from users_goal WHERE id = :id";
             $stmt = $this->conn->prepare($query);
-            $stmt->bindValue(":id",$userId,PDO::PARAM_INT);
+            $stmt->bindValue(":id", $userId, PDO::PARAM_INT);
             $stmt->execute();
-            if($stmt->rowCount()){
+            if ($stmt->rowCount()) {
                 return array(
                     "success" => 1,
-                    "data" => $stmt->fetch(PDO::FETCH_ASSOC));
-            }else{
+                    "data" => $stmt->fetch(PDO::FETCH_ASSOC)
+                );
+            } else {
                 return array(
                     "success" => 0,
                     "message" => "Fitness level not set"
                 );
             }
-
-        }catch(PDOException $ex){
+        } catch (PDOException $ex) {
             echo json_encode(array(
                 "success" => 0,
                 "message" => $ex->getMessage()
@@ -373,26 +406,26 @@ class User extends JwtHandler
         }
     }
 
-    public function getRecommendedExercises($recWorkoutId){
-        try{
+    public function getRecommendedExercises($recWorkoutId)
+    {
+        try {
 
             $query = "SELECT rec_exercise_name, rec_exercise_sets,rec_exercise_reps FROM recommend_exercises WHERE rec_workout_id = :id";
             $stmt = $this->conn->prepare($query);
-            $stmt->bindValue(":id",$recWorkoutId);
+            $stmt->bindValue(":id", $recWorkoutId);
             $stmt->execute();
-            if($stmt->rowCount()){
+            if ($stmt->rowCount()) {
                 return array(
                     "success" => 1,
                     "exercises" => $stmt->fetchAll(PDO::FETCH_ASSOC)
                 );
-            }else{
+            } else {
                 return array(
                     "success" => 0,
                     "message" => "No exercises available"
                 );
             }
-
-        }catch(PDOException $ex){
+        } catch (PDOException $ex) {
             echo json_encode(array(
                 "success" => 0,
                 "message" => $ex->getMessage()
@@ -400,28 +433,29 @@ class User extends JwtHandler
         }
     }
 
-    public function getRecommendedWorkouts($userLevel){
+    public function getRecommendedWorkouts($userLevel)
+    {
 
-        try{
+        try {
             //$userLevel = $this->getUserFitnessLevel($userId);
             $query = "SELECT rec_workout_id,rec_workout_level,rec_workout_name,rec_workout_type,rec_workout_duration_hrs,rec_workout_duration_mins,rec_workout_duration_secs FROM recommend_workouts WHERE rec_workout_level = :level";
 
             $stmt = $this->conn->prepare($query);
             //$stmt->bindValue(":level",$userLevel['user_level']);
-            $stmt->bindValue(":level",$userLevel);
+            $stmt->bindValue(":level", $userLevel);
             $stmt->execute();
-            if($stmt->rowCount()){
+            if ($stmt->rowCount()) {
                 echo json_encode(array(
                     "success" => 1,
                     "workouts" => $stmt->fetchAll(PDO::FETCH_ASSOC)
                 ));
-            }else{
+            } else {
                 return array(
                     "success" => 0,
                     "message" => "No workouts available for this level"
                 );
             }
-        }catch(PDOException $ex){
+        } catch (PDOException $ex) {
             echo json_encode(array(
                 "success" => 0,
                 "message" => $ex->getMessage()
@@ -429,26 +463,27 @@ class User extends JwtHandler
         }
     }
 
-    public function getExercises($workoutId,$userId){
-        try{
+    public function getExercises($workoutId, $userId)
+    {
+        try {
             $query = "SELECT * FROM exercises_tbl WHERE workout_id = :workoutId AND user_id = :userId";
             $stmt = $this->conn->prepare($query);
-            $stmt->bindValue(":workoutId",$workoutId,PDO::PARAM_INT);
-            $stmt->bindValue(":userId",$userId,PDO::PARAM_INT);
+            $stmt->bindValue(":workoutId", $workoutId, PDO::PARAM_INT);
+            $stmt->bindValue(":userId", $userId, PDO::PARAM_INT);
             $stmt->execute();
-            if($stmt->rowCount()){
+            if ($stmt->rowCount()) {
                 $exercises = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 return array(
                     "success" => 1,
-                    "exercises" => $exercises 
+                    "exercises" => $exercises
                 );
-            }else{
+            } else {
                 return array(
                     "success" => 0,
                     "message" => "No exercises created"
                 );
             }
-        }catch(PDOException $ex){
+        } catch (PDOException $ex) {
             echo json_encode(array(
                 "success" => 0,
                 "message" => $ex->getMessage()
@@ -456,25 +491,26 @@ class User extends JwtHandler
         }
     }
 
-    public function getWorkouts($userId){
-        try{
+    public function getWorkouts($userId)
+    {
+        try {
             $query = "SELECT * FROM user_workouts WHERE user_id = :id";
             $stmt = $this->conn->prepare($query);
-            $stmt->bindValue(":id",$userId,PDO::PARAM_INT);
+            $stmt->bindValue(":id", $userId, PDO::PARAM_INT);
             $stmt->execute();
-            if($stmt->rowCount()){
+            if ($stmt->rowCount()) {
                 $workouts = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 return array(
                     "success" => 1,
                     "user" => $workouts
                 );
-            }else{
+            } else {
                 return array(
                     "success" => 0,
                     "message" => "No Workouts created"
                 );
             }
-        }catch(PDOException $ex){
+        } catch (PDOException $ex) {
             echo json_encode(array(
                 "success" => 0,
                 "message" => $ex->getMessage()
@@ -482,128 +518,133 @@ class User extends JwtHandler
         }
     }
 
-    public function createWorkout($workoutData,$userId){
-        try{
+    public function createWorkout($workoutData, $userId)
+    {
+        try {
             $query = "INSERT INTO user_workouts (user_id,workout_name,workout_duration_hrs,workout_duration_mins,workout_duration_secs) VALUES (:id,:name,:hrs,:mins,:secs)";
             $stmt = $this->conn->prepare($query);
-            $stmt->bindValue(":id",$userId,PDO::PARAM_INT);
-            $stmt->bindValue(":name",$workoutData['name'],PDO::PARAM_STR);
-            $stmt->bindValue(":hrs",$workoutData['duration']['hrs'],PDO::PARAM_INT);
-            $stmt->bindValue(":mins",$workoutData['duration']['mins'],PDO::PARAM_INT);
-            $stmt->bindValue(":secs",$workoutData['duration']['secs'],PDO::PARAM_INT);
+            $stmt->bindValue(":id", $userId, PDO::PARAM_INT);
+            $stmt->bindValue(":name", $workoutData['name'], PDO::PARAM_STR);
+            $stmt->bindValue(":hrs", $workoutData['duration']['hrs'], PDO::PARAM_INT);
+            $stmt->bindValue(":mins", $workoutData['duration']['mins'], PDO::PARAM_INT);
+            $stmt->bindValue(":secs", $workoutData['duration']['secs'], PDO::PARAM_INT);
 
             $res = $stmt->execute();
-            if($res){
+            if ($res) {
                 $lastId = $this->conn->lastInsertId();
-                $exeRes = $this->addExercises($workoutData,$lastId,$userId);
-                if($exeRes){
+                $exeRes = $this->addExercises($workoutData, $lastId, $userId);
+                if ($exeRes) {
                     echo json_encode(array(
                         "success" => 1,
                         "message" => "Workout successfully added"
                     ));
-                }else{
+                } else {
                     echo json_encode(array(
                         "success" => 0,
                         "message" => "Error while adding workout"
                     ));
                 }
-            }else{
+            } else {
                 echo json_encode(array(
                     "success" => 0,
                     "message" => "Error while adding the workout"
                 ));
             }
-
-        }catch(PDOException $ex){
+        } catch (PDOException $ex) {
             echo json_encode(array(
                 "message" => $ex->getMessage()
             ));
         }
     }
 
-    public function addExercises($workoutData,$lastId,$userId){
-        try{
+    public function addExercises($workoutData, $lastId, $userId)
+    {
+        try {
             $query = "INSERT INTO exercises_tbl (workout_id,user_id,exercise_name,exercise_sets,exercise_reps,exercise_type,exercise_muscle,exercise_equipment,exercise_instructions) VALUES (:id,:userId,:name,:sets,:reps,:type,:muscle,:equipment,:instructions)";
             $stmt = $this->conn->prepare($query);
             $count = 0;
-            foreach($workoutData['description'] as $wd){
-                $stmt->bindValue(":id",$lastId,PDO::PARAM_INT);
-                $stmt->bindValue(":userId",$userId,PDO::PARAM_INT);
-                $stmt->bindValue(":name",$wd['exercise_name'],PDO::PARAM_STR);
-                $stmt->bindValue(":sets",$wd['exercise_sets'],PDO::PARAM_INT);
-                $stmt->bindValue(":reps",$wd['exercise_reps'],PDO::PARAM_INT);
-                $stmt->bindValue(":type",$wd['exercise_type'],PDO::PARAM_STR);
-                $stmt->bindValue(":muscle",$wd['exercise_muscle'],PDO::PARAM_STR);
-                $stmt->bindValue(":equipment",$wd['exercise_equipment'],PDO::PARAM_STR);
-                $stmt->bindValue(":instructions",$wd['exercise_instructions'],PDO::PARAM_STR);
+            foreach ($workoutData['description'] as $wd) {
+                $stmt->bindValue(":id", $lastId, PDO::PARAM_INT);
+                $stmt->bindValue(":userId", $userId, PDO::PARAM_INT);
+                $stmt->bindValue(":name", $wd['exercise_name'], PDO::PARAM_STR);
+                $stmt->bindValue(":sets", $wd['exercise_sets'], PDO::PARAM_INT);
+                $stmt->bindValue(":reps", $wd['exercise_reps'], PDO::PARAM_INT);
+                $stmt->bindValue(":type", $wd['exercise_type'], PDO::PARAM_STR);
+                $stmt->bindValue(":muscle", $wd['exercise_muscle'], PDO::PARAM_STR);
+                $stmt->bindValue(":equipment", $wd['exercise_equipment'], PDO::PARAM_STR);
+                $stmt->bindValue(":instructions", $wd['exercise_instructions'], PDO::PARAM_STR);
                 $stmt->execute();
                 $count = $count + 1;
             }
-            if($count == count($workoutData['description'])){
+            if ($count == count($workoutData['description'])) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
-
-        }catch(PDOException $ex){
+        } catch (PDOException $ex) {
             echo json_encode(array(
                 "message" => $ex->getMessage()
             ));
         }
     }
 
-    public function userGoalExist($id){
-        try{
+    public function userGoalExist($id)
+    {
+        try {
             $query = "SELECT * FROM users_goal WHERE id = :id";
             $stmt = $this->conn->prepare($query);
-            $stmt->bindValue(":id",$id,PDO::PARAM_INT);
+            $stmt->bindValue(":id", $id, PDO::PARAM_INT);
             $stmt->execute();
             $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $res;
-        }catch(PDOException $ex){
+        } catch (PDOException $ex) {
             echo json_encode(array(
                 "message" => $ex->getMessage()
             ));
         }
     }
-    public function setUserGoal($id,$age,$gender,$goal,$weight,$weightMetric,$userLevel,$userHeight){
-        try{
+    public function setUserGoal($id, $age, $gender, $goal, $weight, $weightMetric, $userLevel, $userHeight)
+    {
+        try {
             $query = "INSERT INTO users_goal (id, user_gender,user_age,user_goal,user_weight,weight_metric,user_level,user_height) VALUES (:id,:gender,:age,:goal,:weight,:weightMetric,:level,:height)";
             $stmt = $this->conn->prepare($query);
-            $stmt->bindValue(":id",$id,PDO::PARAM_INT);
-            $stmt->bindValue(":gender",$gender,PDO::PARAM_STR);
-            $stmt->bindValue(":age",$age,PDO::PARAM_INT);
-            $stmt->bindValue(":goal",$goal,PDO::PARAM_STR);
-            $stmt->bindValue(":weight",$weight,PDO::PARAM_INT);
-            $stmt->bindValue(":weightMetric",$weightMetric,PDO::PARAM_STR);
-            $stmt->bindValue(":level",$userLevel,PDO::PARAM_STR);
-            $stmt->bindValue(":height",$userHeight,PDO::PARAM_INT);
+            $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+            $stmt->bindValue(":gender", $gender, PDO::PARAM_STR);
+            $stmt->bindValue(":age", $age, PDO::PARAM_INT);
+            $stmt->bindValue(":goal", $goal, PDO::PARAM_STR);
+            $stmt->bindValue(":weight", $weight, PDO::PARAM_INT);
+            $stmt->bindValue(":weightMetric", $weightMetric, PDO::PARAM_STR);
+            $stmt->bindValue(":level", $userLevel, PDO::PARAM_STR);
+            $stmt->bindValue(":height", $userHeight, PDO::PARAM_INT);
             return $stmt->execute();
-        }catch(PDOException $ex){
+        } catch (PDOException $ex) {
             echo json_encode(array(
                 "message" => $ex->getMessage()
             ));
         }
     }
 
-    public function getUserGoal($id){
-        try{
+    public function getUserGoal($id)
+    {
+        try {
             $query = "SELECT users_goal.id,user_goal FROM $this->table JOIN users_goal ON $this->table.id = :id AND users_goal.id = :id LIMIT 1";
             $stmt = $this->conn->prepare($query);
-            $stmt->bindValue(":id",$id,PDO::PARAM_INT);
+            $stmt->bindValue(":id", $id, PDO::PARAM_INT);
             $stmt->execute();
-            if($stmt->rowCount()){
+            if ($stmt->rowCount()) {
                 return array(
                     "success" => 1,
-                    "user" => $stmt->fetch(PDO::FETCH_ASSOC
-                ));
-            }else{
+                    "user" => $stmt->fetch(
+                        PDO::FETCH_ASSOC
+                    )
+                );
+            } else {
                 return array(
                     "success" => 0,
                     "message" => "No goals set"
                 );
             }
-        }catch(PDOException $ex){
+        } catch (PDOException $ex) {
             echo json_encode(array(
                 "message" => $ex->getMessage(),
             ));

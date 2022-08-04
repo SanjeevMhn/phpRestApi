@@ -82,7 +82,7 @@
             <div class="profile-img">
                 <div class="img-container">
                 </div>
-                <div class="modal-actions">
+                <div class="modal-actions relative">
                     <label for="upload-new-profile" class="btn">
                         <span class="title-text">Upload Photo</span> 
                         <input type="file" name="upload-new-profile" id="upload-new-profile" placeholder="Upload Photo">

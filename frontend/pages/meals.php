@@ -85,9 +85,10 @@
                     <img src="/frontend/assets/images/close_icon.svg" alt="">
                 </div>
             </div>
-            <h3>
-                <div class="label-text">Total Calories</div>
-                <span class="total-calories"></span>
+            <h2 class="meal-plan-name"></h2>
+            <h3 class="dsp-flex">
+                <div class="label-text">Total Calories:</div>
+                <span class="total-calories pl-10"></span>
             </h3>
             <h2>Meal List</h2>
             <ul class="meal-plan-list meal-list overflow-y-auto">
