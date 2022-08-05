@@ -10,5 +10,6 @@
 <script src="/frontend/dist/js/addWorkout.js"></script>
 <script src="/frontend/dist/js/userProfile.js"></script>
 <script src="/frontend/dist/js/meals.js"></script>
+<script src="/frontend/dist/js/addLog.js"></script>
 </body>
 </html>

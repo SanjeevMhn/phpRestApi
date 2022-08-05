@@ -37,7 +37,7 @@
                 </a>
             </li>
             <li class="nav-list-item">
-                <a href="" class="nav-list-link">
+                <a href="/addLog" class="nav-list-link">
                     <div class="icon-container">
                         <img src="frontend/assets/images/notebook_icon.svg" alt="">
                     </div>
@@ -99,7 +99,7 @@
                 </a>
             </li>
             <li class="nav-list-item">
-                <a href="" class="nav-list-link">
+                <a href="/addLog" class="nav-list-link">
                     <div class="icon-container">
                         <img src="frontend/assets/images/notebook_icon.svg" alt="">
                     </div>
@@ -243,11 +243,11 @@
             </a>
         </li>
         <li class="action">
-            <div class="action-link log">
+            <a href="/addLog" class="action-link log">
                 <div class="icon-container-md">
                     <img src="frontend/assets/images/notebook_icon.svg" alt="">
                 </div>
-            </div>
+            </a>
         </li>
     </ul>
 

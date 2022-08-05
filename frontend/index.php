@@ -6,7 +6,8 @@ switch ($request) {
 
     case '':
     case '/':
-        require_once __DIR__ . '/pages/login.php';
+    case '/home':
+        require_once __DIR__ . '/pages/homepage.php';
         break;
     case '/dashboard':
         require_once __DIR__ . '/pages/dashboard.php';
@@ -31,6 +32,9 @@ switch ($request) {
         break;
     case '/meals':
         require_once __DIR__ . '/pages/meals.php';
+        break;
+    case '/addLog':
+        require_once __DIR__ . '/pages/workoutDietLog.php';
         break;
     default:
         http_response_code(404);
