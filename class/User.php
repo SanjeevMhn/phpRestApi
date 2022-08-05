@@ -48,6 +48,72 @@ class User extends JwtHandler
         }
     }
 
+    public function getUserDailyLog($userId){
+        try{
+            $query = "SELECT * FROM user_daily_log WHERE user_id = :id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindValue(":id",$userId,PDO::PARAM_INT);
+            $stmt->execute();
+            if($stmt->rowCount()){
+                return array(
+                    "success" => 1,
+                    "logs" => $stmt->fetchAll(PDO::FETCH_ASSOC)
+                );
+            }
+        }catch(PDOException $ex){
+            echo json_encode(array(
+                "success" => 0,
+                "message" => $ex->getMessage()
+            ));
+        }
+    }
+
+    public function setUserDailyLog($userId,$data=array()){
+        try{
+            $query = "INSERT INTO user_daily_log (user_id,log_date,meal_plan_id,workout_id) VALUES (:userId,:date,:mealPlanId,:workoutId)";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindValue(":userId",$userId,PDO::PARAM_INT);
+            $stmt->bindValue(":date",$data['log_date'],PDO::PARAM_STR);
+            $stmt->bindValue(":mealPlanId",$data['meal_plan_id'],PDO::PARAM_INT);
+            $stmt->bindValue(":workoutId",$data['workout_id'],PDO::PARAM_INT);
+            if($stmt->execute()){
+                return array(
+                    "success" => 1,
+                    "message" => "Successfully added log"
+                );
+            }else{
+                return array(
+                    "success" => 0,
+                    "message" => "Error while adding log"
+                );
+            }
+        }catch(PDOException $ex){
+            echo json_encode(array(
+                "success" => 0,
+                "message" => $ex->getMessage()
+            ));
+        }
+    }
+
+    public function getUserMealPlan($userId){
+        try{
+            $query = "SELECT * FROM user_meal_plans WHERE user_id=:id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindValue(":id",$userId,PDO::PARAM_INT);
+            if($stmt->execute()){
+                return array(
+                    "success" => 1,
+                    "meal_plans" => $stmt->fetchAll(PDO::FETCH_ASSOC)
+                );
+            }
+        }catch(PDOException $ex){
+            echo json_encode(array(
+                "success" => 0,
+                "message" => $ex->getMessage()
+            ));
+        }
+    }
+
     public function setUserMealPlan($userId, $mealData = array())
     {
         try {
