@@ -206,7 +206,7 @@
                     
                 </ul>
 
-                <div class="exercise-details dsp-none">
+                <div class="exercise-details dsp-none overflow-y-auto pb-120">
                     <h3 class="exercise-name pb-10"></h3>
                     <h3 class="exercise-type pb-10"></h3>
                     <h3 class="exercise-equipment pb-10"></h3>
