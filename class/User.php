@@ -48,9 +48,10 @@ class User extends JwtHandler
         }
     }
 
-    public function getUserDailyLog($userId){
-        try{
-            $query = "SELECT * FROM user_daily_log WHERE user_id = :id";
+    public function getUserDailyLog($userId)
+    {
+        try {
+            $query = "SELECT log_date,meal_plan_name,meal_plan_calories,workout_name,workout_duration_hrs,workout_duration_mins,workout_duration_secs FROM user_daily_log ul,user_meal_plans mp,user_workouts uw WHERE ul.user_id = :id and mp.meal_plan_id = ul.meal_plan_id and uw.workout_id = ul.workout_id";
             $stmt = $this->conn->prepare($query);
             $stmt->bindValue(":id",$userId,PDO::PARAM_INT);
             $stmt->execute();
@@ -60,7 +61,7 @@ class User extends JwtHandler
                     "logs" => $stmt->fetchAll(PDO::FETCH_ASSOC)
                 );
             }
-        }catch(PDOException $ex){
+        } catch (PDOException $ex) {
             echo json_encode(array(
                 "success" => 0,
                 "message" => $ex->getMessage()
@@ -68,26 +69,27 @@ class User extends JwtHandler
         }
     }
 
-    public function setUserDailyLog($userId,$data=array()){
-        try{
+    public function setUserDailyLog($userId, $data = array())
+    {
+        try {
             $query = "INSERT INTO user_daily_log (user_id,log_date,meal_plan_id,workout_id) VALUES (:userId,:date,:mealPlanId,:workoutId)";
             $stmt = $this->conn->prepare($query);
-            $stmt->bindValue(":userId",$userId,PDO::PARAM_INT);
-            $stmt->bindValue(":date",$data['log_date'],PDO::PARAM_STR);
-            $stmt->bindValue(":mealPlanId",$data['meal_plan_id'],PDO::PARAM_INT);
-            $stmt->bindValue(":workoutId",$data['workout_id'],PDO::PARAM_INT);
-            if($stmt->execute()){
+            $stmt->bindValue(":userId", $userId, PDO::PARAM_INT);
+            $stmt->bindValue(":date", $data['log_date'], PDO::PARAM_STR);
+            $stmt->bindValue(":mealPlanId", $data['meal_plan_id'], PDO::PARAM_INT);
+            $stmt->bindValue(":workoutId", $data['workout_id'], PDO::PARAM_INT);
+            if ($stmt->execute()) {
                 return array(
                     "success" => 1,
                     "message" => "Successfully added log"
                 );
-            }else{
+            } else {
                 return array(
                     "success" => 0,
                     "message" => "Error while adding log"
                 );
             }
-        }catch(PDOException $ex){
+        } catch (PDOException $ex) {
             echo json_encode(array(
                 "success" => 0,
                 "message" => $ex->getMessage()
@@ -95,18 +97,19 @@ class User extends JwtHandler
         }
     }
 
-    public function getUserMealPlan($userId){
-        try{
+    public function getUserMealPlan($userId)
+    {
+        try {
             $query = "SELECT * FROM user_meal_plans WHERE user_id=:id";
             $stmt = $this->conn->prepare($query);
-            $stmt->bindValue(":id",$userId,PDO::PARAM_INT);
-            if($stmt->execute()){
+            $stmt->bindValue(":id", $userId, PDO::PARAM_INT);
+            if ($stmt->execute()) {
                 return array(
                     "success" => 1,
                     "meal_plans" => $stmt->fetchAll(PDO::FETCH_ASSOC)
                 );
             }
-        }catch(PDOException $ex){
+        } catch (PDOException $ex) {
             echo json_encode(array(
                 "success" => 0,
                 "message" => $ex->getMessage()
@@ -157,20 +160,20 @@ class User extends JwtHandler
             $stmt = $this->conn->prepare($query);
             $count = 0;
             foreach ($mealData['meal_plan_meals'] as $meals) {
-                $stmt->bindValue(":mealId",$lastId,PDO::PARAM_INT);
-                $stmt->bindValue(":userId",$userId,PDO::PARAM_INT);
-                $stmt->bindValue(":name",$meals['meal_name'],PDO::PARAM_STR);
-                $stmt->bindValue(":calories",$meals['meal_calories'],PDO::PARAM_INT);
-                $stmt->bindValue(":type",$meals['meal_type'],PDO::PARAM_STR);
-                $stmt->bindValue(":ingredients",$meals['meal_ingredients'],PDO::PARAM_STR);
-                $stmt->bindValue(":instructions",$meals['meal_instructions'],PDO::PARAM_STR);
-                $stmt->bindValue(":img",$meals['meal_img'],PDO::PARAM_STR);
+                $stmt->bindValue(":mealId", $lastId, PDO::PARAM_INT);
+                $stmt->bindValue(":userId", $userId, PDO::PARAM_INT);
+                $stmt->bindValue(":name", $meals['meal_name'], PDO::PARAM_STR);
+                $stmt->bindValue(":calories", $meals['meal_calories'], PDO::PARAM_INT);
+                $stmt->bindValue(":type", $meals['meal_type'], PDO::PARAM_STR);
+                $stmt->bindValue(":ingredients", $meals['meal_ingredients'], PDO::PARAM_STR);
+                $stmt->bindValue(":instructions", $meals['meal_instructions'], PDO::PARAM_STR);
+                $stmt->bindValue(":img", $meals['meal_img'], PDO::PARAM_STR);
                 $stmt->execute();
                 $count = $count + 1;
             }
-            if($count == count($mealData['meal_plan_meals'])){
+            if ($count == count($mealData['meal_plan_meals'])) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         } catch (PDOException $ex) {

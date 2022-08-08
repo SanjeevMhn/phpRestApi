@@ -109,13 +109,32 @@ $(document).ready(function () {
                 $.ajax(getUserLog).done(function (response) {
                     console.log(response);
                     $.map(response.logs, function (rl, index) {
-                        let item = $('<div class="list-item"></div>')
-                        let date = $('<h2 class="header-text"></h2>');
-                        let container = $('<div class="inner-container"></div>');
-                        date.text(rl.log_date);
-                        container.append(date);
-                        item.append(container);
-                        $('.logs-container').append(item);
+                        let itemRow = $('<div class="exercise-item-row"></div>');
+                        let itemDate = $('<div class="date data-col"></div>');
+                        let itemMealName = $('<div class="meal data-col"></div>')
+                        let itemMealCalories = $('<div class="calories data-col"></div>');
+                        let itemWorkoutName = $('<div class="workout data-col"></div>');
+                        let itemWorkoutHrs = $('<div class="hrs data-col"></div>');
+                        let itemWorkoutMins = $('<div class="mins data-col"></div>');
+                        let itemWorkoutSecs = $('<div class="secs data-col"></div>');
+
+                        itemDate.text(rl.log_date);
+                        itemMealName.text(rl.meal_plan_name);
+                        itemMealCalories.text(rl.meal_plan_calories);
+                        itemWorkoutName.text(rl.workout_name);
+                        itemWorkoutHrs.text(rl.workout_duration_hrs);
+                        itemWorkoutMins.text(rl.workout_duration_mins);
+                        itemWorkoutSecs.text(rl.workout_duration_secs);
+
+                        itemRow.append(itemDate);
+                        itemRow.append(itemMealName);
+                        itemRow.append(itemMealCalories);
+                        itemRow.append(itemWorkoutName);
+                        itemRow.append(itemWorkoutHrs);
+                        itemRow.append(itemWorkoutMins);
+                        itemRow.append(itemWorkoutSecs);
+
+                        $('.logs-container').append(itemRow);
                     })
                 })
             }

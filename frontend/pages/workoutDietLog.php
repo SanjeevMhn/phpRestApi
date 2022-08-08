@@ -8,8 +8,16 @@
     <div class="user-actions pb-10">
         <button class="add-log" data-reset="reset">Add Log</button>
     </div>
-    <div class="logs-container list">
-        
+    <div class="logs-container exercise-list-table">
+        <div class="exercise-item-row heading">
+            <div class="exercise-name-data data-col text-bold">Log Date</div>
+            <div class="exercise-sets-data data-col text-bold">Meal Name</div>
+            <div class="exercise-reps-data data-col text-bold">Meal Calories</div>
+            <div class="exercise-reps-data data-col text-bold">Workout Name</div>
+            <div class="exercise-reps-data data-col text-bold">Hours</div>
+            <div class="exercise-reps-data data-col text-bold">Minutes</div>
+            <div class="exercise-reps-data data-col text-bold">Seconds</div>
+        </div>
     </div>
     <form method="post" class="modal daily-log-modal">
         <div class="close-btn">
@@ -33,7 +41,7 @@
             <button type="submit" class="add-log">Add</button>
             <button type="reset">Cancel</button>
         </div>
-    </div>
+</div>
 </div>
 
 
