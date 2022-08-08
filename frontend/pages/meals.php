@@ -68,10 +68,20 @@
                 </div>
             </div>
         </div>
-        <div class="user-meal-plan pb-120">
+        <div class="user-meal-plan pb-20">
 
             <h2 class="header-text">
-                Meal Plans created from the meals added by you.
+                Meal Plans generated from the meals added by you.
+                <button class="generate-new" data-reset="reset">Generate New</button>
+            </h2>
+
+            <div class="meal-plan-list list">
+
+            </div>
+        </div>
+        <div class="user-added-meal-plan pb-120">
+            <h2 class="header-text">
+                Meal Plans added by you!
             </h2>
 
             <div class="meal-plan-list list">

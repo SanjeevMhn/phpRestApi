@@ -116,10 +116,21 @@ $(document).ready(function () {
                     let mealCalories = 0;
                     let userCalorie = parseInt(userDetail.user_daily_calorie);
                     let calorie = 0;
-                    response.meals.map((respMeal,index)=>{
-                        if(parseInt(respMeal.meal_calories) + mealCalories < userCalorie){
-                            mealsArray.push(respMeal);
-                            mealCalories = mealCalories + parseInt(respMeal.meal_calories);
+                    let randomMeals = [];
+                    response.meals.map((respMeal, index) => {
+                        randomMeals.push(Math.floor(Math.random() * response.meals.length));
+                        // if(parseInt(respMeal.meal_calories) + mealCalories < userCalorie){
+                        //     mealsArray.push(respMeal);
+                        //     mealCalories = mealCalories + parseInt(respMeal.meal_calories);
+                        // }
+                    })
+                    // console.log(randomMeals);
+
+                    let uniqueMeals = [...new Set(randomMeals)]; //removes duplicates from the array//
+                    uniqueMeals.map((uM, index) => {
+                        if (parseInt(response.meals[uM].meal_calories) + mealCalories < userCalorie) {
+                            mealsArray.push(response.meals[uM]);
+                            mealCalories = mealCalories + parseInt(response.meals[uM].meal_calories);
                         }
                     })
                     container.append(mealName);
@@ -127,9 +138,38 @@ $(document).ready(function () {
                     li.data('meals', JSON.stringify(mealsArray));
                     console.log(li);
                     li.data('totalCalories', mealCalories);
-                    li.data('mealPlanName',mealName.text());
+                    li.data('mealPlanName', mealName.text());
                     $('.meals-sec .meal-plan-list').append(li);
                 }
+            })
+        }
+
+        getUserCreatedMealPlan();
+        function getUserCreatedMealPlan() {
+            let getUserCreatedMeal = {
+                "url": "/api/users/getUserMealPlans.php",
+                "method": "GET",
+                "timeout": 0,
+                "headers": {
+                    "Authorization": `Bearer ${token.token}`,
+                    "Content-Type": "application/json"
+                },
+            }
+
+            $.ajax(getUserCreatedMeal).done(function (response) {
+                console.log(response);
+                response.meal_plans.map((mP, index) => {
+                    let li = $('<div class="meal-plan-item list-item pointer"></div>');
+                    let container = $('<div class="inner-container"></div>');
+                    let mealPlanName = $('<h3 class="meal-name"></h3>');
+                    let mealsArray = [];
+                    mealPlanName.text(mP.meal_plan_name);
+                    container.append(mealPlanName);
+                    li.append(container);
+                    li.data('mealPlanName',mP.meal_plan_name);
+                    li.data('totalCalories',mP.meal_plan_calories);
+                    $('.user-added-meal-plan .meal-plan-list').append(li);
+                })
             })
         }
 
@@ -253,12 +293,12 @@ $(document).ready(function () {
         })
 
 
-        $('.user-meal-plan-modal .modal-actions .save-meal-plan').click(function(){
+        $('.user-meal-plan-modal .modal-actions .save-meal-plan').click(function () {
             let mealListItem = $('.user-meal-plan-modal .meal-plan-list .meal-item .meal-link');
             let mealPlanMealDetails = [];
             console.log(mealListItem);
 
-            $.map(mealListItem,function(meal,index){
+            $.map(mealListItem, function (meal, index) {
                 let mealInfo = {
                     "meal_name": $(meal).data("name"),
                     "meal_calories": $(meal).data("calories"),
@@ -271,10 +311,10 @@ $(document).ready(function () {
             })
 
             console.log({
-                    "meal_plan_name": $.trim($('.user-meal-plan-modal .meal-plan-name').text()),
-                    "meal_plan_calories": parseInt($('.user-meal-plan-modal .total-calories').text()),
-                    "meal_plan_meals": mealPlanMealDetails,
-                });
+                "meal_plan_name": $.trim($('.user-meal-plan-modal .meal-plan-name').text()),
+                "meal_plan_calories": parseInt($('.user-meal-plan-modal .total-calories').text()),
+                "meal_plan_meals": mealPlanMealDetails,
+            });
 
             let addMealPlan = {
                 "url": "/api/users/setUserMealPlan.php",
@@ -284,16 +324,20 @@ $(document).ready(function () {
                     "Authorization": `Bearer ${token.token}`,
                     "Content-Type": 'application/json'
                 },
-                "data":JSON.stringify({
+                "data": JSON.stringify({
                     "meal_plan_name": $.trim($('.user-meal-plan-modal .meal-plan-name').text()),
                     "meal_plan_calories": parseInt($('.user-meal-plan-modal .total-calories').text()),
                     "meal_plan_meals": mealPlanMealDetails,
                 })
             }
 
-            $.ajax(addMealPlan).done(function(response){
+            $.ajax(addMealPlan).done(function (response) {
                 console.log(response);
             })
+        })
+
+        $('.generate-new').click(function () {
+            window.location.reload();
         })
 
     }
