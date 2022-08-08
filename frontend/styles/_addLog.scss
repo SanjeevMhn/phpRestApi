@@ -1,13 +1,28 @@
 @import './vars';
 
-.logs-container{
-    &.exercise-list-table{
+.exercise-list-table {
+    border: 1px solid #000;
+
+    .exercise-item-row {
+
+        .data-col {
+            border: 1px solid #000;
+            flex: 0 0 calc(100% / 5) !important;
+        }
+
+    }
+}
+
+@media screen and (max-width: 1150px) {
+    .exercise-list-table {
         border: 1px solid #000;
 
-        .data-col{
-            border: 1px solid #000;
-            flex: 0 0 calc(100% / 5)!important;
+        .exercise-item-row {
+
+            .data-col {
+                flex: 0 0 200px !important;
+            }
+
         }
     }
-
 }
